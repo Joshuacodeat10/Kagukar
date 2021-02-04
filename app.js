@@ -74,9 +74,9 @@ const pageAuth = require("./routes/clients/pages/auth");
 
 
 app.get('/', (req, res)=>{
-    Master.findOne({}, (err, master) => {
+    // Master.findOne({}, (err, master) => {
         // if (err) throw err;
-        Content.find({}, (err, contents) => {
+        // Content.find({}, (err, contents) => {
             // if (err) throw err;
             Users.find({}, (err, users) => {
                 // if (err) throw err;
@@ -84,11 +84,11 @@ app.get('/', (req, res)=>{
                     csrfToken: req.csrfToken(),
                     master,
                     user: req.user,
-                    contents
+                    // contents
                 });
             })
-        })
-    })
+        // })
+    // })
 })
 
 
