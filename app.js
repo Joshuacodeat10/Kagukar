@@ -50,6 +50,9 @@ const Master = require("./models/master");
 const Content = require("./models/blog");
 const Users = require("./models/user");
 
+const admin = require("./routes/api/masterRoute");
+const adminDashboard = require("./routes/api/masterRoutes/index");
+const adminSettings = require("./routes/api/masterRoutes/settings");
 
 
 app.get('/', (req, res)=>{
@@ -69,6 +72,14 @@ app.get('/', (req, res)=>{
         })
     })
 })
+
+//DASHBOARD ROUTES
+app.use('/api/admin', admin);
+app.use('/admin/dashboard', adminDashboard);
+app.use('/admin/dashboard/settings', adminSettings);
+
+
+
 
 
 let port = process.env.PORT;
