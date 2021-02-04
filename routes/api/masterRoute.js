@@ -54,7 +54,7 @@ router.get("/", (req, res) => {
   if (!req.isAuthenticated()) {
     res.render("dashboard/pages/login/adminLogin", {
       csrfToken: req.csrfToken(),
-      page
+      page, user: req.user
     });
   } else {
     res.redirect("/admin/dashboard")

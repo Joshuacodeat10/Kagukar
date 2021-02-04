@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 
             res.render("dashboard/pages/dashboard/index", {
                 csrfToken: req.csrfToken(),
-                master, page, phase
+                master, page, phase, user: req.user
             })
 
         } else {

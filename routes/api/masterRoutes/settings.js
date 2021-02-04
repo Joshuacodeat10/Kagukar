@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
             res.render("dashboard/pages/dashboard/settings", {
                 csrfToken: req.csrfToken(),
                 master,
-                page, phase
+                page, phase, user: req.user
             })
         } else {
             res.redirect("/api/admin")

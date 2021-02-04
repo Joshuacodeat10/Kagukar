@@ -54,6 +54,16 @@ const admin = require("./routes/api/masterRoute");
 const adminDashboard = require("./routes/api/masterRoutes/index");
 const adminSettings = require("./routes/api/masterRoutes/settings");
 
+//ADD STAFFS/CLIENTS
+const person = require("./routes/api/person/person");
+const section = require("./routes/api/section/section");
+const users = require("./routes/api/userRoute");
+const items = require("./routes/api/itemRoute");
+const blog = require("./routes/api/blogRoute");
+const component = require("./routes/api/components");
+
+//CLIENT ROUTES
+const pageBlog = require("./routes/clients/pages/blog");
 
 app.get('/', (req, res)=>{
     Master.findOne({}, (err, master) => {

@@ -26,13 +26,13 @@ router.get("/:account", (req, res) => {
     console.log(req.param)
 
     if (req.isAuthenticated()) {
-      Blog.find({}, (err, blog) => {
+      Blog.find({}, (err, contents) => {
           res.render("dashboard/pages/dashboard/blog", {
             csrfToken: req.csrfToken(),
             master,
             page,
             phase,
-            blog
+            contents, user: req.user
           })
         })
         .sort({
@@ -152,12 +152,12 @@ router.post("/delete", fileUpload.single("image"), (req, res) => {
 
 router.get("/all", (req, res) => {
 
-  Blog.find({}, (err, blog) => {
+  Blog.find({}, (err, contents) => {
       // console.log("blog " + blog)
       Category.find({}, (err, category) => {
         res.json({
-          blog: blog,
-          category: category
+          contents,
+          category
         })
       })
     })
