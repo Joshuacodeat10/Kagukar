@@ -88,6 +88,17 @@ app.use('/api/admin', admin);
 app.use('/admin/dashboard', adminDashboard);
 app.use('/admin/dashboard/settings', adminSettings);
 
+//ADD DOCTOR, TEACHER, STUDENT, PATIENT, AGENT etc.
+app.use('/dashboard/person', person);
+
+//ADD DEPARTMENT, CLASS, STORE, PATIENT, AGENT etc.
+app.use('/dashboard/section', section);
+app.use('/dashboard/components', component);
+
+app.use("/api/auth", users);
+app.use("/api/items", items);
+app.use("/api/users", users);
+app.use("/api/blog", blog);
 
 
 
