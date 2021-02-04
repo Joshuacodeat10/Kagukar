@@ -1,0 +1,96 @@
+     <div class="account-content">
+         <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+             <div class="row">
+                 <div class="col-xl-12 col-lg-12 col-md-12  mt-md-0 mt-4">
+                   <div class="float-right"> <i > Published </i> <%- include('./common/switcher')%></div>
+                 </div>
+
+                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                     <div id="general-info" class="section general-info">
+                         <div class=" bs-tooltip info">
+                             <h6 class="">Post Image
+                             </h6>
+                             <div class="row">
+                                 <div class="col-lg-11 mx-auto">
+                                     <div class="row">
+                                         <div class="col-xl-4 col-lg-6 col-md-12">
+                                             <div class="upload mt-4 pr-md-4">
+                                                 <style>
+                                                     .dropify-wrapper {
+                                                         width: 100% !important;
+                                                     }
+                                                 </style>
+
+                                                 <input type="file" accept="image/*" name="image" id="input-file-max-fs"
+                                                     class="dropify progressive__img progressive--not-loaded m-image"
+                                                     
+                                                     data-default-file="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                     data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                     data-max-file-size="2M" 
+                                                      
+                                                />
+
+                                                 <h4 class="mt-2">
+                                                     <i class="flaticon-cloud-upload mr-1"></i>
+                                                     Upload Article Image
+                                                 </h4>
+                                             </div>
+                                         </div>
+                                         <div class="col-xl-8 col-lg-12 col-md-12 mt-md-0 mt-4">
+                                             <div class="form">
+                                                 <div class="row">
+                                                     <div class="col-sm-12">
+                                                         <div class="form-group">
+                                                             <label for="title">Title
+                                                                 <span id="noe"> </span>
+                                                             </label>
+                                                             <input type="text" class="form-control mb-4 m-title" id="title"
+                                                                 placeholder="enter post title" name="title" value=""
+                                                                 oninput="($('#slug').val(this.value.toLowerCase().replace(/ /g,'-')))"
+                                                                 required>
+                                                             <input id="slug" class="m-slug" name="slug" type="hidden">
+                                                             <input  class="m-id" name="id" type="hidden">
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-sm-6">
+                                                         <label for="category" class="dob-input">Category</label>
+                                                         <div class="form-group mr-1">
+                                                             <select id="category" class="form-control m-category" name="category">
+                                                                <option>Smear</option>
+                                                                <option>Loco</option>
+                                                             </select>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="profession">Motto/Tagline</label>
+                                                     <input type="text" class="form-control mb-4" id="profession"
+                                                         placeholder="e.g. exceptionally remarkable"
+                                                         value="<%=master.tagline%>" name="tagline">
+
+                                                         <div>
+                                                             <div class="tags-input-wrapper">
+                                                            
+                                                            </div>
+                                                             <input type="text" id="skill-input" hidden="true">
+                                                         </div>
+                                                 </div>
+                                             </div>
+
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <%- include('../settingsComponents/about') %>
+
+                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                 <input type="hidden" name="_url" value="<%= 'dashboard/blog' %>">
+                 <input type="hidden" class="method" name="method" value="POST">
+                 <input type="hidden" class="phase" name="phase" value="<%=phase%>">
+             </div>
+         </div>
+     </div>

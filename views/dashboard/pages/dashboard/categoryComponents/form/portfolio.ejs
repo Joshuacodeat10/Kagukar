@@ -1,0 +1,102 @@
+<form action="javascript:void(0);" id="notesMailModalTitle">
+    <div class="modal-content">
+        <div class="modal-body">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-x close" data-dismiss="modal">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <div class="notes-box">
+                <div id="template" class="notes-content">
+                    <div class="col-md-12 form-group mb-2">
+                        <label for="n-title font-weight-bold">PORTFOLIO
+                            TITLE <i class="fa fa-info-circle text-info info" data-html="true" title="<p> Note: To ensure
+                                                                                              consistency,
+                                                                                              entries created cannot be
+                                                                                              <b class='text-warning'>Deleted</b>, it
+                                                                                              can only be
+                                                                                              <b class='text-warning'>Edited</b>
+                                                                                          </p>"></i>
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <div class="d-flex note-title pt-0">
+                            <input type="text" id="n-title" class="form-control" <%if(master.type=='hospital'){%>
+                                placeholder="e.g. Chief Medical Director" <%}else{%> placeholder="e.g. Principal"
+                                <%}%>
+                                                                                     >
+                                                                                </div>
+                                                                                <span class="validation-text"></span>
+                                                                            </div>
+
+                                                                          <div class="col-md-12 form-group pt-2">
+                                                                              <label for="category"
+                                                                                  class="dob-input">ACCESS LEVEL <i
+                                                                                      class="fa fa-info-circle text-info info"
+                                                                                      data-html="true" title=" <p>
+                                                                                           <b class='text-warning'>Access
+                                                                                               Control</b>
+                                                                                          Select the Level of Admin
+                                                                                          changes Portfolio holders can
+                                                                                          Perform.<br>
+                                                                                           <b class='text-warning'>'Level 5'</b> access levels are featured on the Hompage
+                                                                                      </p>"></i>
+                                                                                <span class="text-danger">*</span>
+                                                                                  </label>
+                                                                                  
+                                                                                  
+                                                                              
+                                                                                  <select id="category"
+                                                                                      class="form-control m-category selectpicker"
+                                                                                      name="category">
+                                                                                      <option selected hidden disabled>Select Portfolio Access Level</option>
+                                                                                     <%if(user.cache == 'master' || user.username == 'christianovik009@gmail.com'){%> <option value="master">Level 6 <i
+                                class="font-weight-bold text-warning"> </i> </option>
+                            <%}%>
+                                                                                      <option value="admin">Level 5</option>
+                                                                                      <option value="senior">Level 4</option>
+                                                                                      <option value="junior">Level 3</option>
+                                                                                      <option value="regular">Level 2</option>
+                                                                                      <option value="basic">Level 1</option>
+                                                                                  </select>
+                                                                              
+                                                                          </div>
+
+                                                                            <div class="col-md-12">
+                                                                                <div class="d-flex note-description">
+                                                                                    <textarea id="n-description" class="form-control" maxlength="60" placeholder="Description" rows="3"></textarea>
+                                                                                </div>
+                                                                                <span class="validation-text"></span>
+                                                                            </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button id="btn-n-ad"
+                                                                                            class="btn"
+                                                                                            type="submit">Add</button>
+
+                                                                                        <button id="btn-n-save"
+                                                                                            class="float-left btn">Save</button>
+                                                                                        <button class="btn"
+                                                                                            data-dismiss="modal"> <svg
+                                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="24" height="24"
+                                                                                                viewBox="0 0 24 24"
+                                                                                                fill="none"
+                                                                                                stroke="currentColor"
+                                                                                                stroke-width="2"
+                                                                                                stroke-linecap="round"
+                                                                                                stroke-linejoin="round"
+                                                                                                class="feather feather-trash">
+                                                                                                <polyline
+                                                                                                    points="3 6 5 6 21 6">
+                                                                                                </polyline>
+                                                                                                <path
+                                                                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                                                                </path>
+                                                                                            </svg> Discard</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>

@@ -1,0 +1,133 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8" name="apple-mobile-web-app-status-bar-style" content="default/black">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CREATING A NATIVE ICON FOR THE APP -->
+    <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+
+    <h1>Hey VIctor Stanislas Trek</h1>
+    <!-- <btn id="btnAdd" style="display: none;"> Add App </btn> -->
+    <div>
+        <img width="240" src="../assets/img/3.jpg" alt="Track">
+        <img width="240" src="../assets/eksuthlogo2.png" alt="Track">
+    </div>
+
+
+
+
+    <script>
+
+
+        //to set the scope of the service worker, the SW script must be in the root
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                console.log("LOADED")
+
+                navigator.serviceWorker.register("/js/sw.js")
+                    .then(reg => {
+                        console.log("Registered ", reg)
+                        console.log("Registered ", reg.scope)
+                    }).catch(err => {
+                        console.log("Registration Failed", err)
+                    })
+            })
+        }
+
+        //Caches API can don't need to involve SW to add things to the cache
+        document.querySelector(".cache-article")
+            .addEventListener("click", event => {
+                event.preventDefault()
+                const id = this.dataset.articleId;
+                caches.open("mysite-article-" + id).then(
+                    cache => {
+                        fetch("/get-article-urls?id=" + id)
+                            .then(res => { return res.json() })
+                            .then(urls => {
+                                cache.addAll(urls)
+                            })
+                    }
+                )
+            })
+
+
+            //Fetch
+            let networdDataRecieved = false;
+            startSpinner();
+            const networkUpdate = fetch("/login").then(res=>{
+                console.log(res)
+                return res
+                // return res.json()
+            }).then(data => {
+                networdDataRecieved = true;
+                updatePage(data);
+            })
+
+            caches.match("/login").then(res => {
+                if(!res) throw Err("No data");
+                return res.json()
+            }).then(data => {
+                if(!networdDataRecieved){
+                    updatePage(data)
+                }
+            }).catch(()=> {
+                return networkUpdate;
+            }).catch(showErrorMessage.then(stopSpinner))
+
+
+
+
+
+
+
+
+
+        // const btnAdd = document.getElementById("btnAdd")
+
+        //MANIFEST FILE: LISTEN TO BEFORE INSTALL
+        let deferredPrompt;
+        window.addEventListener("beforeinstallprompt", e => {
+            //prevent Chrome 67 n earlier fron automatically showing prompt
+            e.preventDefault()
+            //Stash the event so it can be triggered later
+            deferredPrompt = e
+            //Update UI notify the user they can add to home screen
+            btnAdd.style.display = "block";
+
+        })
+
+        //SHow the Prompt
+        btnAdd.addEventListener("click", e => {
+            // Hide the app provided install promotion
+            hideMyInstallPromotion();
+            // Show the install prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then(choiceResult => {
+                if (choiceResult.outcome === "accepted") {
+                    console.log("User accepted the A2HS prompt")
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            })
+        })
+
+        //Confirm Installation
+        window.addEventListener("appinstalled", evt => {
+            app.logEvent("a2hs", "installed")
+        })
+
+
+
+    </script>
+</body>
+
+
+</html>

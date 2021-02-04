@@ -1,0 +1,149 @@
+<%- include ('./common/search-row') %>
+<!-- Modal -->
+<div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form id="addContactModalTitle" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="flaticon-cancel-12 close" data-dismiss="modal"></i>
+
+
+
+
+                    <div class="add-contact-box">
+                        <div class="add-contact-content">
+
+                            <!-- /////////////////////////// -->
+
+
+                            <%if(master.type != 'hospital'){%>
+                            <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                <div id="general-info" class="section general-info">
+                                    <div class=" bs-tooltip info">
+
+                                        <div class="row">
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="upload mt-4 pr-md-4">
+                                                    <style>
+                                                        .dropify-wrapper {
+                                                            width: 100% !important;
+                                                        }
+                                                    </style>
+                                                    <input type="file" accept="image/*" name="image"
+                                                        id="input-file-max-fs"
+                                                        class="dropify progressive__img progressive--not-loaded m-image"
+                                                        data-default-file="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                        data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                        data-max-file-size="2M" />
+
+                                                    <h4 class="mt-2">
+                                                        <i class="flaticon-cloud-upload mr-1"></i>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                   
+                            <!-- //////////////////////// -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="contact-status">
+                                      <label> Verification Status</label>
+                                        <select id="verified" class="form-control m-verified" name="verified">
+                                            <option value='false'>Pending</option>
+                                            <option value='true'>Verified</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-status">
+                                    <label> Select Department</label>
+                                        <select id="verified" class="form-control m-verified" name="section">
+                                            <option selected disabled hidden>Select
+                                                Department
+                                            </option>
+                                            <%section.map( s =>{%>
+                            <option value='<%=s._id%>'><%=s.name%></option>
+                                             <%})%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="contact-name">
+                            <i class="flaticon-user-11"></i>
+                            <input type="text" id="c-name" class="form-control" name="name" placeholder="Name"
+                                value="" oninput="($('#slug').val(this.value.toLowerCase().replace(/ /g,'-')))">
+                            <span class="validation-text"></span>
+                             <input id="slug" class="m-slug" name="slug" hidden>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="contact-email">
+                            <i class="flaticon-mail-26"></i>
+                            <input type="email" id="c-email" class="form-control" name="username" placeholder="Email"
+                                value="">
+                            <span class="validation-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="contact-occupation">
+                            <i class="flaticon-fill-area"></i>
+                            <input type="text" id="c-occupation" class="form-control" name="portfolio"
+                                placeholder="Portfolio" value="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="contact-phone">
+                            <i class="flaticon-telephone"></i>
+                            <input type="text" id="c-phone" class="form-control" name="mobile" placeholder="Phone"
+                                value="">
+                            <span class="validation-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contact-location">
+                            <i class="flaticon-location-1"></i>
+                            <textarea type="text" id="c-location" class="form-control" name="about" placeholder="About"
+                                ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="password" value="0000">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="_url" value="<%= 'dashboard/person' %>">
+                <input type="hidden" class="method" name="method" value="POST">
+                <input type="hidden" class="phase" name="phase" value="<%=phase%>">
+            </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="btn-add" type="submit" class="btn">Add</button>
+
+    <button id="btn-edit" class="float-left btn">Save</button>
+
+    <button class="btn" data-dismiss="modal"> <i class="flaticon-delete-1"></i>
+        Discard</button>
+
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>

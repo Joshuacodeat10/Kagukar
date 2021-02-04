@@ -1,0 +1,33 @@
+<%- include('../../componentSection/auth/loginComponents/header') %>
+
+<div class="form-container outer">
+    <div class="form-form">
+        <div class="form-form-wrap">
+            <div class="form-container">
+                <div class="form-content">
+
+
+                    <figure class="progressive" style="width: 120px; border-radius: 10px;">
+                        <img class="progressive__img progressive--not-loaded"
+                            data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                            src="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg">
+                    </figure>
+                    <style>
+                        h1 {
+                            margin-top: -20%;
+                            font-family: 'Patua One', cursive;
+                            letter-spacing: 2px;
+                        }
+                    </style>
+                    <%- include('../../componentSection/auth/userLoginComponent/signinComponent') %>
+                    <%- include('../../componentSection/auth/userLoginComponent/signupComponent') %>
+                    <%- include('../../componentSection/auth/userLoginComponent/passwordReset') %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../componentSection/auth/loginComponents/footer') %>
+</body>
+
+</html>

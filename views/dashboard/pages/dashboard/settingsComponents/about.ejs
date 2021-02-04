@@ -1,0 +1,36 @@
+<div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+    <div id="about" class="section about">
+        <div class=" bs-tooltip info">
+            <h5 class="">
+                <%if(phase == "blog"){%>
+                Compose Article
+                <%}else if(phase == "settings"){%>
+                About
+                <%}%>
+            </h5>
+            <div class="row">
+                <div class="col-md-11 mx-auto">
+
+
+                    <div class="form-group content-container">
+                        <label for="aboutBio">
+                            <%if(phase == "settings"){%>
+                About Establishment
+                <%}%>
+                        </label>
+                        
+                         <%if(phase == "blog"){%>
+                         <div name="article" class="form-control m-article" id="aboutBio" rows="10">
+
+                        </div>
+                         <%}else if(phase == "settings"){%>
+                         <div name="about" class="form-control" id="aboutBio" rows="10">
+                             <%-master.about%>
+                         </div>
+                         <%}%>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>

@@ -36,14 +36,36 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+var csrfProtection = csrf();
+app.use(csrfProtection);
+
 mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
     useNewUrlParser: true
 });
 
 mongoose.set("useCreateIndex", true);
 
+const Master = require("./models/master");
+const Users = require("./models/user");
+
+
+
 app.get('/', (req, res)=>{
-    res.send("Welcome")
+    Master.findOne({}, (err, master) => {
+        // if (err) throw err;
+        // Blog.find({}, (err, blog) => {
+            // if (err) throw err;
+            // Users.find({}, (err, users) => {
+                // if (err) throw err;
+                res.render("client/secondary/pages/index", {
+                    csrfToken: req.csrfToken(),
+                    master,
+                    user: req.user,
+                    // blog
+                });
+            // })
+        // })
+    })
 })
 
 
@@ -55,9 +77,3 @@ if (port == null || port == "") {
 app.listen(port, function () {
     console.log("Server started on port successfully.");
 });
-
-
-
-
-
-

@@ -1,0 +1,184 @@
+<%- include('../../componentSection/adminDashboard/partials/header') %>
+
+<!--  BEGIN CONTENT AREA  -->
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+
+        <div class="account-settings-container layout-top-spacing">
+            <form class="" enctype="multipart/form-data">
+                <div class="account-content">
+                    <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll"
+                        data-offset="-100">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                <div id="general-info" class="section general-info">
+                                    <div class="info">
+                                        <h6 class="">General Information
+                                        </h6>
+                                        <div class="row">
+                                            <div class="col-lg-11 mx-auto">
+                                                <div class="row">
+                                                    <div class="col-xl-4 col-lg-6 col-md-12">
+                                                        <div class="upload mt-4 pr-md-4">
+                                                            <style>
+                                                                .dropify-wrapper {
+                                                                    width: 100% !important;
+                                                                }
+                                                            </style>
+
+                                                            <input type="file" name="logo" id="input-file-max-fs"
+                                                                class="dropify progressive__img progressive--not-loaded"
+                                                                <% if(master.logo) {%>
+                                                                data-default-file="<%=master.logo%>"
+                                                                data-progressive="<%=master.logo%>" <%}else{%>
+                                                                data-default-file="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                                data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                                <% } %> data-max-file-size="2M" />
+
+
+
+                                                            <h4 class="mt-2">
+                                                                <i class="flaticon-cloud-upload mr-1"></i>
+                                                                Upload Logo
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-8 col-lg-12 col-md-12 mt-md-0 mt-4">
+                                                        <div class="form">
+                                                            <div class="row">
+                                                                <%if(user.username===master.secret){%>
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
+                                                                        <label for="type">Type of Establishment
+                                                                            <span id="noe"> </span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="type"
+                                                                            name="type">
+                                                                            <option value="<%=master.type%>">
+                                                                                <%=master.type%></option>
+                                                                            <option value="hospital">hospital</option>
+                                                                            <option value="primary">primary</option>
+                                                                            <option value="secondary">secondary</option>
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <%}%>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="fullName">Name of Establishment
+                                                                            <span id="noe"> </span>
+                                                                        </label>
+                                                                        <input type="text" class="form-control mb-4"
+                                                                            id="fullName" placeholder="e.g. Surft
+                                                                        <%= master.type %>" name="nameOfEstablishment"
+                                                                maxlength="16"
+                                                                value="<%= master.nameOfEstablishment %>"
+                                                                onchange="($('#noe').text(' | ' + this.value +
+                                                                '<%= master.type %>'))"
+                                                                required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label class="dob-input">Date of
+                                                                Establishment</label>
+                                                            <div class="d-sm-flex d-block">
+                                                                <!-- <div class="form-group mr-1">
+                                                                            <select class="form-control"
+                                                                                id="exampleFormControlSelect1"
+                                                                                name="day">
+                                                                                <option value="<%=master.day%>">Man
+                                                                        <%=master.day%></option>
+
+                                                                        </select>
+                                                                    </div> -->
+
+                                                                <div class="form-group mr-1">
+                                                                    <select class="form-control" id="month"
+                                                                        name="month">
+                                                                        <option value="<%=master.month%>">
+                                                                            <%=master.month%>
+                                                                        </option>
+
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group mr-1">
+                                                                    <select class="form-control" id="year" name="year">
+                                                                        <option value="<%=master.year%>">
+                                                                            <%=master.year%>
+                                                                        </option>
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="profession">Motto/Tagline</label>
+                                                        <input type="text" class="form-control mb-4" id="profession"
+                                                            placeholder="e.g. exceptionally remarkable"
+                                                            value="<%=master.tagline%>" name="tagline">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <%- include('./settingsComponents/about') %>
+                    <%- include('./settingsComponents/privacy') %>
+                    <%- include('./settingsComponents/t&c') %>
+                    <%- include('./settingsComponents/contact-social') %>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" class="method" name="method" value="POST">
+                    <input type="hidden" class="phase" name="phase" value="phase">
+                    <input type="hidden" name="_url" value="<%= page + '/dashboard/settings' %>">
+                </div>
+        </div>
+    </div>
+
+    <div class="account-settings-footer" style="background: transparent;">
+
+        <div class="as-footer-container">
+
+            <button id="multiple-reset" style="visibility: hidden;" class="btn btn-primary">Reset
+                All</button>
+
+            <button type="submit" class="btn btn-dark">Save Changes</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+</div>
+<!--  END CONTENT AREA  -->
+</div>
+<!-- END MAIN CONTAINER -->
+
+
+
+<%- include('../../componentSection/adminDashboard/partials/footer') %>
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+<script src="/dashboard/plugins/dropify/dropify.min.js"></script>
+<script src="/dashboard/plugins/blockui/jquery.blockUI.min.js"></script>
+<!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+<script src="/dashboard/assets/js/users/account-settings.js"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+<script src="/dashboard/plugins/editors/quill/quill.js"></script>
+<script src="/dashboard/plugins/editors/quill/custom-quill.js"></script>
+
+<script src="/dashboard/plugins/editors/quill/resize.min.js"></script>
+
+
+<script src="/dashboard/plugins/select2/select2.min.js"></script>
+<!-- <script src="/dashboard/plugins/select2/custom-select2.js"></script> -->
+</body>
+
+</html>

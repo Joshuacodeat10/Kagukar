@@ -1,0 +1,180 @@
+<%- include('../../componentSection/adminDashboard/partials/header') %>
+<link rel="stylesheet" type="text/css" href="/dashboard/light/assets/css/forms/switches.css">
+
+<!--  BEGIN CONTENT AREA  -->
+<div id="content" class="main-content">
+    <!-- // -->
+    <div class="layout-px-spacing">
+
+        <div class="row app-notes layout-top-spacing" id="cancel-row">
+            <div class="col-lg-12">
+                <div class="app-hamburger-container">
+                    <div class="hamburger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-menu chat-menu d-xl-none">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg></div>
+                </div>
+
+                <div class="app-container">
+
+                    <div class="app-note-container">
+
+                        <div class="app-note-overlay"></div>
+
+                        <div class="tab-title">
+                            <div class="row">
+
+                                <div class="col-md-12 col-sm-12 col-12 mt-5">
+                                    <ul class="nav nav-pills d-block" id="pills-tab3" role="tablist">
+                                        <li class="nav-item btn-category">
+                                            <a class="nav-link list-actions active" id="main-category">
+                                                <i class="fa fa-check btn-success rounded-circle p-1"></i>
+                                                Published
+                                            </a>
+                                        </li>
+
+
+                                        <li class="nav-item btn-portfolio">
+                                            <a class="nav-link list-actions" id="portfolio"> <i
+                                                    class="fa fa-warning btn-warning rounded-circle p-1"></i>
+                                                Unpublished</a>
+                                        </li>
+                                    </ul>
+
+
+                                    <hr />
+
+                                    <p class="group-section"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-tag">
+                                            <path
+                                                d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z">
+                                            </path>
+                                            <line x1="7" y1="7" x2="7" y2="7"></line>
+                                        </svg> Category</p>
+
+                                    <ul class="nav nav-pills d-block group-list" id="pills-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link list-actions g-dot-primary"
+                                                id="note-personal">Personal</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="ct" class="note-container note-grid">
+                            <!-- // -->
+
+                            <div class="layout-px-spacing">
+
+                                <div class="account-settings-container layout-top-spacing">
+                                    <div class="blog-posts row">
+                                        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                                            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title type" id="myExtraLargeModalLabel">
+
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="feather feather-x">
+                                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <form class="blog-form" enctype="multipart/form-data">
+                                                        <div class="modal-body">
+                                                            <%- include('./blogComponents/addPost') %>
+
+                                                            <p class="modal-text">
+                                                                Mauris mi tellus, pharetra vel mattis sed,
+                                                                tempus ultrices eros. Phasellus egestas sit amet velit
+                                                                sed
+                                                                luctus. Orci varius natoque penatibus et magnis dis
+                                                                parturient
+                                                                montes, nascetur ridiculus mus. Suspendisse potenti.
+                                                                Vivamus
+                                                                ultrices sed urna ac pulvinar. Ut sit amet ullamcorper
+                                                                mi.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button id="save" type="submit"
+                                                                class="btn btn-primary btn-add"> Save </button>
+                                                            <button class="btn" data-dismiss="modal"><i
+                                                                    class="flaticon-cancel-12"></i>
+                                                                Discard</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <%- include('./blogComponents/singlePost') %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <form class="delete-multiple" enctype="multipart/form-data">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="_url" value="<%= 'dashboard/blog/delete' %>">
+                        <input type="hidden" class="method" name="method" value="POST">
+                        <input type="hidden" class="phase" name="phase" value="<%=phase%>">
+                        <input type="hidden" class="selected" name="selected" value="">
+                        <input type="submit" class="submit delete" value="delete" hidden>
+                    </form>
+
+                </div>
+
+                <%- include('./blogComponents/common/addButton')%>
+</div>
+            </div>
+
+
+
+
+
+            <%- include('../../componentSection/adminDashboard/partials/footer') %>
+            <script src="/dashboard/assets/js/ie11fix/fn.fix-padStart.js">
+            </script>
+            <script src="/dashboard/assets/js/apps/notes.js"></script>
+            <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+            <script src="/dashboard/plugins/dropify/dropify.min.js"></script>
+            <script src="/dashboard/plugins/blockui/jquery.blockUI.min.js"></script>
+            <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+            <script src="/dashboard/assets/js/users/account-settings.js"></script>
+            <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+            <script src="/dashboard/plugins/editors/quill/quill.js"></script>
+            <script src="/dashboard/plugins/editors/quill/custom-quill.js"></script>
+            <script src="/dashboard/plugins/select2/select2.min.js"></script>
+
+            <script src="/dashboard/plugins/editors/quill/resize.min.js"></script>
+
+            <script src="/dashboard/plugins/tagInput/tags-input.js"></script>
+            <script>
+                var instance = new TagsInput({
+                    selector: 'skill-input'
+                });
+                instance.addData(['PHP', 'Wordpress', 'Javascript', 'jQuery'])
+            </script>
+
+            <!-- <script src="/dashboard/plugins/select2/custom-select2.js"></script> -->
+            </body>
+
+            </html>

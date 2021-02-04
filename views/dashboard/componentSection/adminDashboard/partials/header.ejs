@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title> Admin | <%=master.nameOfEstablishment%> </title>
+    <link rel="icon" type="image/x-icon" href="<%=master.logo%>" />
+
+    <script src="/dashboard/assets/js/loader.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="/dashboard/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dashboard/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressively/dist/progressively.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/progressively/dist/progressively.min.js"></script>
+
+    <link href="/dashboard/plugins/tagInput/tags-input.css" rel="stylesheet" type="text/css" />
+    <script src="/dashboard/assets/js/libs/jquery-3.1.1.min.js"></script>
+    <% if(user.mode) {%>
+    <%- include("theme/dark") %>
+    <%} else {%>
+    <%- include("theme/light") %>
+    <%}%>
+     <style>
+         .tags-input-wrapper input {
+             margin: 0 auto;
+         }
+     </style>
+</head>
+
+<body>
+    <!-- BEGIN LOADER -->
+    <div id="load_screen">
+        <div class="loader">
+            <div class="loader-content">
+                <div class="spinner-grow align-self-center" style="width: auto;content: url(<%=master.logo%>);"></div>
+            </div>
+        </div>
+    </div>
+    <!--  END LOADER -->
+        <%- include("common/navbar") %>

@@ -1,0 +1,306 @@
+<%- include('../../../componentSection/adminDashboard/partials/header') %>
+
+<!--  BEGIN CONTENT AREA  -->
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+
+        <div class="row layout-top-spacing">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <div class="table-responsive mb-4 mt-4">
+                        <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th>Department</th>
+                                    <th>Speciality</th>
+                                    <th>Code</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th> No. of
+                                        <%if(master.type == 'hospital'){%>
+                                        Doctors
+                                        <%}else if(master.type == 'primary'|| master.type == 'secondary'){%>
+                                        Students
+                                        <% } %>
+                                    </th>
+                                    <th>Status</th>
+                                    <th>HOD</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="departments">
+                                <%if(section.length>0){%>
+                                <%section.map(x =>{%>
+                                <tr class="department-item" data-dept="<%=x._id%>">
+                                    <td class="">
+                                        <div class="n-chk">
+                                            <label class="new-control new-checkbox new-checkbox-text checkbox-dark">
+                                                <input type="checkbox" class="new-control-input dept-checkbox">
+                                                <span class="new-control-indicator"></span>
+                                                <span class="new-chk-content">.</span>
+                                            </label>
+                                        </div>
+                                        <p class="_id" style="display: none;"><%=x._id%> </p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="usr-img-frame mr-2 rounded-circle">
+                                                <img style="border-radius: 50%; width: 100%;"
+                                                    class="progressive__img progressive--not-loaded card-img-top image"
+                                                    src="<%=x.image%>" data-progressive="<%=x.image%>">
+                                            </div>
+                                            <p class="align-self-center mb-0 admin-name name" data-name="<%=x.slug%>"><%=x.name%></p>
+                                        </div>
+                                    </td>
+                                    <td><%=x.speciality%></td>
+                                    <td class="code" data-map="<%=x.map%>"><%=x.code%></td>
+                                    <td class="email"><%=x.email%></td>
+                                    <td class="mobile"><%=x.mobile%></td>
+                                    <td class="service-hours" data-mon="<%=x.mon%>" data-tue="<%=x.tue%>"
+                                        data-wed="<%=x.wed%>" data-thu="<%=x.thu%>" data-fri="<%=x.fri%>"
+                                        data-sat="<%=x.sat%>" data-sun="<%=x.sun%>">
+                                        <%if(master.type == 'hospital'){%>
+                                        <%=x.staffCount%>
+                                        <%}else if(master.type == 'primary'|| master.type == 'secondary'){%>
+                                        <%=x.clientCount%>
+                                        <% } %>
+                                    </td>
+                                    <td class="about verified" data-about="<%=x.about%>"
+                                        data-verified="<%=x.verified%>">
+                                        <%if(x.verified){%>
+                                        <span class="shadow-none badge badge-success">Approved</span>
+                                        <%}else{%>
+                                        <span class="shadow-none badge badge-warning">Pending</span>
+                                        <%}%>
+                                    </td>
+                                    <td class="hod" data-hod="<%=x.hod%>">
+
+
+                                        <% if(x.hod) {%>
+                                        <% user.map(u=>{%>
+                                        <% if(x.hod == u._id) {%>
+                                        <div class="d-flex">
+                                            <div class="usr-img-frame mr-2 rounded-circle hod-btn-active"
+                                                data-toggle="modal" data-target="#hod-modal">
+                                                <img class="progressive__img progressive--not-loaded card-img-top image info"
+                                                    title="<%=u.name%>" data-hod-image="<%=u.image%>"
+                                                    data-hod-name="<%=u.name%>" data-hod-spec="<%=u.speciality%>"
+                                                    data-hod-about="<%=u.about%>" src="assets/img/boy-2.png"
+                                                    data-progressive="assets/img/boy-2.png">
+                                            </div>
+                                        </div>
+                                        <%}}) %>
+                                        <%}else{%>
+
+                                        <span class="btn btn-dark rounded-circle hod-btn info" data-toggle="modal"
+                                            data-target="#hod-modal" title="Set Department's HOD">
+                                            <i class="fa fa-user-cog"></i>
+                                        </span>
+                                        <%}%>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-dark btn-sm view">Preview</button>
+                                            <button type="button"
+                                                class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split"
+                                                id="dropdownMenuReference28" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false" data-reference="parent">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference28">
+                                                <a class="dropdown-item edit" href="#"> <i class="fa fa-edit"></i>
+                                                    Edit</a>
+
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item delete" href="#"><i class="fa fa-trash-alt"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%}) }%> </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Modal -->
+    <div class="modal fade" id="hod-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title hod-title" id="exampleModalCenterTitle">
+                      </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 10px;">
+                    <div class="view-hod">
+                        <div class="card component-card_4">
+                            <div class="card-body">
+                                <div class="user-profile">
+                                    <img src="assets/img/profile-7.jpg" style="width: 120px;" class="hod-image" alt=" ">
+                                </div>
+                                <div class="user-info">
+                                    <h5 class="card-user_name hod-name-active">Luke Ivory</h5>
+                                    <button class="btn btn-info rounded-circle info float-right hod-toggle"
+                                        title="Appoint new HOD"><i class="fa fa-users"></i></button>
+                                    <p class="card-user_occupation hod-spec">Manager</p>
+                                    <div class="card-star_rating">
+                                        <span class="badge badge-primary">4.5</span>
+                                    </div>
+                                    <p class="card-text hod-about"> Maecenas nec mi vel lacus condimentum rhoncus
+                                        dignissim
+                                        egestas orci. Integer blandit porta placerat. Vestibulum in ultricies. </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="appoint-hod">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div id=" " class="  ">
+                                    <label class="" style="width: 100%;"><input type="search"
+                                            class="form-control search-hod"  placeholder="Search HOD..."
+                                            aria-controls=" "></label></div>
+                            </div>
+                        </div>
+                        
+                        <% user.map(u=> {%>
+                        <a class="hod-list" data-id="<%=u._id%>">
+                            <div class="">
+                                <div class="media row">
+                                    <div class="user-img col-1 text-center">
+
+                                    </div>
+                                    <div class="user-img col-3 text-center">
+                                        <img class="usr-img rounded-circl " src="assets/img/profile-11.jpg"
+                                            style="width: 100%; border-radius: 10px; box-shadow: 2px 2px 4px black;"
+                                            alt="<%= u.name%>">
+                                    </div>
+                                    <div class="media-body col-8">
+                                        <div class="">
+                                            <h5 class="usr-name hod-name" style="font-size: 14px;"><%= u.name%></h5>
+                                            <p class="msg-title hod-speciality">
+                                                <%=u.speciality%> <span class="badge badge-primary">
+                                                    Primary </span>
+                                                <button type="button" class="btn btn-info position-relative mt-3 mb-3 ml-2 float-right
+                                                save-hod">
+                                                    <span>Appoint <i class="fa fa-check"></i> </span>
+                                                    <span class="badge badge-danger counter ">1</span>
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                        <hr>
+                        <% }) %>
+                       
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="hod-form" style="display: none;">
+        <input name="_csrf" value="<%= csrfToken %>" hidden>
+        <input name="id" class="dept" hidden>
+        <input name="type" class="dept" value="hod" hidden>
+        <input name="hod" class="dept-hod" hidden>
+        <input name="selected" class="selected" hidden>
+        <input name="verified" class="hod-verified" hidden>
+        <input name="method" class="method" id="method" value="PATCH" hidden>
+        <input name="_url" class="_url" value="<%= 'dashboard/section' %>" hidden>
+    </form>
+
+    <%- include('./sectionComponents/add') %>
+    <%- include('./sectionComponents/view') %>
+    <%- include('../../../componentSection/adminDashboard/partials/footer') %>
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    <script src="/dashboard/plugins/dropify/dropify.min.js"></script>
+    <script src="/dashboard/plugins/blockui/jquery.blockUI.min.js"></script>
+    <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+    <script src="/dashboard/assets/js/users/account-settings.js"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    <script src="/dashboard/plugins/editors/quill/quill.js"></script>
+    <script src="/dashboard/plugins/editors/other/section.js"></script>
+    <script src="/dashboard/plugins/select2/select2.min.js"></script>
+
+    <script src="/dashboard/plugins/tagInput/tags-input.js"></script>
+
+    <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+    <script src="/dashboard/plugins/table/datatable/datatables.js"></script>
+    <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
+    <script src="/dashboard/plugins/table/datatable/button-ext/dataTables.buttons.min.js">
+    </script>
+    <script src="/dashboard/plugins/table/datatable/button-ext/jszip.min.js">
+    </script>
+    <script src="/dashboard/plugins/table/datatable/button-ext/buttons.html5.min.js">
+    </script>
+    <script src="/dashboard/plugins/table/datatable/button-ext/buttons.print.min.js">
+    </script>
+
+    <script src="/dashboard/assets/js/scrollspyNav.js"></script>
+    <script>
+        $('#html5-extension').DataTable({
+            dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
+            buttons: {
+                buttons: [{
+                        extend: 'copy',
+                        className: 'btn'
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn'
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn'
+                    }
+                ]
+            },
+            "oLanguage": {
+                "oPaginate": {
+                    "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+                    "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+                },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+                "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7
+        });
+    </script>
+    </body>
+
+    </html>

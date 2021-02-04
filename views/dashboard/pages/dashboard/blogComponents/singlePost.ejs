@@ -1,0 +1,134 @@
+  <!-- Single Blog -->
+  <%if(blog.length>0){%>
+  <%  blog.map(function(post) {%>
+  <div class="note-item  post-item col-xl-4 col-lg-4 col-md-6 col-sm-6 layout-spacing" style="background: transparent;">
+      <div class="card component-card_9" data-item="<%=post._id%>">
+          <figure class="progressive">
+              <img class="progressive__img progressive--not-loaded card-img-top image" src="<%=post.image%>"
+                  data-progressive="<%=post.image%>">
+          </figure>
+
+          <p class="_id" style="display: none;"><%=post._id%> </p>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-8">
+                      <div class="n-chk">
+                          <label class="new-control new-checkbox checkbox-outline-default meta-date date"
+                              style="font-weight: 100; font-size: 14px;">
+                              <input type="checkbox" class="new-control-input post-checkbox">
+                              <span class="new-control-indicator"></span><span class="ml-2"> </span>
+                          </label>
+                      </div>
+                  </div>
+
+                  <div data-container="body" data-placement="top" data-html="true" <% if(post.published) {%>
+                      title='Published' class="col-2 success mb-2 rounded edit" <%} else {%> title='Not Published'
+                      class="col-2 warning mb-2 rounded edit" <%} %>>
+                      <span style=" pointer-events: none;">
+                          <%if(post.published){%>
+                          <%- include('./common/switcher')%>
+                          <%} else{ %>
+                          <%- include('./common/switcher-void')%>
+                          <%}%> 
+                      </span>
+                                </div>
+                                <div class="col-2">
+                                    <%- include('./common/dropdown')%>
+                  </div>
+              </div>
+
+              <h5 class="card-title title" data-title="<%=post.slug%>"><%=post.title%></h5>
+              <p class="card-text article" data-article="<%=post.article%>">
+                  <%if(post.articleText){%>
+                  <%=post.articleText.substring(0, 80)%>
+                  <%}%>
+                            </p>
+
+                            <div class="meta-info">
+                                <div class="meta-user">
+                                    <div class="avatar avatar-sm">
+                                        <span class="avatar-title rounded-circle">
+                                            <%if(post.author){%>
+                  <%= post.author.split(" ").map((x)=>x.charAt(0)).join('').substr(0,2).toUpperCase()%>
+                  <%}%> 
+                                        </span>
+                                        
+                                    </div>
+            <div class="user-name category" data-category="<%=post.category%>">
+                  <span class="author">
+                          <%=post.date%>
+                  </span>
+          </div>
+      </div>
+
+      <div class="meta-action">
+          <!-- // -->
+          <!-- <div class="note-footer"> -->
+          <div class="tags-selector btn-group">
+              <a class="nav-link dropdown-toggle d-icon label-group" data-toggle="dropdown" href="#" role="button"
+                  aria-haspopup="true" aria-expanded="true">
+                  <div class="tags">
+                      <div class="g-dot-personal"></div>
+                      <div class="g-dot-work"></div>
+                      <div class="g-dot-social"></div>
+                      <div class="g-dot-important"></div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          class="feather feather-more-horizontal">
+                          <circle cx="12" cy="12" r="1"></circle>
+                          <circle cx="19" cy="12" r="1"></circle>
+                          <circle cx="5" cy="12" r="1"></circle>
+                      </svg>
+                  </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right d-icon-menu">
+                  <a class="meta-likes note-personal label-group-item label-personal dropdown-item position-relative g-dot-personal"
+                      href="javascript:void(0);">
+                      <i class="fa fa-heart text-danger"></i> <%=post.likes%> Likes</a>
+
+                  <a class="note-work label-group-item label-work dropdown-item position-relative g-dot-work"
+                      href="javascript:void(0);"> <i class="fa fa-comment"></i> <%=post.commentCount%> Reviews</a>
+
+                  <a class="note-social label-group-item label-social dropdown-item position-relative g-dot-social"
+                      href="javascript:void(0);"> <i class="fa fa-eye"></i> <%=post.views%> Reads</a>
+                  <a class="note-important label-group-item label-important dropdown-item position-relative g-dot-important"
+                      href="javascript:void(0);"><i class="fa fa-user-cog"></i> <%=post.author%>
+                  </a>
+              </div>
+          </div>
+          <!-- </div> -->
+          <!-- // -->
+      </div>
+
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <%  }) } %>
+  <style>
+      .article {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 50%;
+          display: inline-block;
+          transition: width 1s;
+      }
+
+      .author {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 50%;
+          display: inline-block;
+          transition: width 1s;
+      }
+
+      .author:hover {
+          width: 100%;
+          transition-timing-function: ease-in;
+          /* animation-name: author;
+               animation-duration: 4s; */
+      }
+  </style>

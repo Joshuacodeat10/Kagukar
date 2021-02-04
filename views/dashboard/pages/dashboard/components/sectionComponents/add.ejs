@@ -1,0 +1,285 @@
+<style>
+    .tour,
+    .tour:hover {
+        /* display: block; */
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 2000000;
+        font-size: 20px;
+        /* border: none; */
+        box-shadow: 2px 2px 4px black;
+    }
+
+    .tour:hover {
+        color: white !important;
+    }
+</style>
+
+<button style="height: 60px;
+    width: 60px;" class="tour btn btn-info col-2 info mb-2 rounded rounded-circle add" data-toggle="modal"
+    data-target="#addSection" data-placement="left" data-html="true" <%if(master.type === 'hospital'){%>
+    title='Add Department' <%}else if(master.type === 'primary'){%> title='Add Class'
+    <%}else if(master.type === 'commerce'){%> title='Add Section' <%}%>
+    >
+    <i class="fa fa-plus"></i>
+</button>
+
+<button style="bottom: 95px; height: 50px;
+        width: 50px;" title='Delete Selected' data-placement="left" data-html="true"
+    class="col-2 danger mb-2 rounded tour btn btn-danger rounded-circle delete-multiple-btn">
+    <i class="fa fa-trash-alt"></i>
+</button>
+
+
+
+   <!-- Modal -->
+   <div class="modal fade bd-example-modal-xl" id="addSection" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+           <div class="modal-content">
+            <form class="section-form">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalCenterTitle">Vertically Aligned</h5>
+                   <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                       <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                           stroke-linejoin="round" class="feather feather-x">
+                           <line x1="18" y1="6" x2="6" y2="18"></line>
+                           <line x1="6" y1="6" x2="18" y2="18"></line>
+                       </svg>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <div class="account-content">
+                       <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll"
+                           data-offset="-100">
+                           <div class="row">
+
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <h4 class="">
+                                    <i class="fa fa-picture mr-1"></i>
+                                    Set Display Image
+                                </h4>
+                            </div>
+
+
+
+                                             <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+    <div id="general-info" class="section general-info">
+        <div class=" bs-tooltip info">
+            
+            <div class="row">
+                <div class="col-lg-11 mx-auto">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="upload mt-4 pr-md-4">
+                                <style>
+                                    .dropify-wrapper {
+                                        width: 100% !important;
+                                    }
+                                </style>
+
+                                <input type="file" accept="image/*" name="image" id="input-file-max-fs"
+                                    class="dropify progressive__img progressive--not-loaded m-image"
+                                    data-default-file="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                    data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                    data-max-file-size="2M" />
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-12 col-md-12 mt-md-0 mt-4">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-sm-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="name">Name of Department
+                                                <span id="noe"> </span>
+                                            </label>
+                                            <div class="input-group mb-5">
+                                                <input type="text" class="form-control m-name" id="name"
+                                                    placeholder="Enter Department's name" name="name" value=""
+                                                    oninput="($('#slug').val(this.value.toLowerCase().replace(/ /g,'-')))"
+                                                     aria-label="Recipient's username"
+                                                    aria-describedby="basic-addon2" required>
+
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon6"> Department</span>
+                                                </div>
+                                            </div>
+                                            <input id="slug" class="m-slug" name="slug" hidden>
+                                            <input class="m-id" name="id" hidden>
+                                            <input name="type" value="<%=master.type%>" hidden>
+    </div>
+    </div>
+    <div class="col-sm-6">
+        <label for="code">Department Code</label>
+        <div class="form-group mr-1">
+            <input type="text" class="form-control mb-4 m-code" id="code" placeholder="e.g. RAD" name="code"
+                minlength="3" maxlength="3">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <label for="email">Email</label>
+        <div class="form-group mr-1">
+            <input type="text" class="form-control mb-4 m-email" id="email" placeholder="department@mail.com"
+                name="email">
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 mb-3">
+        <label for="mobile">Mobile Contact</label>
+        <div class="form-group mr-1">
+            <input type="number" class="form-control mb-4 m-mobile" id="mobile" placeholder="e.g. +234 8149130392"
+                name="mobile">
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 mb-3">
+        <label for="map">Map Direction</label>
+        <div class="form-group mr-1">
+            <input type="text" class="form-control mb-4 m-map" id="map" placeholder="Enter Map Value" name="map">
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 mb-3">
+        <label for="verified">Verification Status</label>
+        <div class="form-group mr-1">
+            <select id="verified" class="form-control m-verified" name="verified">
+                <option value='false'>Pending</option>
+                <option value='true'>Verified</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 mt-md-0 mt-4">
+        <div class="form">
+            <h3>Service Hours <a href="javascript:void(0);"
+                    class="service-hours btn btn-info rounded rounded-circle info float-right"
+                    title="Set Service Hours"><i class="fa fa-chevron-down font-weight-bold"></i> </a> </h3>
+            <i>Enter "0" for non-service days </i>
+            <hr>
+            <div id="service-hours" class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                        <label for="monday">Monday
+                            <span id=""> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-mon" id="monday" placeholder="7:00AM - 4:00PM"
+                            name="mon">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                        <label for="tuesday">Tuesday
+                            <span id=""> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-tue" id="tuesday" placeholder="7:00AM - 4:00PM"
+                            name="tue">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                        <label for="wednesday">Wednesday
+                            <span id=""> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-wed" id="wednesday"
+                            placeholder="7:00AM - 4:00PM" name="wed">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                        <label for="thursday">Thursday
+                            <span id=""> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-thu" id="thursday" placeholder="7:00AM - 4:00PM"
+                            name="thu" value="">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                        <label for="friday">Friday
+                            <span id=""> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-fri" id="friday" placeholder="7:00AM - 4:00PM"
+                            name="fri">
+                    </div>
+                </div>
+                <div class="col-lg-3  col-sm-6">
+                    <div class="form-group">
+                        <label for="saturday">Saturday
+                            <span id=" "> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-sat" id="saturday" placeholder="7:00AM - 4:00PM"
+                            name="sat">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                        <label for="sunday">Sunday
+                            <span id=""> </span>
+                        </label>
+                        <input type="text" class="form-control mb-4 m-sun" id="sunday" placeholder="7:00AM - 4:00PM"
+                            name="sun">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+        <div id="about" class="section about">
+            <!-- <div class=" bs-tooltip info">
+                <h5 class="">
+                    Description
+                </h5>
+                <div class="row">
+                    <div class="col-md-11 mx-auto">
+
+
+                        <div class="form-group content-container">
+                            <label for="about">
+
+                            </label>
+
+
+                            <div name="about" class="form-control m-about" id="about" rows="10">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="_url" value="<%= 'dashboard/section' %>">
+    <input type="hidden" class="method" name="method" value="POST">
+    <input type="hidden" class="phase" name="phase" value="<%=phase%>">
+    </div>
+    </div>
+    </div>
+
+    <p class="modal-text">In hac habitasse platea dictumst. Proin sollicitudin et lacus in tincidunt.
+        Integer nisl ex, sollicitudin eget nulla nec, pharetra lacinia nisl. Aenean nec nunc ex. Integer
+        varius neque at dolor scelerisque porttitor.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary save">Save</button>
+        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
