@@ -7,7 +7,13 @@
                       <div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
                           <div class="footer-contact-info">
                               <div class="footer-logo mb-2">
-                                  <a href="/"><img class="img-fluid"  src="<%=master.logo%>" alt=""></a>
+                                  <a href="/">
+                                      <%if(master.logo ==" "){%>
+                                      <img class="img-fluid" src="<%=master.logo%>" alt="logo">
+                                      <%}else{%>
+                                      <img class="img-fluid" src="/secondary/assets/img/logo.png" alt="logo">
+                                      <%}%>
+                                </a>
                               </div>
                              
                           </div>

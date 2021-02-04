@@ -13,7 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kagukar</title>
 
-    <link rel="shortcut icon" href="<%=master.logo%>" />
+    <%if(master.logo){%>
+        <link rel="shortcut icon" href="<%=master.logo%>" />
+    <%}else{%>
+        <link rel="stylesheet" href="/secondary/assets/img/logo.png">
+    <%}%>
 
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet">
@@ -41,7 +45,12 @@
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse"><i
                         class="fa fa-align-left"></i></button>
                 <a class="navbar-brand" href="/">
-                    <img class="img-fluid" src="<%=master.logo%>" alt="logo"> <span class="brandName">Kagukar</span>
+                     <%if(master.logo ==" "){%>
+                    <img class="img-fluid" src="<%=master.logo%>" alt="logo"> 
+                     <%}else{%>
+                     <img class="img-fluid" src="/secondary/assets/img/logo.png" alt="logo">
+                     <%}%>
+                    <span class="brandName">Kagukar</span>
                 </a>
                 <a class="navbar-brand navbar-brand-sticky" href="/">
                     <img class="img-fluid" src="<%=master.logo%>" alt="logo"> <span class="brandName">Kagukar</span>
