@@ -1390,6 +1390,7 @@ button {
   line-height: 22px;
   padding: 13px 36px;
   font-weight: 600;
+  place-self: flex-end;
   border-radius: 50px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -3931,6 +3932,13 @@ ul.list li a:hover {
 .event .event-info {
   padding: 20px;
   background: #ffffff;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.event .event-info p {
+  height: 72px;
 }
 
 .event .event-info .meta-event {
@@ -7281,6 +7289,50 @@ ul.list li a:hover {
 
 /*# sourceMappingURL=../css/style.css.map */
 
-#ModalProcess{
+#ModalProcess {
   display: none;
+}
+
+#final_span {
+  border: none;
+  width: 100%;
+  height: -webkit-fill-available;
+  pointer-events: none;
+  /* user-select: none; */
+  font-size: 24px;
+  letter-spacing: 2px;
+  outline: none;
+  resize: none;
+  overflow: auto;
+}
+
+#play.play-button {
+  position: fixed;
+  bottom: 170px;
+  right: 60px;
+}
+
+#pause.pause-button {
+  position: fixed;
+  bottom: 95px;
+  right: 60px;
+}
+
+#resume.resume-button {
+  position: fixed;
+  bottom: 95px;
+  right: 60px;
+}
+
+#stop.stop-button {
+  position: fixed;
+  bottom: 20px;
+  right: 60px;
+}
+
+#play.play-button, #pause.pause-button, #resume.resume-button, #stop.stop-button {
+  padding: 22px;
+  text-shadow: 2px 2px 6px rgba(28, 26, 31, 0.6);
+  font-size: 23px;
+  margin-bottom: 10px;
 }

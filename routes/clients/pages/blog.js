@@ -12,15 +12,19 @@ const fileUpload = require("../../../config/fileUpload")
 
 const [page, phase, published] = ['user', 'blog', true]
 
-router.get("/", (req, res) => {
+router.get("/:type", (req, res) => {
     Master.findOne({}, (err, master) => {
 
+        console.log(req.params)
+
         if (req.isAuthenticated() || !req.isAuthenticated()) {
-            Blog.find({published}, (err, blog) => {
-                    res.render("client/" + master.type + "/pages/blog/blog", {
+            Blog.find({type: req.params.type, published}, (err, blog) => {
+                    res.render("client/secondary/pages/resources/index", {
                         csrfToken: req.csrfToken(),
                         master,
+                        param: req.params.type,
                         page,
+                        user: req.user,
                         phase,
                         blog
                     })
@@ -40,11 +44,12 @@ router.get("/read/:slug", (req, res) => {
         if (req.isAuthenticated() || !req.isAuthenticated()) {
             Blog.find({published}, (err, blog) => {
                     Blog.findOne({slug}, (err, blogPost) => {
-                        res.render("client/" + master.type + "/pages/blog/blog-read", {
+                        res.render("client/secondary/pages/resources/single", {
                             csrfToken: req.csrfToken(),
                             master,
                             page,
                             phase,
+                            user: req.user,
                             blog,
                             blogPost
                         })

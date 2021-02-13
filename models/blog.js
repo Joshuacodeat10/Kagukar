@@ -6,8 +6,7 @@ const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
     title: String,
-    date: String,
-    time: String,
+  
     slug: String,
 
     genre: String,
@@ -15,15 +14,18 @@ const blogSchema = new Schema({
 
     articleText: String,
     article: String,
-
+    type: String,
     cache: String,
+
     image: {
         type: String,
         required: false
     },
 
-    author: String,
-    authorid: String,
+     author: {
+         type: Schema.Types.ObjectId,
+         ref: "User"
+     },
 
     published: {
         type: Boolean,
@@ -39,12 +41,14 @@ const blogSchema = new Schema({
         type: Number,
         default: 0
     },
-    views: {
-        type: Number,
-        default: 0
-    },
+    views: [{
+        type: Schema.Types.ObjectId,
+        ref: "User", default: 0
+    }],
+
     answer: String,
-})
+
+}, {timestamps: true})
 
 const Blog = new mongoose.model("Blog", blogSchema);
 

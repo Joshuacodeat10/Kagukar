@@ -1,0 +1,161 @@
+<%- include('../../partials/header')%>
+
+<%- include('../../partials/common/modal')%>
+<%- include('../../partials/common/modal-process')%>
+<%- include('../../partials/common/alert')%>
+
+
+    <!--=================================
+    Inner Header -->
+    <section class="inner-header bg-holder bg-overlay-black-80" style="background-image: url('../secondary/images/bg/11.jpg');">
+      <div class="container">
+        <div class="row align-items-center mb-5 pb-sm-5 pb-0">
+          <div class="col-md-12 text-center mb-2 mb-md-0">
+            <h3 class="mb-0 text-white display-1 fw-5 text-warning">  <%=param%></h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--=================================
+    Inner Header -->
+
+    <!--=================================
+    Feature Info -->
+    <section class="mt-n5 e-mt-sm-n4 e-mt-md-n5 e-mt-lg-n6 position-relative z-index-1">
+      <div class="container">
+        <div class="find-Course box-shadow rounded-sm p-4 bg-white">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Filter</h3>
+            </div>
+          </div>
+          <!-- <form > -->
+            <div id="filter-form" class="form-row form-flat-style align-items-center">
+              <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
+                  <!-- <label class="lead fw-5">Title</label> -->
+                  <input id="title-filter-form" type="text" class="form-control" placeholder="Search by Title" oninput="filter(this.value)">
+              </div>
+
+                <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
+                  <select id="class-filter-form" onchange="filter(this.value)" class="form-control basic-select">
+                      <!-- <option value="1" selected="selected">Class</option> -->
+                      <optgroup> Junior Class </optgroup>
+                      <option value="JSS 1">JSS 1</option>
+                      <option value="JSS 2">JSS 2</option>
+                      <option value="JSS 3">JSS 3</option>
+                      <optgroup> Senior Class </optgroup>
+                      <option value="SSS 1">SSS 1</option>
+                      <option value="SSS 2">SSS 2</option>
+                      <option value="SSS 3">SSS 3</option>
+                  </select>
+              </div>
+
+                <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
+               <select id="subject-filter-form" onchange="filter(this.value)" class="form-control basic-select">
+                   <!-- <option value="1" selected="selected">Subject</option> -->
+                     <option>Agricultural Science</option>
+                     <option>Accounting</option>
+                     <option>Basic Science</option>
+                     <option>Basic Technology</option>
+                     <option>Biology</option>
+                     <option>Business Studies</option>
+                     <option>Chemistry</option>
+                     <option>Civic Education</option>
+                     <option>Computer Studies</option>
+                     <option>Commerce</option>
+                     <option>Geography</option>
+                     <option>Home Economics</option>
+                     <option>Economics</option>
+                     <option>Mathematics</option>
+                     <option>Music</option>
+                     <option>Physics</option>
+                     <option>Social Studies</option>
+               </select>
+              </div>
+            
+               <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
+                   <select id="term-filter-form" onchange="filter(this.value)" class="form-control basic-select">
+                       <!-- <option value="1" selected="selected">Term </option> -->
+                         <option>1st Term</option>
+                         <option>2nd Term</option>
+                         <option>3rd Term</option>
+                   </select>
+               </div>
+
+              <!-- <div class="col-12 col-lg-3 text-left mt-3 mt-lg-0">
+                <label class="lead fw-5"></label>
+                <a class="btn btn-primary d-lg-block" href="#">Filter</a>
+              </div> -->
+            </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </section>
+    <script>
+         function filter(e) {
+
+            console.log(e)
+
+            var titleVal = $('#title-filter-form').val();
+            var classVal = $('#class-filter-form').val();
+            var subjectVal =$('#subject-filter-form').val();
+            var termVal = $('#term-filter-form').val();
+
+            var res = titleVal+ " "+classVal + " "+subjectVal+" "+termVal;
+            console.log(res);
+             
+            
+            
+
+            var rex = new RegExp(res, 'i');
+            $('.searchable-items .items').fadeOut();
+
+            $('.searchable-items .items').filter(function () {
+                return rex.test($('.searchable-items .items').text());
+            }).fadeIn();
+         };
+    </script>
+
+    <!--=================================
+    Feature Info -->
+    
+    <!--=================================
+    News Details -->
+    <section class="space-ptb course-details">
+      <div class="container">
+        <div class="row searchable-items">
+
+        <%blog.map(c =>{%>
+          <div class="items col-lg-4 col-sm-6 mb-4 pb-2">
+            <div class="event">
+              <div class="event-img">
+                <img class="img-fluid" src="<%=c.image%>" alt="">
+                <div class="event-date">
+                  <%=c.genre%>
+                  <!-- <small>Jan</small> -->
+                  <span class="years font-weight-bold">TERM</span>
+                </div>
+              </div>
+              <div class="event-info">
+                <ul class="meta-event">
+                  <li><i class="fa fa-clock"></i><%=c.cache%></li>
+                  <li><i class="fa fa-map-marker-alt"></i><%=c.category%></li>
+                </ul>
+                <h4 class="event-title"><a href="#"><%=c.title%> </a></h4>
+                <code style="display: none;"> <%=c.title + " " +c.cache +" "+c.category+" "+c.genre+" Term"%> </code>
+                <p><%-c.articleText.substring(0, 120)+'...'%></p>
+                <code class="read-content" style="display: none"><%-c.articleText%></code>
+                <code class="display-content" style="display: none"><%=c.article%></code>
+                <a class="btn btn-success read" href="javascript:void(0)" data-title='<%-c.articleText%>' >Read</a>
+              </div>
+            </div>
+          </div>
+        <%})%>
+         
+        </div>
+      </div>
+    </section>
+    <!--=================================
+    News Details -->
+
+<%- include('../../partials/footer')%>

@@ -20,19 +20,16 @@ var account
 // ---@access Public
 // '/' represents the actual 'api/items' route
 router.get("/:account", (req, res) => {
-  // Master.findOne({}, (err, master) => {
-
-    console.log(req.params.account)
-    console.log(req.param)
+  Master.findOne({}, (err, master) => {
 
     if (req.isAuthenticated()) {
-      Blog.find({}, (err, contents) => {
+      Blog.find({}, (err, blog) => {
           res.render("dashboard/pages/dashboard/blog", {
             csrfToken: req.csrfToken(),
             master,
             page,
             phase,
-            contents, user: req.user
+            blog, user: req.user
           })
         })
         .sort({
@@ -42,7 +39,7 @@ router.get("/:account", (req, res) => {
       res.redirect("/api/users")
     }
 
-  // })
+  })
 })
 
 

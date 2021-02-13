@@ -16,6 +16,8 @@ $(document).ready(function () {
 
         const formData = new FormData(e.target);
 
+        console.log(formData)
+
         const _csrf = e.target._csrf.value
         const _url = e.target._url.value
         const method = e.target.method.value

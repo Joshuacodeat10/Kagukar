@@ -19,7 +19,8 @@
                                             <div class="col-lg-11 mx-auto">
                                                 <div class="row">
                                                     <div class="col-xl-4 col-lg-6 col-md-12">
-                                                        <div class="upload mt-4 pr-md-4">
+                                                        <img src="/secondary/assets/img/logo.png" width="140" alt="">
+                                                        <!-- <div class="upload mt-4 pr-md-4">
                                                             <style>
                                                                 .dropify-wrapper {
                                                                     width: 100% !important;
@@ -41,82 +42,22 @@
                                                                 <i class="flaticon-cloud-upload mr-1"></i>
                                                                 Upload Logo
                                                             </h4>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <div class="col-xl-8 col-lg-12 col-md-12 mt-md-0 mt-4">
                                                         <div class="form">
                                                             <div class="row">
-                                                                <%if(user.username===master.secret){%>
-                                                                <div class="col-sm-3">
-                                                                    <div class="form-group">
-                                                                        <label for="type">Type of Establishment
-                                                                            <span id="noe"> </span>
-                                                                        </label>
-
-                                                                        <select class="form-control" id="type"
-                                                                            name="type">
-                                                                            <option value="<%=master.type%>">
-                                                                                <%=master.type%></option>
-                                                                            <option value="hospital">hospital</option>
-                                                                            <option value="primary">primary</option>
-                                                                            <option value="secondary">secondary</option>
-                                                                        </select>
-
-                                                                    </div>
-                                                                </div>
-                                                                <%}%>
                                                                 <div class="col-sm-5">
                                                                     <div class="form-group">
-                                                                        <label for="fullName">Name of Establishment
+                                                                        <label for="fullName"> 
                                                                             <span id="noe"> </span>
                                                                         </label>
-                                                                        <input type="text" class="form-control mb-4"
-                                                                            id="fullName" placeholder="e.g. Surft
-                                                                        <%= master.type %>" name="nameOfEstablishment"
-                                                                maxlength="16"
-                                                                value="<%= master.nameOfEstablishment %>"
-                                                                onchange="($('#noe').text(' | ' + this.value +
-                                                                '<%= master.type %>'))"
-                                                                required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label class="dob-input">Date of
-                                                                Establishment</label>
-                                                            <div class="d-sm-flex d-block">
-                                                                <!-- <div class="form-group mr-1">
-                                                                            <select class="form-control"
-                                                                                id="exampleFormControlSelect1"
-                                                                                name="day">
-                                                                                <option value="<%=master.day%>">Man
-                                                                        <%=master.day%></option>
-
-                                                                        </select>
-                                                                    </div> -->
-
-                                                                <div class="form-group mr-1">
-                                                                    <select class="form-control" id="month"
-                                                                        name="month">
-                                                                        <option value="<%=master.month%>">
-                                                                            <%=master.month%>
-                                                                        </option>
-
-                                                                    </select>
-                                                                </div>
-
-                                                                <div class="form-group mr-1">
-                                                                    <select class="form-control" id="year" name="year">
-                                                                        <option value="<%=master.year%>">
-                                                                            <%=master.year%>
-                                                                        </option>
-
-                                                                    </select>
-                                                                </div>
+                                                                        <h6 class="font-weight-bold">Kagukar</h6>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="profession">Motto/Tagline</label>
+                                                        <label for="profession">Tagline</label>
                                                         <input type="text" class="form-control mb-4" id="profession"
                                                             placeholder="e.g. exceptionally remarkable"
                                                             value="<%=master.tagline%>" name="tagline">

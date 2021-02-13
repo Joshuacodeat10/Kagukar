@@ -41,7 +41,8 @@ app.use(csrfProtection);
 
 mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
 // mongoose.connect("mongodb://localhost:27017/portalDB", {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    // useUnifiedTopology: true
 });
 
 mongoose.set("useCreateIndex", true);
@@ -74,7 +75,7 @@ app.get('/', (req, res)=>{
                 // if (err) throw err;
                 res.render("client/secondary/pages/index", {
                     csrfToken: req.csrfToken(),
-                    master,
+                    master, 
                     user: req.user,
                     contents
                 });
@@ -87,6 +88,16 @@ app.get('/', (req, res)=>{
 app.use('/api/admin', admin);
 app.use('/admin/dashboard', adminDashboard);
 app.use('/admin/dashboard/settings', adminSettings);
+// app.use('/dashboard/contents', blog);
+app.use('/dashboard/blog', blog);
+
+app.get('/dashboard/contents', (req, res)=>{
+    res.redirect('/dashboard/blog/all')
+});
+
+
+// app.use("/page/blog", pageBlog); //--- BLOG CLIENT SIDE
+
 
 //ADD DOCTOR, TEACHER, STUDENT, PATIENT, AGENT etc.
 app.use('/dashboard/person', person);
@@ -98,9 +109,30 @@ app.use('/dashboard/components', component);
 app.use("/api/auth", users);
 app.use("/api/items", items);
 app.use("/api/users", users);
-app.use("/api/blog", blog);
+app.use("/resources", pageBlog);
 
 
+app.get("/profile", (req, res)=>{
+    if(req.isAuthenticated()){
+       res.render("client/secondary/pages/profile")
+    }
+})
+
+app.get("/contact", (req, res) => {
+        res.render("client/secondary/pages/contact")
+})
+
+// app.use("/explore", explore)
+
+app.use(function (req, res, next) {
+    res.status(404).render("dashboard/pages/error/error404", {error: '404', msg: 'Oops ! Sorry We Can\'t Find That Page'});
+})
+
+
+app.use(function (req, res, next) {
+    res.status(500)
+        .render("dashboard/pages/error/error404", {error: '500', msg: "Oops! Something broke, kindly refresh page and try again."});
+})
 
 
 let port = process.env.PORT;

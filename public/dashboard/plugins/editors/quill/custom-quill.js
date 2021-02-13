@@ -88,11 +88,14 @@ $(document).ready(function () {
   // });
 
 
-  const about = new Quill('#aboutBio', {
-    ...parameters,
-    placeholder: ' '
-  });
-
+  var about
+  
+  if ($("body").find("#aboutBio").length) {
+    about = new Quill('#aboutBio', {
+      ...parameters,
+      placeholder: ' '
+    });
+  }
 
   var tnc, privacy
   if ($("body").find("#tnc").length) {
@@ -133,7 +136,6 @@ $(document).ready(function () {
     $('.edit').on('click', function (event) {
 
       
-      $(".type").text("Edit Post");
       var getParent = $(this).parents('.post-item');
 
       var getModal = $('.modal');
@@ -155,6 +157,8 @@ $(document).ready(function () {
       $('.add').trigger('click')
 
       $(".btn-add").text("Save Changes");
+      $(".type").text("Edit ");
+
       // Get Modal Attributes
       var $_modalMethod = getModal.find('.method').val("PATCH");
       var $_modalImg = getModal.find('.m-image').prop('required', false);
@@ -197,7 +201,7 @@ $(document).ready(function () {
   function addContent() {
     $('.add').on('click', function (event) {
       $(".btn-add").text("Add");
-      $(".type").text("Add Post");
+      $(".type").text("Add ");
       var getForm = $('body').find('.blog-form');
       getForm.find('.method').val("POST");
       //GET MODAL ATTRIBUTES
@@ -494,7 +498,7 @@ $(document).ready(function () {
       '    <a class="dropdown-item edit" href="javascript:void(0);" data-toggle="modal" data-target=".bd-example-modal-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">' +
       '            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>' +
       '            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>' +
-      '        </svg> Edit Post</a>' +
+      '        </svg> Edit </a>' +
       '    <a class="dropdown-item delete" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">' +
       '            <polyline points="3 6 5 6 21 6"></polyline>' +
       '            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>' +

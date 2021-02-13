@@ -13,11 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kagukar</title>
 
-    <%if(master.logo){%>
-        <link rel="shortcut icon" href="<%=master.logo%>" />
-    <%}else{%>
         <link rel="stylesheet" href="/secondary/assets/img/logo.png">
-    <%}%>
+  
 
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet">
@@ -31,6 +28,8 @@
     <link rel="stylesheet" href="/secondary/css/swiper/swiper.min.css" />
     <link rel="stylesheet" href="/secondary/css/magnific-popup/magnific-popup.css" />
     <link rel="stylesheet" href="/secondary/css/kagukar.css" />
+
+      <script src="/secondary/js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressively/dist/progressively.min.css">
     <script src="https://cdn.jsdelivr.net/npm/progressively/dist/progressively.min.js"></script>
 </head>
@@ -45,19 +44,15 @@
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse"><i
                         class="fa fa-align-left"></i></button>
                 <a class="navbar-brand" href="/">
-                     <%if (master.logo == " "){%>
-                    <img class="img-fluid" src="<%=master.logo%>" alt="logo"> 
-                     <%}else{%>
+                   
                      <img class="img-fluid" src="/secondary/assets/img/logo.png" alt="logo">
-                     <%}%>
+                  
                     <span class="brandName">Kagukar</span>
                 </a>
                 <a class="navbar-brand navbar-brand-sticky" href="/">
-                    <%if (master.logo == " "){%>
-                    <img class="img-fluid" src="<%=master.logo%>" alt="logo">
-                    <%}else{%>
+                 
                     <img class="img-fluid" src="/secondary/assets/img/logo.png" alt="logo">
-                    <%}%>
+                  
                     <span class="brandName">Kagukar</span>
                 </a>
 
@@ -67,33 +62,40 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="dropdown nav-item">
-                            <a class="nav-link" href="javascript:void(0)" data-toggle="dropdown">Curriculum<i
+                            <a class="nav-link" href="javascript:void(0)" data-toggle="dropdown">Explore Resources<i
                                     class="fa fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu megamenu dropdown-menu-md">
                                 <li class="">
                                     <div class="row no-gutters">
-                                        <div class="col-sm-6">
-                                            <h6 class="nav-title">Junior Class</h6>
-                                            <ul class="list-unstyled mt-lg-1">
-                                                <li><a class="dropdown-item" href="#"><span>JSS 1</span></a></li>
-                                                <li><a class="dropdown-item" href="#"><span>JSS 2</span></a></li>
-                                                <li><a class="dropdown-item" href="#"><span>JSS 3</span></a></li>
-                                            </ul>
+                                        <div class="col-sm-4">
+                                            <a class="dropdown-item" href="/resources/curriculum">
+                                                <h6 class="nav-title">Curriculum</h6>
+                                            </a>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <h6 class="nav-title">Senior Class</h6>
-                                            <ul class="list-unstyled mt-lg-1">
-                                                <li><a class="dropdown-item" href="#"><span>SSS 1</span></a></li>
-                                                <li><a class="dropdown-item" href="#"><span>SSS 2</span></a></li>
-                                                <li><a class="dropdown-item" href="#"><span>SSS 3</span></a></li>
-                                            </ul>
+                                        
+                                        <div class="col-sm-4">
+                                            <a class="dropdown-item" href="/resources/stories">
+                                                <h6 class="nav-title">Stories</h6>
+                                                 </a>
+                                        </div>
+                                        
+                                        <div class="col-sm-4">
+                                            <a class="dropdown-item" href="/resources/test">
+                                                <h6 class="nav-title">Test</h6>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <a class="dropdown-item" href="#">
+                                                <h6 class="nav-title">Play</h6>
+                                            </a>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="dropdown nav-item">
+                        <!-- <li class="dropdown nav-item">
                             <a class="nav-link" href="javascript:void(0)" data-toggle="dropdown">Read<i
                                     class="fa fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu megamenu dropdown-menu-md">
@@ -213,21 +215,22 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
-                        <li><a class="nav-link" href="/contact">Contact us</a></li>
+                        <li><a class="nav-link" href="/contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="woo-action">
                     <ul class="list-unstyled">
                         <li class="user">
                            <% if(!user) {%>
-                            <a data-toggle="modal" data-target="#loginModal" href="#">
+                            <!-- <a data-toggle="modal" data-target="#loginModal" href="#"> -->
+                            <a href="/api/auth">
                                  Hello sign in
                             <i class="fa fa-user pl-2 text-primary"></i>
                          </a> 
                            <%}else{%>
-                            <a href="#" style="background: black;" class="p-3 text-warning">Dashboard
+                            <a href="/profile" style="background: black;" class="p-3 text-warning">Dashboard
                             <i class="fa fa-user pl-2  text-warning"></i>
                             </a>
                            <%}%>
@@ -239,7 +242,7 @@
                         </li>
                            <%}%>
                                      
-                                         <button id="ModalProcess" data-toggle="modal" data-target="#processModal" href="#">
+                                         <button id="ModalProcess" data-toggle="modal" data-target="#processModal" data-backdrop="static" data-keyboard="false">
                                          </button>
                     </ul>
                 </div>

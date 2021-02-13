@@ -1,16 +1,29 @@
  <!--=================================Modal login -->
  <div class="modal login fade" id="processModal" tabindex="-1" role="dialog" aria-labelledby="processModalLabel"
      aria-hidden="true">
-     <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
          <div class="modal-content">
              
              <div class="modal-body">
                  <div class="tab-content" id="myTabContent">
-                     <div id="results" style="height: 200px !important; max-height: fit-content; width: 100%;">
-                         <span class="final" id="final_span"></span> <span class="interim" id="interim_span"></span>
+                     <div id="results" style="height: fit-content; width: 100%;">
+                         <textarea contenteditable="false" class="final" id="final_span" readonly></textarea> <span class="interim"
+                             id="interim_span"></span>
                      </div>
                  </div>
              </div>
+
+             <div>
+                 <div id="play" class="play-button btn btn-info rounded rounded-circle"><i class="fa fa-refresh"></i>
+                 </div>
+                 <div id="pause" class="pause-button btn btn-warning rounded rounded-circle"><i class="fa fa-pause"></i>
+                 </div>
+                 <div id="resume" class="resume-button btn btn-success rounded rounded-circle"><i
+                         class="fa fa-play"></i></div>
+                 <div id="stop" class="stop-button btn btn-danger rounded rounded-circle"><i class="fa fa-stop"></i>
+                 </div>
+             </div>
+
          </div>
      </div>
  </div>

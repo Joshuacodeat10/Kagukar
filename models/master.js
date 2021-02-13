@@ -96,11 +96,11 @@ const masterSchema = new Schema({
   }
 });
 
-// masterSchema.plugin(passportLocalMongoose);
-// masterSchema.plugin(findOrCreate);
+masterSchema.plugin(passportLocalMongoose);
+masterSchema.plugin(findOrCreate);
 const Master = new mongoose.model("Master", masterSchema);
 
-// passport.use(Master.createStrategy());
+passport.use(Master.createStrategy());
 // passport.serializeUser(function (master, done) {
 //   done(null, master.id);
 // });

@@ -5,19 +5,18 @@
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
                 <a href="/<%=page%>/dashboard">
-                    <!-- <img src="<%=master.logo%>" class="navbar-logo" alt="logo"> -->
+                
                     <!-- <figure class="progressive" style="width: 120px; border-radius: 10px;"> -->
-                    <img class="progressive__img progressive--not-loaded" <% if(master.logo) {%>
-                        data-default-file="<%=master.logo%>" data-progressive="<%=master.logo%>" <%}else{%>
+                    <img class="progressive__img progressive--not-loaded"
                         data-default-file="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
                         data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
-                        <% } %> data-max-file-size="2M" />
+                        data-max-file-size="2M" />
                     <!-- </figure> -->
                 </a>
 
             </li>
             <li class="nav-item theme-text">
-                <a href="/<%=page%>/dashboard" class="nav-link"> <%=master.nameOfEstablishment.substring(0,8)+'...'%>
+                <a href="/<%=page%>/dashboard" class="nav-link"> Kagukar
                 </a>
             </li>
         </ul>
@@ -55,7 +54,7 @@
                 <button class="theme p-0 text-warning btn btn-dark rounded-circle">
                     <i class="fa fa-sun-o"></i>
                 </button></li>
-            <li class="nav-item dropdown language-dropdown">
+            <!-- <li class="nav-item dropdown language-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="/dashboard/assets/img/ca.png" class="flag-width" alt="flag">
@@ -253,7 +252,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
         </ul>
     </header>
