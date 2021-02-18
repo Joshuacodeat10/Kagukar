@@ -7,7 +7,8 @@
 
     <!--=================================
     Inner Header -->
-    <section class="inner-header bg-holder bg-overlay-black-80" style="background-image: url('../secondary/images/bg/11.jpg');">
+    <section class="inner-header bg-holder bg-overlay-black-80"
+        style="background-image: url('/secondary/assets/img/landing-img.svg');">
       <div class="container">
         <div class="row align-items-center mb-5 pb-sm-5 pb-0">
           <div class="col-md-12 text-center mb-2 mb-md-0">
@@ -29,10 +30,8 @@
               <h3>Filter</h3>
             </div>
           </div>
-          <!-- <form > -->
             <div id="filter-form" class="form-row form-flat-style align-items-center">
               <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
-                  <!-- <label class="lead fw-5">Title</label> -->
                   <input id="title-filter-form" type="text" class="form-control" placeholder="Search by Title" oninput="filter(this.value)">
               </div>
 
@@ -81,13 +80,7 @@
                          <option>3rd Term</option>
                    </select>
                </div>
-
-              <!-- <div class="col-12 col-lg-3 text-left mt-3 mt-lg-0">
-                <label class="lead fw-5"></label>
-                <a class="btn btn-primary d-lg-block" href="#">Filter</a>
-              </div> -->
             </div>
-          <!-- </form> -->
         </div>
       </div>
     </section>
@@ -118,6 +111,17 @@
 
     <!--=================================
     Feature Info -->
+
+    <!-- MENUDISPLAY -->
+        <div id="menuDisplay" class="menuDisplay">
+            <h3><b>Main Menu</b></h3>
+            <ul>
+                <li> 
+                  <h6>1. Curriculum</h6>
+                </li>
+            </ul>
+        </div>
+    <!-- MENUDISPLAY -->
     
     <!--=================================
     News Details -->
@@ -141,13 +145,19 @@
                   <li><i class="fa fa-clock"></i><%=c.cache%></li>
                   <li><i class="fa fa-map-marker-alt"></i><%=c.category%></li>
                 </ul>
+            <div>
                 <h4 class="event-title"><a href="#"><%=c.title%> </a></h4>
+            </div>
                 <code style="display: none;"> <%=c.title + " " +c.cache +" "+c.category+" "+c.genre+" Term"%> </code>
                 <p><%-c.articleText.substring(0, 120)+'...'%></p>
                 <code class="read-content" style="display: none"><%-c.articleText%></code>
                 <code class="display-content" style="display: none"><%=c.article%></code>
-                <a class="btn btn-success read" href="javascript:void(0)" data-title='<%-c.articleText%>' >Read</a>
-              </div>
+
+                <div class="btn-resources"> 
+                <a class="btn btn-info read" href="javascript:void(0)" data-title='<%-c.articleText%>'>Read</a>
+                <a class="btn btn-success listen" href="javascript:void(0)" data-title='<%-c.articleText%>'>Listen</a>
+                </div>
+            </div>
             </div>
           </div>
         <%})%>

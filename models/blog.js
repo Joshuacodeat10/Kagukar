@@ -22,10 +22,8 @@ const blogSchema = new Schema({
         required: false
     },
 
-     author: {
-         type: Schema.Types.ObjectId,
-         ref: "User"
-     },
+     author: String,
+     authorid: String,
 
     published: {
         type: Boolean,
@@ -46,6 +44,10 @@ const blogSchema = new Schema({
         ref: "User", default: 0
     }],
 
+    optionA: String, 
+    optionB: String, 
+    optionC: String, 
+    optionD: String, 
     answer: String,
 
 }, {timestamps: true})

@@ -56,17 +56,12 @@ $(document).ready(function() {
         $(this).parents('.app-note-container').find('.app-note-overlay').removeClass('app-note-overlay-show')
     })
 
-    var $btns = $('.list-actions').click(function() {
-        if (this.id == 'all-notes') {
-          var $el = $('.' + this.id).fadeIn();
-          $('#ct > div').not($el).hide();
-        } if (this.id == 'important') {
-          var $el = $('.' + this.id).fadeIn();
-          $('#ct > div').not($el).hide();
-        } else {
-          var $el = $('.' + this.id).fadeIn();
-          $('#ct > div').not($el).hide();
-        }
+    var $btns = $('.list-actions').click(function() {     
+       var $el;
+       $el = $('.' + this.id).fadeIn();
+       $('.' + this.id).fadeIn();
+       $('.note-item:not(.'+this.id+')').hide();
+         
         $btns.removeClass('active');
         $(this).addClass('active');  
     })

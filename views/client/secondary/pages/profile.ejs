@@ -1,0 +1,89 @@
+<%- include('../partials/header')%>
+
+<%- include('../partials/common/modal')%>
+<%- include('../partials/common/modal-process')%>
+<%- include('../partials/common/alert')%>
+
+ <!--=================================Inner Header -->
+ <section class="inner-header bg-holder bg-overlay-black-90"
+     style="background-image: url('/secondary/assets/img/landing-img.svg');">
+     <div class="container">
+         <div class="row align-items-center mb-5">
+             <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+                 <h1 class="breadcrumb-title mb-0 text-white">Profile</h1>
+             </div>
+             <div class="col-md-6">
+                 <ol class="breadcrumb d-flex justify-content-center justify-content-md-end ml-auto">
+                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home mr-1"></i>Home</a>
+                     </li>
+                     <li class="breadcrumb-item active"><span><%=user.name%></span>
+                     </li>
+                 </ol>
+             </div>
+         </div>
+     </div>
+ </section>
+ <!--=================================Inner Header -->
+
+ <!--=================================Profile Detail -->
+ <section class="space-pb teacher-detail">
+     <div class="container">
+         <div class="row">
+             <div class="col-md-5 col-xl-4 position-relative z-index-1 mt-n5">
+                 <img class="img-fluid img-holder" width="100%" src="/secondary/assets/img/holder.png" alt="">
+                 <div class="border border-top-0 py-4 py-sm-5">
+                     <ul class="pl-0 mb-0">
+                         <li class="d-flex align-items-center px-4 mb-4"> <i
+                                 class="flaticon-mail-1 fa-3x mt-2 text-light mr-3"></i>
+                             <span class="h6 text-light font-weight-normal mb-0"><%=user.username%></span>
+                         </li>
+                         <li class="d-flex align-items-center px-4 mb-4">
+                             <i class="flaticon-phone fa-3x mt-2 text-light mr-3"></i>
+                             <span class="h6 text-light font-weight-normal mb-0">(234) 123 456 7890</span>
+                         </li>
+                     </ul>
+                 </div>
+                 <div class="social-icon-round mt-4 mt-sm-5">
+                     <ul>
+                         <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                     </ul>
+                 </div>
+             </div>
+             <div class="col-md-7 col-xl-8 space-sm-pt">
+                 <h2><%=user.name%></h2>
+                 <span class="text-primary lead font-weight-bold"><%=user.class%></span>
+                 <ul class="d-flex pl-0 mb-4 mb-sm-5 mt-4">
+                     <li class="d-flex"><a class="btn btn-sm btn-mes mr-4" href="#">Edit Profile</a>
+                     </li>
+                 </ul>
+                 <h4 class="mb-4">About:</h4>
+                <p class="mb-4 mb-sm-5"><%=user.about%></p>
+                 <h4 class="mb-4">Activities:</h4>
+                 <div class="table-responsive">
+                     <table class="table table-striped border mb-4">
+                         <thead>
+                             <tr>
+                                 <th>Type</th>
+                                 <th>Title</th>
+                                 <th>Class</th>
+                                 <th>Date</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <tr>
+                                 <td>Stock trading</td>
+                                 <td>2.5 Years</td>
+                                 <td>17 February 2020</td>
+                                 <td>17 February 2020</td>
+                             </tr>
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
+ <!--=================================Profile Detail -->
+
+<%- include('../partials/footer')%>

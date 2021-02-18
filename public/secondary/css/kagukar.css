@@ -1390,7 +1390,7 @@ button {
   line-height: 22px;
   padding: 13px 36px;
   font-weight: 600;
-  place-self: flex-end;
+  /* place-self: flex-end; */
   border-radius: 50px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -3938,7 +3938,9 @@ ul.list li a:hover {
 }
 
 .event .event-info p {
-  height: 72px;
+  /* height: 72px; */
+  height: auto;
+  margin-bottom: 0px;
 }
 
 .event .event-info .meta-event {
@@ -7335,4 +7337,56 @@ ul.list li a:hover {
   text-shadow: 2px 2px 6px rgba(28, 26, 31, 0.6);
   font-size: 23px;
   margin-bottom: 10px;
+}
+
+.btn-resources {
+  display: flex;
+  width: 100%;
+  margin: 10px 0 0 0;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+/* .btn-resources button {
+  line-height: 22px;
+  padding: 8px 28px !important;
+} */
+
+.btn.listen, .btn.read {
+  /* place-self: flex-end; */
+  border-radius: 6px;
+  line-height: 22px;
+  padding: 8px 28px !important;
+}
+
+.menuDisplay {
+  display: none;
+  position: fixed;
+  height: 30%;
+  width: 25%;
+  bottom: 2%;
+  left: 1%;
+  background: rgba(33, 200, 112, 0.8);
+  box-shadow: 2px 2px 6px rgba(28, 26, 31, 0.6);
+  z-index: 5000;
+  color: #1c1a1f;
+  padding: 10px;
+}
+
+.menuDisplay h3 {
+  letter-spacing: 2px;
+}
+
+.menuDisplay ul {
+  list-style: none;
+}
+
+.menuDisplay li h6 {
+  list-style: none;
+  letter-spacing: .6px;
+}
+
+.img-holder {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }

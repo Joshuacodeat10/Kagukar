@@ -1,7 +1,27 @@
   <!-- Single Blog -->
   <%if(blog.length>0){%>
+
+    <% var type, state; %>
+
   <%  blog.map(function(post) {%>
-  <div class="note-item  post-item col-xl-4 col-lg-4 col-md-6 col-sm-6 layout-spacing" style="background: transparent;">
+    <% if(post.type == 'curriculum'){%>
+     <%   type = 'note-important';  %>
+    <%}else if(post.type == 'test'){%>
+      <%    type = 'note-work' %>
+    <%}else if(post.type == 'stories'){%>
+       <%   type = 'note-social' %>
+    <%}else if(post.type == 'play'){%>
+       <%   type = 'note-personal' %>
+    <% } %>
+
+     <% if(post.published){%>
+     <%   state = 'note-pub';  %>
+     <%}else{%>
+     <%    state = 'note-npub' %>
+     <%}%>
+
+  <div class="note-item all-notes <%=type%> <%=state%>  post-item col-xl-4 col-lg-4 col-md-6 col-sm-6 layout-spacing"
+      style="background: transparent;">
       <div class="card component-card_9" data-item="<%=post._id%>">
           <figure class="progressive">
               <img class="progressive__img progressive--not-loaded card-img-top image" src="<%=post.image%>"
@@ -37,8 +57,12 @@
                   </div>
               </div>
 
+              <p class="genre-dialog btn btn-dark"><span class="card-genre genre"
+                      data-genre="<%=post.genre%>"><%=post.genre%></span> Term</p>
+
               <h5 class="card-title title" data-title="<%=post.slug%>"><%=post.title%></h5>
-              <h6 class="card-type type" data-title="<%=post.type%>"><%=post.type%></h6>
+              <h6 class="card-type p-type" data-ptype="<%=post.type%>"><%=post.type%> | <span
+                      class="text-warning card-cache cache" data-cache="<%=post.cache%>"><%=post.cache%></span> </h6>
               <p class="card-text article" data-article="<%=post.article%>">
                   <%if(post.articleText){%>
                   <%=post.articleText.substring(0, 80)%>
@@ -57,7 +81,7 @@
                                     </div>
             <div class="user-name category" data-category="<%=post.category%>">
                   <span class="author">
-                          <%=post.createdAt%>
+                          <%=post.createdAt.toLocaleDateString()%>
                   </span>
           </div>
       </div>
@@ -83,16 +107,16 @@
                   </div>
               </a>
               <div class="dropdown-menu dropdown-menu-right d-icon-menu">
-                  <a class="meta-likes note-personal label-group-item label-personal dropdown-item position-relative g-dot-personal"
+                  <a class="meta-likes label-group-item label-personal dropdown-item position-relative g-dot-personal"
                       href="javascript:void(0);">
                       <i class="fa fa-heart text-danger"></i> <%=post.likes%> Likes</a>
 
-                  <a class="note-work label-group-item label-work dropdown-item position-relative g-dot-work"
+                  <a class="label-group-item label-work dropdown-item position-relative g-dot-work"
                       href="javascript:void(0);"> <i class="fa fa-comment"></i> <%=post.commentCount%> Reviews</a>
 
-                  <a class="note-social label-group-item label-social dropdown-item position-relative g-dot-social"
+                  <a class=" label-group-item label-social dropdown-item position-relative g-dot-social"
                       href="javascript:void(0);"> <i class="fa fa-eye"></i> <%=post.views%> Reads</a>
-                  <a class="note-important label-group-item label-important dropdown-item position-relative g-dot-important"
+                  <a class=" label-group-item label-important dropdown-item position-relative g-dot-important"
                       href="javascript:void(0);"><i class="fa fa-user-cog"></i> <%=post.author%>
                   </a>
               </div>

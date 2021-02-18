@@ -1,6 +1,7 @@
 var synth = window.speechSynthesis;
 // var synth = window.speechSynthesis;
-
+var chosenOption;
+var menuOption = 0; //main menu 0, next 1
 var msg = new SpeechSynthesisUtterance();
 msg.voiceURI = 'native';
 msg.volume = 1; // 0 to 1
@@ -8,94 +9,96 @@ msg.rate = 1; // 0.1 to 10
 msg.pitch = 2; //0 to 2
 msg.lang = 'en-US';
 
+ var final_transcript = '';
+ var recognizing = false;
+ var ignore_onend;
+ var start_timestamp;
+ var text;
+
+const mainMenu = 'Hello, kindly select an option at the end of the following prompt! ' +
+  '\n 1: Curriculum: (collections topics included in a subject)' +
+  // '\n 2: Read (get a topic read to you)' +
+  '\n 2: Test: (test your knowledge of a subject topic)' +
+  '\n 3: Stories: (allow me help you relax with a classic story)' +
+  '\n 4: Play: (play a game with me)' +
+  '\n 5: Listen Again' +
+  '\n 6: Quit';
+
+const classMenu = e => {
+  return (
+    "You selected " + e + "! Kindly respond to the class you would like to learn in " +
+      '\n 1: JSS 1' +
+      '\n 2: JSS 2' +
+      '\n 3: JSS 3' +
+      '\n 4: SSS 1' +
+      '\n 5: SSS 2' +
+      '\n 6: SSS 3' +
+      '\n 7: Quit'
+  )
+}
+
 
 const modal_process = document.getElementById("ModalProcess")
+const menu_process = $("#menuDisplay")
 
 window.addEventListener('load', async e => {
   // console.clear()
-
-
-
-
   speechSynthesis.cancel()
-  const welcome = 'Welcome to Kagukar, I am Kagukar, what would you like to do today? Triple tap to start learning';
-  await speak(welcome)
+  const welcome = 'Welcome to Kagukar, what would you like to do today? Triple tap to start learning';
+  if(window.location.pathname === '/'){
+    await speak(welcome)
+  }
 });
 
 
-async function speak(message, func) {
-  //  console.log(message)
+async function speak(message, func, start_func) {
    var voices = synth.getVoices();
-   //  msg.voice = voices[10]; // Note: some voices don't support altering params
-
-
-  //  speechSynthesisInstance.cancel()
-  // speechSynthesis.cancel()
-
    msg.text = message;
+   msg.onstart = start_func
    msg.onend = func;
-  //  function (e) {
-    //  console.log('Finished in ' + event.elapsedTime + ' seconds.');
-    console.log(func)
-  //  };
    msg.onboundary = onboundaryHandler;
    synth.speak(msg);
+
  }
 
+ const openModalFunc = async e =>{
+    if (!$("#processModal").hasClass('show')) {
+      return modal_process.click();
+   };
+ }
+
+const speechEnd = async e => {
+setTimeout(async ()=>{
+  openModalFunc();
+
+  if (!recognizing) {
+    await startButton()
+  } else {
+    await stopButton()
+  }
+}, 2000)
+}
 
 
 
 
 
-
-
-
-
-
-
- 
-
-
-
-var final_transcript = '';
-var recognizing = false;
-var ignore_onend;
-var start_timestamp;
-var text;
-
-
- window.addEventListener('click', async e=>{
+window.addEventListener('click', async e=>{
 
   if(e.detail != 3){
     return
   }
-
-
-  speechSynthesis.cancel()
+  speechSynthesis.cancel();
  
+  if(window.location.pathname === '/' || menuOption == 0){
 
-    await speak(("Hello, kindly select an option from the following prompt! "+
-    '\n 1: Curriculum (contains all the topics included in a subject)' +
-    '\n 2: Read (get a topic read to you)' +
-    '\n 3: Test (test your knowledge of a subject topic)' +
-    '\n 4: Stories (allow me help you relax with a classic story)' +
-    '\n 5: Play (play a game with me)' +
-    '\n 6: Listen Again' +
-    '\n 7: Quit'),  async e => {
-      console.log("End Talking")
-      modal_process.click();
+     await speak(mainMenu, speechEnd, menu_process.slideDown());
+     menuOption = 1;
 
-      if (!recognizing) {
-        await startButton()
-      } else {
-        await stopButton()
-      }
-    }
-  )
-   
-   
-
-    
+  }else if(window.location.pathname.includes('resources')){
+    chosenOption = window.location.pathname.split('/')[2];
+    await speak("mainMenu", speechEnd)
+  }
 })
 
 const read = e =>{
@@ -103,41 +106,40 @@ const read = e =>{
 }
 
 
-var chosenOption;
+
+
+
 
  async function speakResponse(e) {
-   console.log(e)
 
-  //  var options = ['curriculum', 'test', 'read', 'story', 'play'];
-  if (e.includes('curriculum')){
-    chosenOption = 'curriculum'
-  }
-   if (e.includes('test')) {
+  menu_process.fadeOut()
+
+  if (e.includes('curriculum') || e.includes('one') || e.includes('1')) {
+    chosenOption = 'curriculum';
+  } else if (e.includes('test') || e.includes('two') || e.includes('2')) {
      chosenOption = 'test'
-   }
-
-    if (e.includes('read')) {
+   } else if (e.includes('read') || e.includes('three') || e.includes('3')) {
       chosenOption = 'read'
+    } else if (e.includes('play') || e.includes('four') || e.includes('4')) {
+       chosenOption = 'play'
+    } else if (e.includes('main menu') || e.includes('listen again') || e.includes('five') || e.includes('5')) {
+      // chosenOption = 'main menu';
+      return speak(mainMenu, speechEnd);
     }
 
-     if (e.includes('play')) {
-       chosenOption = 'play'
-     }
+    
+    var loc = window.location.pathname;
 
-
-     alert(chosenOption)
+    if(!loc.includes(chosenOption)){      
+      return window.location.href = '/resources/' + chosenOption
+    }else {
+      alert("Same Location")
+    }
    
 
    
 
-   await speak("You selected " + chosenOption + "! Kindly respond to the class you would like to learn in " +
-     '\n 1: JSS 1' +
-     '\n 2: JSS 2' +
-     '\n 3: JSS 3' +
-     '\n 4: SSS 1' +
-     '\n 5: SSS 2' +
-     '\n 6: SSS 3' +
-     '\n 7: Quit', async e =>{
+   await speak(classMenu(chosenOption), async e =>{
 
      }
    )
@@ -145,7 +147,7 @@ var chosenOption;
 
 
 modal_process.addEventListener('click', (e) => {
-  console.log('I got clicked')
+  // console.log('I got clicked')
 })
 
 
@@ -165,8 +167,8 @@ modal_process.addEventListener('click', (e) => {
 
    recognition.onstart = function (e) {
      recognizing = true;
-     console.log("Start")
-     console.log(e)
+    //  console.log("Start")
+    //  console.log(e)
      // showInfo('info_speak_now');
    }
 
@@ -174,22 +176,22 @@ modal_process.addEventListener('click', (e) => {
      if (event.error == 'no-speech') {
        // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
        // showInfo('info_no_speech');
-       console.log('info_no_speech');
+      //  console.log('info_no_speech');
        ignore_onend = true;
      }
      if (event.error == 'audio-capture') {
        // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
        // showInfo('info_no_microphone');
-       console.log('info_no_microphone');
+      //  console.log('info_no_microphone');
        ignore_onend = true;
      }
      if (event.error == 'not-allowed') {
        if (event.timeStamp - start_timestamp < 100) {
          // showInfo('info_blocked');
-         console.log('info_blocked');
+        //  console.log('info_blocked');
        } else {
          // showInfo('info_denied');
-         console.log('info_denied');
+        //  console.log('info_denied');
        }
        ignore_onend = true;
      }
@@ -204,15 +206,15 @@ modal_process.addEventListener('click', (e) => {
      // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
      if (!final_transcript) {
        // showInfo('info_start');
-       console.log('info_start');
+      //  console.log('info_start');
        return;
      }
      // showInfo('');
      if (window.getSelection) {
        window.getSelection().removeAllRanges();
        var range = document.createRange();
-       console.log("range")
-       console.log(range)
+      //  console.log("range")
+      //  console.log(range)
        range.selectNode(document.getElementById('final_span'));
        window.getSelection().addRange(range);
      }
@@ -221,7 +223,7 @@ modal_process.addEventListener('click', (e) => {
 
    recognition.onresult = async (event) => {
      var interim_transcript = '';
-    console.log(event)
+    // console.log(event)
 
      if (typeof (event.results) == 'undefined') {
        recognition.onend = null;
@@ -245,8 +247,8 @@ modal_process.addEventListener('click', (e) => {
        }
      }
 
-     console.log(final_transcript)
-     console.log(interim_transcript)
+    //  console.log(final_transcript)
+    //  console.log(interim_transcript)
     
 
      final_transcript = capitalize(final_transcript);
@@ -348,38 +350,45 @@ async function warn(message) {
 
 var toReplay;
  //to read content from respective resources
- $('.read').click(e => {
+ $('.listen').click(e => {
 
    if (synth.speaking) {
         synth.cancel()
-    //    setTimeout(() => {
-    //      console.log("I got here");
-    // synth.pause(msg)
-    //       warn("Yes, May I continue?")
-    //    }, 5000);
    }
-  
 
-   var read = $(e.target).parent('.event-info').find('.read-content')
-   var display = $(e.target).parent('.event-info').find('.display-content')
+   var read = $(e.target).parents('.event-info').find('.read-content')
+  //  var display = $(e.target).parents('.event-info').find('.display-content')
    var toRead = read.text();
-   var toDisplay = display.text();
-
-  //  console.log(msg.speaking);
+  //  var toDisplay = display.text();
   toReplay = toRead;
-   
-  
 
-   modal_process.click();
+  //  modal_process.click();
+  openModalFunc()
 
-  //  $('#final_span').resizable()
-  //  $('#final_span').autoResize()
-   $('#final_span').html(toRead)
-
+    $('#options').show();
+  $('#final_span').show();
+  $('#final_span_read').hide()
+   $('#final_span').val(toRead)
 
    speak(toRead);
  })
 
+
+  $('.read').click(e => {
+    if (synth.speaking) {
+      synth.cancel()
+    }
+    var display = $(e.target).parents('.event-info').find('.display-content')
+    var toDisplay = display.text();
+
+    openModalFunc()
+
+    
+    $('#options').hide();
+    $('#final_span').hide();
+    $('#final_span_read').show()
+    $('#final_span_read').html(toDisplay)
+  })
 
 
 
@@ -460,7 +469,6 @@ var toReplay;
      window.speechSynthesis.cancel();
    }
   modal_process.click()
-
  };
 
  function onboundaryHandler(event) {

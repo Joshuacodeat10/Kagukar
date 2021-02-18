@@ -23,9 +23,9 @@
 
                                                  <input type="file" accept="image/*" name="image" id="input-file-max-fs"
                                                      class="dropify progressive__img progressive--not-loaded m-image"
-                                                     
-                                                     data-default-file="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
-                                                     data-progressive="https://www.biovotion.com/content/images/2018/03/logo-placeholder-1.jpg"
+                                                     style="width: 100%;"
+                                                     data-default-file="/secondary/assets/img/holder.png"
+                                                     data-progressive="/secondary/assets/img/holder.png"
                                                      data-max-file-size="2M" 
                                                       
                                                 />
@@ -57,7 +57,7 @@
                                                          <label for="type" class="dob-input">Type</label>
                                                          <div class="form-group mr-1">
                                                              <select id="type" class="form-control m-type"
-                                                                 name="type">
+                                                                 name="type" onchange="selectType()">
                                                                  <option value="curriculum">Curriculum</option>
                                                                  <!-- <option value="read">Read</option> -->
                                                                  <option value="test">Test</option>
@@ -67,6 +67,8 @@
                                                              </select>
                                                          </div>
                                                      </div>
+
+                                                     
 
                                                      <div class="col-sm-6">
                                                          <label for="cache" class="dob-input">Class</label>
@@ -124,19 +126,6 @@
                                                          </div>
                                                      </div>
                                                  </div>
-                                                 <!-- <div class="form-group">
-                                                     <label for="profession">Motto/Tagline</label>
-                                                     <input type="text" class="form-control mb-4" id="profession"
-                                                         placeholder="e.g. exceptionally remarkable"
-                                                         value="<%=master.tagline%>" name="tagline">
-
-                                                         <div>
-                                                             <div class="tags-input-wrapper">
-                                                            
-                                                            </div>
-                                                             <input type="text" id="skill-input" hidden="true">
-                                                         </div>
-                                                 </div> -->
                                              </div>
 
                                          </div>
@@ -147,7 +136,102 @@
                      </div>
                  </div>
 
-                 <%- include('../settingsComponents/about') %>
+                 <div id="contentDiv" style="width: -webkit-fill-available;">
+                    <%- include('../settingsComponents/about') %>
+                 </div>
+                 <div id="testDiv" >
+                     <h4>Options</h4>
+                     <div class="row">
+                    <div class="input-group mb-4 col-6">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="n-chk align-self-end">
+                                    <label class="new-control new-radio radio-info"
+                                        style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                        <input type="radio" class="new-control-input ans" name="ans"
+                                           >
+                                        <span class="new-control-indicator"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control opt" placeholder="option A" name="optionA"
+                            aria-label="radio">
+                    </div>
+                     <div class="input-group mb-4 col-6">
+                         <div class="input-group-prepend">
+                             <div class="input-group-text">
+                                 <div class="n-chk align-self-end">
+                                     <label class="new-control new-radio radio-info"
+                                         style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                         <input type="radio" class="new-control-input ans" name="ans"
+                                             >
+                                         <span class="new-control-indicator"></span>
+                                     </label>
+                                 </div>
+                             </div>
+                         </div>
+                         <input type="text" class="form-control opt" placeholder="option B" name="optionB"
+                             aria-label="radio">
+                     </div>
+                      <div class="input-group mb-4 col-6">
+                          <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                  <div class="n-chk align-self-end">
+                                      <label class="new-control new-radio radio-info"
+                                          style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                          <input type="radio" class="new-control-input ans" name="ans"
+                                            >
+                                          <span class="new-control-indicator"></span>
+                                      </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <input type="text" class="form-control opt" placeholder="option C" name="optionC"
+                              aria-label="radio">
+                      </div>
+                       <div class="input-group mb-4 col-6">
+                           <div class="input-group-prepend">
+                               <div class="input-group-text">
+                                   <div class="n-chk align-self-end">
+                                       <label class="new-control new-radio radio-info"
+                                           style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                           <input type="radio" class="new-control-input ans" name="ans" value="optionD"  >
+                                           <span class="new-control-indicator"></span>
+                                       </label>
+                                   </div>
+                               </div>
+                           </div>
+                           <input type="text" class="form-control opt" name="optionD" placeholder="option D"
+                               aria-label="radio">
+                       </div>
+
+                       <input type="text" class="test-answer" id="test-answer" hidden>
+                       <script>
+                            $('.ans').on('click', function (e) {
+                                   var optionVal = $(e.target).parents('.input-group').find('input.opt').val();
+                                   $("#test-answer").val(optionVal)
+                            })
+                       </script>
+                 </div>
+                 </div>
+                 <!-- <div id="playDiv">
+                     Have the options here
+                 </div> -->
+
+                 <script>
+
+                    function selectType (e){
+                         const typeVal = $("#type").val();
+                         if (typeVal == 'test') {
+                             $("#contentDiv").find('#about').find('h5').text('Add Question')
+                             $("#testDiv").slideDown()
+                         } else {
+                            $("#contentDiv").find('#about').find('h5').text('Compose Article')
+                             $("#testDiv").fadeOut()
+                         }
+                     }
+                 </script>
 
                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                  <input type="hidden" name="_url" value="<%= 'dashboard/blog' %>">

@@ -500,3 +500,23 @@
 	.component-card_9 .meta-action { margin-top: 16px; }
 	.component-card_9 .meta-info:before { width: 50%; }
 }
+
+
+
+.genre-dialog{
+    position: absolute;
+        right: 10px;
+        top: 142px;
+
+        box-shadow: 2px 2px 4px black;
+}
+
+#testDiv{
+    width: -webkit-fill-available;
+        padding: 0 70px;
+}
+
+
+
+
+

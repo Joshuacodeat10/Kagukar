@@ -1,5 +1,6 @@
 // Basic
 $(document).ready(function () {
+$("#testDiv").hide()
 
   const parameters = {
     modules: {
@@ -125,6 +126,9 @@ $(document).ready(function () {
   }, 2500);
 
 
+
+
+
   // BLOG ACTION FUNCTIONS -----------------------------
   editContent()
   addContent()
@@ -145,6 +149,9 @@ $(document).ready(function () {
       var $_category = getParent.find('.category');
       var $_published = getParent.find('.published');
       var $_article = getParent.find('.article');
+      var $_cache = getParent.find('.cache');
+      var $_genre = getParent.find('.genre');
+      var $_type = getParent.find('.p-type');
 
       //GET ITEM VALUES
       var $_imageValue = $_image.attr("data-progressive")
@@ -153,6 +160,12 @@ $(document).ready(function () {
       var $_categoryValue = $_category.attr("data-category")
       var $_publishedValue = $_published.prop('checked');
       var $_articleValue = $_article.attr("data-article")
+
+       var $_cacheValue = $_cache.attr('data-cache');
+       var $_genreValue = $_genre.attr('data-genre');
+       var $_typeValue = $_type.attr('data-ptype');
+
+
 
       $('.add').trigger('click')
 
@@ -167,6 +180,9 @@ $(document).ready(function () {
       var $_modalTitle = getModal.find('.m-title');
       var $_modalSlug = getModal.find('.m-slug');
       var $_modalCategory = getModal.find('.m-category');
+      var $_modalCache = getModal.find('.m-cache');
+      var $_modalGenre = getModal.find('.m-genre');
+      var $_modalType = getModal.find('.m-type');
       var $_modalPublished = getModal.find('.m-published');
       var $_modalArticle = getModal.find('.m-article').find('.ql-editor');
 
@@ -176,7 +192,10 @@ $(document).ready(function () {
       var $_setImageName = $_modalImageName.text($_titleValue)
       var $_setModalTitle = $_modalTitle.val($_titleValue)
       var $_setModalSlug = $_modalSlug.val($_slugValue)
-      var $_setModalCategory = $_modalCategory.val($_categoryValue)
+      var $_setModalCategory = $_modalCategory.val($_categoryValue);
+      var $_setModalCache = $_modalCache.val($_cacheValue);
+      var $_setModalGenre = $_modalGenre.val($_genreValue);
+      var $_setModalType = $_modalType.val($_typeValue);
       var $_setModalPublished = $_modalPublished.attr("checked", $_publishedValue)
       var $_setModalPublishedValue = $_modalPublished.val($_publishedValue)
       var $_setModalArticle = $_modalArticle.text(about.clipboard.dangerouslyPasteHTML($_articleValue))
@@ -209,9 +228,12 @@ $(document).ready(function () {
       var $_modalImage = getForm.find('.dropify-render').find('img');
       var $_modalImageName = getForm.find('.dropify-filename-inner');
       var $_modalPublished = getForm.find('.m-published');
+      var $_modalGenre = getForm.find('.m-genre');
+      var $_modalCache = getForm.find('.m-cache');
+      var $_modalType = getForm.find('.m-type');
       var $_modalArticle = getForm.find('.m-article').find('.ql-editor');
 
-      var $_setModalImage = $_modalImage.attr("src", "/uploads/logo.jpg")
+      var $_setModalImage = $_modalImage.attr("src", "/secondary/assets/img/holder.png")
       var $_setImageName = $_modalImageName.text("Select Image")
       var $_setModalPublished = $_modalPublished.attr("checked", false)
 
@@ -237,7 +259,7 @@ $(document).ready(function () {
       author,
       views,
       commentCount,
-      likes
+      likes, genre, cache, type
     } = phase;
 
     var publish
@@ -259,7 +281,7 @@ $(document).ready(function () {
 
     if ($_getParent.length === 0) {
       htmlAdd(date, image, title, slug, _id, author, category, published, article,
-        articleText, views, likes, commentCount)
+        articleText, views, likes, commentCount, genre, cache, type)
     }
 
     // getParent.find(".type").text("Edit Post");
@@ -268,6 +290,9 @@ $(document).ready(function () {
     var $_title = $_getParent.find('.title');
     var $_category = $_getParent.find('.category');
     var $_published = $_getParent.find('.published');
+    var $_cache = $_getParent.find('.cache');
+    var $_genre = $_getParent.find('.genre');
+    var $_type = $_getParent.find('.p-type');
     var $_article = $_getParent.find('.article');
 
     //GET ITEM VALUES
@@ -276,6 +301,9 @@ $(document).ready(function () {
     var $_titleValue = $_title.text(title)
     var $_slugValue = $_title.attr("data-title", slug)
     var $_categoryValue = $_category.attr('data-category', category)
+    var $_cacheValue = $_cache.attr('data-cache', cache)
+    var $_genreValue = $_genre.attr('data-genre', genre)
+    var $_typeValue = $_type.attr('data-ptype', type)
     var $_publishedValue = $_published.prop('checked', publish);
     var $_articleValue = $_article.attr("data-article", article)
     var $_articleTextValue = $_article.text(articleText.substring(0, 80) + '...')
@@ -299,7 +327,7 @@ $(document).ready(function () {
     var selected = $(this).parents('.post-item').find('.card').attr('data-item')
 
 
-    $(".blog-posts").find(".delete-multiple").find('.selected').val(selected)
+    $("body").find(".delete-multiple").find('.selected').val(selected)
 
     deleteContent(rmv)
 
@@ -324,7 +352,7 @@ $(document).ready(function () {
 
     var selectedArrays = rmv.parents('.post-item').find('._id').text();
 
-    $(".blog-posts").find(".delete-multiple").find('.selected').val(selectedArrays)
+    $("body").find(".delete-multiple").find('.selected').val(selectedArrays)
     deleteContent(rmv)
   });
 
@@ -346,8 +374,9 @@ $(document).ready(function () {
               rmv.parents('.post-item').remove();
             }, 1000
           );
-          $(".blog-posts").find(".delete-multiple").submit()
-          $('.delete-multiple-btn').fadeOut()
+          $("body").find(".delete-multiple").submit();
+          
+          $('.delete-multiple-btn').fadeOut();
         } else {
           rmv.parents('.post-item').find(".card").css("background", "")
         }
@@ -446,7 +475,11 @@ $(document).ready(function () {
 
   function htmlAdd(date, image, title, slug, id,
     author, category, published, article,
-    articleText, views, likes, commentCount) {
+    articleText, views, likes, commentCount, genre, cache, type) {
+
+      console.log(articleText);
+      console.log(article);
+      
 
     var check, pub, alert;
     if (published) {
@@ -458,12 +491,13 @@ $(document).ready(function () {
       pub = 'Not Published'
       alert = 'warning'
     }
+    
 
 
-    var $_html = '<div class="post-item col-xl-4 col-lg-4 col-md-6 col-sm-6 layout-spacing">' +
+    var $_html = '<div class="note-item post-item col-xl-4 col-lg-4 col-md-6 col-sm-6 layout-spacing">' +
       '<div class="card component-card_9" style="margin: 0; width: 100%" data-item="' + id + '">' +
       '<figure class="progressive">' +
-      '    <img class="progressive__img image progressive--is-loaded" src="' + image + '" data-progressive="/uploads/5.jpg">' +
+      '    <img class="progressive__img image progressive--is-loaded" src="' + image + '" data-progressive="'+image+'">' +
       '</figure>' +
       '<div class="card-body">' +
       '    <div class="row">' +
@@ -510,7 +544,9 @@ $(document).ready(function () {
       '</div>' +
       '</div>' +
       '</div> </div>' +
+       '<p class="genre-dialog btn btn-dark"><span class="card-genre genre" data-genre="'+genre+'">'+genre +'</span> Term</p> '+
       '<h5 class="card-title title" data-title="' + slug + '">' + title + '</h5>' +
+        '<h6 class="card-type p-type" data-ptype="'+type+'">'+type+' | <span class="text-warning card-cache cache" data-cache="'+cache+'">'+cache+'</span> </h6>'+
       '<p class="card-text article" data-article="' + article + '">' + articleText.substring(0, 80) +
       '...             </p>' +
       '              <div class="meta-info">' +

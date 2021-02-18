@@ -39,8 +39,8 @@ app.use(passport.session());
 var csrfProtection = csrf();
 app.use(csrfProtection);
 
-mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
-// mongoose.connect("mongodb://localhost:27017/portalDB", {
+// mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
+mongoose.connect("mongodb://localhost:27017/portalDB", {
     useNewUrlParser: true,
     // useUnifiedTopology: true
 });
@@ -114,12 +114,25 @@ app.use("/resources", pageBlog);
 
 app.get("/profile", (req, res)=>{
     if(req.isAuthenticated()){
-       res.render("client/secondary/pages/profile")
+    Master.findOne({}, (err, master)=>{
+                    csrfToken: req.csrfToken(),
+       res.render("client/secondary/pages/profile", {user: req.user, master, 
+                    csrfToken: req.csrfToken(),
+                    })
+    })
+    }else{
+        res.redirect('/')
     }
 })
 
 app.get("/contact", (req, res) => {
-        res.render("client/secondary/pages/contact")
+    Master.findOne({}, (err, master) => {
+        res.render("client/secondary/pages/contact", {
+            user: req.user,
+                    csrfToken: req.csrfToken(),
+                        master,
+        })
+    })
 })
 
 // app.use("/explore", explore)
