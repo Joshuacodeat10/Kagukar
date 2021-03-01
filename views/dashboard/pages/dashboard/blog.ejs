@@ -134,6 +134,184 @@
                                             </div>
                                         </div>
 
+                                         <div class="modal fade bq-example-modal-xl" tabindex="-1" role="dialog"
+                                             aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                             <div class="modal-dialog modal-xl" role="document">
+                                                 <div class="modal-content">
+                                                     <div class="modal-header">
+                                                         <h5 class="modal-title type" id="myExtraLargeModalLabel">
+
+                                                         </h5>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                             aria-label="Close">
+                                                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                 stroke="currentColor" stroke-width="2"
+                                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                                 class="feather feather-x">
+                                                                 <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                 <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                             </svg>
+                                                         </button>
+                                                     </div>
+                                                     <form class="test-form" enctype="multipart/form-data">
+                                                         <div class="modal-body">
+                                                                <input type="hidden" id="csrf" name="_csrf"
+                                                                    value="<%= csrfToken %>">
+                                                                <input type="hidden" name="_url"
+                                                                    value="<%= 'dashboard/blog/addQuestion' %>">
+                                                                <input type="hidden" class="method" name="method"
+                                                                    value="POST">
+                                                                <input type="hidden" class="phase" name="phase"
+                                                                    value="addQuestion">
+
+                                                                <input type="text" id="addQstId" name="itemid" hidden>
+
+
+                                                             <div id="existingQuestions"class="row note-container note-grid">
+                                                                   <!-- /// -->
+                                                             </div>
+
+                                                               <style>
+                                                                   .opt- {
+                                                                       border: 1px solid rgba(0, 0, 0, 0.5);
+                                                                       border-radius: 10px;
+                                                                       padding: 6px;
+                                                                       margin-bottom: 4px;
+                                                                   }
+                                                               </style>
+                                                             
+                                                             <div id="testDi">
+                                                                
+                                                                 <div class="row">
+                                                                     <div class="col-12">
+                                                                         <h6>Question</h6>
+                                                                         <textarea name="question" id="" 
+                                                                             rows="5" class="form-control"></textarea>
+                                                                         <h6 class=" mt-3 mb-1">options</h6>
+                                                                            </div>
+                                                                     <div class="input-group mb-4 col-6">
+                                                                         <div class="input-group-prepend">
+                                                                             <div class="input-group-text">
+                                                                                 <div class="n-chk align-self-end">
+                                                                                     <label
+                                                                                         class="new-control new-radio radio-info"
+                                                                                         style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                                                                         <input type="radio"
+                                                                                             class="new-control-input ans optRA"
+                                                                                             name="ans" required>
+                                                                                         <span
+                                                                                             class="new-control-indicator"></span>
+                                                                                     </label>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <input type="text"
+                                                                             class="form-control opt optA"
+                                                                             placeholder="option A" name="optionA"
+                                                                             aria-label="radio" required>
+                                                                     </div>
+                                                                     <div class="input-group mb-4 col-6">
+                                                                         <div class="input-group-prepend">
+                                                                             <div class="input-group-text">
+                                                                                 <div class="n-chk align-self-end">
+                                                                                     <label
+                                                                                         class="new-control new-radio radio-info"
+                                                                                         style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                                                                         <input type="radio"
+                                                                                             class="new-control-input ans optRB"
+                                                                                             name="ans" required>
+                                                                                         <span
+                                                                                             class="new-control-indicator"></span>
+                                                                                     </label>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <input type="text"
+                                                                             class="form-control opt optB"
+                                                                             placeholder="option B" name="optionB"
+                                                                             aria-label="radio" required>
+                                                                     </div>
+                                                                     <div class="input-group mb-4 col-6">
+                                                                         <div class="input-group-prepend">
+                                                                             <div class="input-group-text">
+                                                                                 <div class="n-chk align-self-end">
+                                                                                     <label
+                                                                                         class="new-control new-radio radio-info"
+                                                                                         style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                                                                         <input type="radio"
+                                                                                             class="new-control-input ans optRC"
+                                                                                             name="ans" required>
+                                                                                         <span
+                                                                                             class="new-control-indicator"></span>
+                                                                                     </label>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <input type="text"
+                                                                             class="form-control opt optC"
+                                                                             placeholder="option C" name="optionC"
+                                                                             aria-label="radio" required>
+                                                                     </div>
+                                                                     <div class="input-group mb-4 col-6">
+                                                                         <div class="input-group-prepend">
+                                                                             <div class="input-group-text">
+                                                                                 <div class="n-chk align-self-end">
+                                                                                     <label
+                                                                                         class="new-control new-radio radio-info"
+                                                                                         style="height: 21px; margin-bottom: 0; margin-right: 0">
+                                                                                         <input type="radio"
+                                                                                             class="new-control-input ans optRD"
+                                                                                             name="ans" value="optionD" required>
+                                                                                         <span
+                                                                                             class="new-control-indicator"></span>
+                                                                                     </label>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <input type="text"
+                                                                             class="form-control opt optD"
+                                                                             name="optionD" placeholder="option D"
+                                                                             aria-label="radio" required>
+                                                                     </div>
+
+
+                                                                     <script>
+                                                                         $('.ans').on('click', function (e) {
+                                                                             var optionVal = $(e.target)
+                                                                                 .parents('.input-group').find(
+                                                                                     'input.opt').val();
+                                                                                     console.log(optionVal);
+                                                                                     
+                                                                             $("#test-answer-mod").val(optionVal)
+                                                                         })
+                                                                     </script>
+                                                                 </div>
+
+                                                             </div>
+
+                                                             <div id="test-answer-dialog" class="input-group"
+                                                                 style="display: none; padding: 0 30px;">
+                                                                 <input style="width: inherit;" type="text"
+                                                                     class="form-control test-answer" name="answer"
+                                                                     placeholder="Answer" id="test-answer-mod">
+                                                             </div>
+
+
+                                                         </div>
+                                                         <div class="modal-footer">
+
+                                                             <button id="save" type="submit"
+                                                                 class="btn btn-primary btn-add"> Add </button>
+                                                             <button class="btn" data-dismiss="modal"><i
+                                                                     class="flaticon-cancel-12"></i>
+                                                                 Discard</button>
+                                                         </div>
+                                                        </form>
+                                                 </div>
+                                             </div>
+                                         </div>
+
                                         <div id="ct" class="note-container note-grid">
                                         <%- include('./blogComponents/singlePost') %>
                                         </div>

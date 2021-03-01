@@ -9,19 +9,18 @@ $(document).ready(function () {
     // FORM SUBMIT
     $('form').on('submit', e => {
         e.preventDefault();
-
-
-
         console.log(e.target)
 
         const formData = new FormData(e.target);
 
-        console.log(formData)
+        console.log(formData);
 
         const _csrf = e.target._csrf.value
         const _url = e.target._url.value
         const method = e.target.method.value
 
+        formData.append("itemid", "1234567")
+        formData.append("itemTitle", "Friesomom")
 
 
         //   $(".btn-add").html("<i class='fa fa-circle-o-notch fa-spin'> </i> loading");

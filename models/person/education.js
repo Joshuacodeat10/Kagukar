@@ -4,10 +4,14 @@ const Schema = mongoose.Schema;
 //Create Schema
 
 const educationSchema = new Schema({
-    degree: String,
-    school: String,
-    duration: String,
-    userid: String,
+    question: String,
+    optionA: String,
+    optionB: String,
+    optionC: String,
+    optionD: String,
+    answer: String,
+
+    itemid: String,
 })
 
 const Education = new mongoose.model("Education", educationSchema);

@@ -1,3 +1,8 @@
+// console.log = function(){
+
+// }
+
+
 var synth = window.speechSynthesis;
 // var synth = window.speechSynthesis;
 var chosenOption;
@@ -24,6 +29,15 @@ const mainMenu = 'Hello, kindly select an option at the end of the following pro
   '\n 5: Listen Again' +
   '\n 6: Quit';
 
+const shortCut = 'Kagukar Quicklinks! ' +
+  '\n 1: press C or 1 for Curriculum: (collections topics included in a subject)' +
+  // '\n 2: Read (get a topic read to you)' +
+  '\n 2: press T or 2 for take a Test: (test your knowledge of a subject topic)' +
+  '\n 3: press S or 3 to read Stories: (allow me help you relax with a classic story)' +
+  '\n 4: press P or 4 to Play a game ' +
+  '\n 5: press L or 5 to Listen Again' +
+  '\n 6: press Q or 6 to Quit';
+
 const classMenu = e => {
   return (
     "You selected " + e + "! Kindly respond to the class you would like to learn in " +
@@ -37,16 +51,37 @@ const classMenu = e => {
   )
 }
 
+const subjectMenu = e => {
+  return (
+    "You selected "+e+" Kindly respond to the subject you would like to take" +
+    '\n 1: Agriculture' +
+    '\n 2: Basic Science' +
+    '\n 3: Basic Technology' +
+    '\n 4: Civic Education' +
+    '\n 5: English Language' +
+    '\n 6: Mathematics' +
+    '\n 7: Social Studies' +
+    '\n 8: Quit'
+  )
+}
+
 
 const modal_process = document.getElementById("ModalProcess")
 const menu_process = $("#menuDisplay")
 
+
+var quickLink;
+
 window.addEventListener('load', async e => {
   // console.clear()
   speechSynthesis.cancel()
-  const welcome = 'Welcome to Kagukar, what would you like to do today? Triple tap to start learning';
+  const welcome = 'Welcome to Kagukar, what would you like to do today? press key X to get a list of the available shortcuts or Triple tap to start learning';
   if(window.location.pathname === '/'){
     await speak(welcome)
+  }
+
+  if(window.location.pathname === '/resources/test'){
+      $("#test-options").show()
   }
 });
 
@@ -68,18 +103,73 @@ async function speak(message, func, start_func) {
  }
 
 const speechEnd = async e => {
-setTimeout(async ()=>{
+// setTimeout(async ()=>{
+  $('#options').hide();
+
   openModalFunc();
+  menu_process.slideUp()
 
   if (!recognizing) {
     await startButton()
   } else {
     await stopButton()
   }
-}, 2000)
+// }, 2000)
 }
 
+var level = 0;
+var classLink
+const classSpeechEnd = async e =>{
+  level = 1
+  const k = await keyResponse(0);
+  console.log(k);
+ if(level < 2){ 
+   if (k == 1) {
+     classLink = 'JSS 1'
+   } else if (k == 2) {
+     classLink = 'JSS 2'
+   } else if (k == 3) {
+     classLink = 'JSS 3'
+   } else if (k == 4) {
+     classLink = 'SSS 1'
+   } else if (k == 5) {
+     classLink = 'SSS 2'
+   } else if (k == 6) {
+     classLink = 'SSS 3'
+   } else if (k == 'q' || k == "Q" || k == 0) {
+      level = 0;
+      await speak(classMenu(chosenOption), classSpeechEnd)
+   }}
 
+   $("#class-filter-form").val(classLink)
+   $("#select2-class-filter-form-container").text(classLink)
+   
+   await speak(subjectMenu(classLink))
+   
+   const s = await keyResponse();
+    console.log(s)
+
+    $("#class-filter-form").val(classLink)
+    $("#select2-class-filter-form-container").text(classLink)
+
+}
+
+function keyResponse(){
+  return new Promise((resolve) =>{
+    document.addEventListener('keydown', onKeyHandler);
+    function onKeyHandler(e) {
+      // console.log("Resolver")
+      // console.log(e)
+        resolve(e.key);
+    }
+  })
+}
+
+const subjectSpeechEnd = async e => {
+   level = 2;
+    const res = await keyResponse(10000);
+    console.log("Response "+ res)
+}
 
 
 
@@ -130,19 +220,31 @@ const read = e =>{
     
     var loc = window.location.pathname;
 
-    if(!loc.includes(chosenOption)){      
-      return window.location.href = '/resources/' + chosenOption
-    }else {
-      alert("Same Location")
-    }
-   
 
-   
-
-   await speak(classMenu(chosenOption), async e =>{
-
+     if (!loc.includes(chosenOption) && chosenOption !== undefined) {
+       return redirecting(chosenOption)
      }
-   )
+  //  else {
+  //     console.log("Same Location")
+  //   }
+   
+
+    if(chosenOption == undefined){
+      return
+    }
+
+   
+
+   await speak(classMenu(chosenOption), speechEnd)
+
+ }
+
+ function redirecting(chosenOption){
+   if(chosenOption !== 'home'){
+      return window.location.href = '/resources/' + chosenOption;
+   }else{
+      return window.location.href = '/';
+   }
  }
 
 
@@ -151,6 +253,49 @@ modal_process.addEventListener('click', (e) => {
 })
 
 
+
+
+document.onkeypress = async function ({
+  key
+}) {
+  if(level > 0){
+    return 
+  }
+  var e = key;
+  if (e == 'c' || e == 'C') {
+    quickLink = 'curriculum';
+  } else if (e == 't' || e == 'T') {
+    quickLink = 'test'
+  } else if (e == 'r' || e == 'R') {
+    quickLink = 'read'
+  } else if (e == 'p' || e == 'P') {
+    quickLink = 'play'
+  } else if (e == 'h' || e == 'H') {
+    quickLink = 'home'
+  } else if (e == 's' || e == 'S') {
+    quickLink = 'stories'
+  } else if (e == 'm' || e == 'M') {
+    await speak(mainMenu, speechEnd, menu_process.slideDown());
+    return
+  } else if (e == 'k' || e == 'K') {
+      chosenOption = window.location.pathname.split('/')[2];
+      await speak(classMenu(chosenOption), classSpeechEnd)
+      return
+      // level = 1
+
+  } else if (e == 'x' || e == 'X') {
+   await speak(shortCut, speechEnd)
+   return
+}else {
+    quickLink = null
+    return
+  }
+
+  console.log("Chosen " + quickLink);
+ 
+  redirecting(quickLink);
+  
+}
 
 
 
@@ -363,8 +508,11 @@ var toReplay;
   toReplay = toRead;
 
   //  modal_process.click();
-  openModalFunc()
+  openModalFunc();
 
+        targetItem(e)
+
+     $("#test-options").hide()
     $('#options').show();
   $('#final_span').show();
   $('#final_span_read').hide()
@@ -381,14 +529,103 @@ var toReplay;
     var display = $(e.target).parents('.event-info').find('.display-content')
     var toDisplay = display.text();
 
+    targetItem(e)
+
     openModalFunc()
 
     
-    $('#options').hide();
+     $("#test-options").hide()
+     $('#options').hide();
     $('#final_span').hide();
     $('#final_span_read').show()
     $('#final_span_read').html(toDisplay)
   })
+
+
+  var testAnswer, answered = false;
+  $('.take-test').click(e => {
+     if (synth.speaking) {
+       synth.cancel()
+     }
+     var display = $(e.target).parents('.event-info').find('.display-content')
+     var toDisplay = display.text();
+
+     targetItem(e)
+
+     openModalFunc()
+
+     var optA = $(e.target).attr('data-optA')
+     var optB = $(e.target).attr('data-optB')
+     var optC = $(e.target).attr('data-optC')
+     var optD = $(e.target).attr('data-optD')
+     testAnswer = $(e.target).attr('data-answer')
+     
+     console.log(optA +" "+optB)
+     $("#optA p").text(optA)
+     $("#optB p").text(optB)
+     $("#optC p").text(optC)
+     $("#optD p").text(optD)
+
+
+     $("#test-options").show()
+     $('#options').hide();
+     $('#final_span').hide();
+     $('#final_span_read').show()
+     $('#final_span_read').html(toDisplay)
+   })
+
+
+
+$('.optionTest').click(e => {
+
+console.log(testAnswer)
+if(!answered){
+  if (testAnswer == $(e.target).text()){
+    $(e.target).css({'background': '#00800033', fontWeight: '600'})
+  }else{
+    $(e.target).css({
+      'background':
+      '#f7040433',
+      fontWeight: '600'
+    })
+  }
+  answered = true;
+}
+
+setTimeout(()=>{
+  answered = false;
+}, 5000)
+
+})
+
+
+function targetItem(e){
+  var id = $(e.target).attr('data-id');
+  var title = $(e.target).attr('data-title');
+    console.log(id + " " + title)
+
+    $('#itemid').val(id)
+    $('#itemTitle').val(title)
+  console.log($("#targetItem"))
+
+  submitTarget();
+}
+
+function submitTarget(){
+    // $('#submitTarget').trigger('click')
+
+       $.ajax({
+       url: "/engage",
+       method: "POST",
+       data: $("#targetItem").serialize(),
+       dataType: "JSON",
+       success: function (res) {
+         
+       },
+       error: function (err) {
+       }
+       })
+}
 
 
 
@@ -521,3 +758,64 @@ var toReplay;
    var start = str.slice(0, pos + 1).search(/\S+$/);
    return start;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const popupCenter = ({
+  url,
+  title,
+  w,
+  h
+}) => {
+  // Fixes dual-screen position                             Most browsers      Firefox
+  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+
+  const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+  const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+  const systemZoom = width / window.screen.availWidth;
+  const left = (width - w) / 2 / systemZoom + dualScreenLeft
+  const top = (height - h) / 2 / systemZoom + dualScreenTop
+  const newWindow = window.open(url, title,
+    `
+      scrollbars=yes,
+      width=${w / systemZoom}, 
+      height=${h / systemZoom}, 
+      top=${top}, 
+      left=${left}
+      `
+  )
+
+  if (window.focus) newWindow.focus();
+}
+
+$('#edit-profile').on('click', ()=>{
+  // window.open('/', 'myWindow','top=0, height=100%, width=50%')
+  popupCenter({url: '/update/profile', title: 'xtf', w: 500, h: 600}); 
+})
+
+

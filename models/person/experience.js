@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 //Create Schema
 
 const experienceSchema = new Schema({
-    position: String,
-    organization: String,
-    duration: String,
+    itemTitle: String,
+    type: String,
+    itemid: String,
     userid: String,
-})
+    count: Number,
+}, {timestamps: true})
 
 const Experience = new mongoose.model("Experience", experienceSchema);
 

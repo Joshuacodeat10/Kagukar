@@ -37,27 +37,27 @@
                                  class="flaticon-mail-1 fa-3x mt-2 text-light mr-3"></i>
                              <span class="h6 text-light font-weight-normal mb-0"><%=user.username%></span>
                          </li>
-                         <li class="d-flex align-items-center px-4 mb-4">
+                         <!-- <li class="d-flex align-items-center px-4 mb-4">
                              <i class="flaticon-phone fa-3x mt-2 text-light mr-3"></i>
                              <span class="h6 text-light font-weight-normal mb-0">(234) 123 456 7890</span>
-                         </li>
+                         </li> -->
                      </ul>
                  </div>
                  <div class="social-icon-round mt-4 mt-sm-5">
-                     <ul>
+                     <!-- <ul>
                          <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
                          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                     </ul>
+                     </ul> -->
                  </div>
              </div>
              <div class="col-md-7 col-xl-8 space-sm-pt">
                  <h2><%=user.name%></h2>
                  <span class="text-primary lead font-weight-bold"><%=user.class%></span>
                  <ul class="d-flex pl-0 mb-4 mb-sm-5 mt-4">
-                     <li class="d-flex"><a class="btn btn-sm btn-mes mr-4" href="#">Edit Profile</a>
+                     <li class="d-flex"><a class="btn btn-sm btn-mes mr-4" href="#" id="edit-profile">Edit Profile</a>
                      </li>
                  </ul>
-                 <h4 class="mb-4">About:</h4>
+                 <!-- <h4 class="mb-4">About:</h4> -->
                 <p class="mb-4 mb-sm-5"><%=user.about%></p>
                  <h4 class="mb-4">Activities:</h4>
                  <div class="table-responsive">
@@ -66,17 +66,22 @@
                              <tr>
                                  <th>Type</th>
                                  <th>Title</th>
-                                 <th>Class</th>
-                                 <th>Date</th>
+                                 <th>Count</th>
+                                 <th>First Visit</th>
+                                 <th>Last Visit</th>
                              </tr>
                          </thead>
                          <tbody>
+                             <%foundExp.map(e=>{%>
                              <tr>
-                                 <td>Stock trading</td>
-                                 <td>2.5 Years</td>
-                                 <td>17 February 2020</td>
-                                 <td>17 February 2020</td>
+                                 <td><%e.type%></td>
+                                 <td><%=e.itemTitle%></td>
+                                 <td><%e.count%></td>
+                                 <td><%=e.createdAt.toLocaleString()%></td>
+                                 <td><%=e.updatedAt.toLocaleString()%></td>
                              </tr>
+                             <%})%>
+
                          </tbody>
                      </table>
                  </div>

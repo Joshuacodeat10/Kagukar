@@ -39,10 +39,10 @@ const blogSchema = new Schema({
         type: Number,
         default: 0
     },
-    views: [{
-        type: Schema.Types.ObjectId,
-        ref: "User", default: 0
-    }],
+    views: {
+        type: Number,
+        default: 0
+    },
 
     optionA: String, 
     optionB: String, 

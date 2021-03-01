@@ -87,7 +87,7 @@ const userSchema = new Schema({
 
   mobile: Number,
   noOfArticles: {type: Number, default: 0},
-  commentCount: {type: Number, default: 0},
+  activities: {type: Number, default: 0},
 
   //VERIFICATION TO CHANGE PASSWORD
   mode: {

@@ -4,11 +4,10 @@ const Schema = mongoose.Schema;
 //Create Schema
 
 const awardSchema = new Schema({
-    degree: String,
-    school: String,
-    duration: String,
+    itemTitle: String,
     userid: String,
-})
+    point: Number,
+}, {timestamps: true})
 
 const Award = new mongoose.model("Award", awardSchema);
 

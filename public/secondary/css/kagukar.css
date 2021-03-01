@@ -7390,3 +7390,14 @@ ul.list li a:hover {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
+
+
+
+
+
+#test-options p{
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 5px 10px;
+  margin: 10px;
+}

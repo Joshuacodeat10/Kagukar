@@ -153,6 +153,10 @@ $("#testDiv").hide()
       var $_genre = getParent.find('.genre');
       var $_type = getParent.find('.p-type');
 
+      
+
+
+
       //GET ITEM VALUES
       var $_imageValue = $_image.attr("data-progressive")
       var $_titleValue = $_title.text()
@@ -164,6 +168,13 @@ $("#testDiv").hide()
        var $_cacheValue = $_cache.attr('data-cache');
        var $_genreValue = $_genre.attr('data-genre');
        var $_typeValue = $_type.attr('data-ptype');
+
+       var $_optA = $_article.attr('data-optA');
+       var $_optB = $_article.attr('data-optB');
+       var $_optC = $_article.attr('data-optC');
+       var $_optD = $_article.attr('data-optD');
+       var $_ans = $_article.attr('data-ans');
+ 
 
 
 
@@ -186,6 +197,13 @@ $("#testDiv").hide()
       var $_modalPublished = getModal.find('.m-published');
       var $_modalArticle = getModal.find('.m-article').find('.ql-editor');
 
+       var $_modalOptA = getModal.find('.optA');
+        var $_modalOptB = getModal.find('.optB');
+        var $_modalOptC = getModal.find('.optC');
+        var $_modalOptD = getModal.find('.optD');
+        var $_modalAns = getModal.find('.ans');
+
+
       //SET MODAL FIELD'S VALUE
       var $_setModalId = getModal.find(".m-id").val(getParent.find(".card").attr("data-item"))
       var $_setModalImage = $_modalImage.attr("src", $_imageValue)
@@ -199,6 +217,24 @@ $("#testDiv").hide()
       var $_setModalPublished = $_modalPublished.attr("checked", $_publishedValue)
       var $_setModalPublishedValue = $_modalPublished.val($_publishedValue)
       var $_setModalArticle = $_modalArticle.text(about.clipboard.dangerouslyPasteHTML($_articleValue))
+
+      $_modalOptA.val($_optA);
+      $_modalOptB.val($_optB);
+      $_modalOptC.val($_optC);
+      $_modalOptD.val($_optD);
+      $("#test-answer").val($_ans);
+      
+      if ($_ans == $_optA){
+        $('.optRA').prop('checked', true);
+      } else if ($_ans == $_optB) {
+        $('.optRB').prop('checked', true);
+      } else if ($_ans == $_optC) {
+        $('.optRC').prop('checked', true);
+      } else if ($_ans == $_optD) {
+        $('.optRD').prop('checked', true);
+      }
+
+      selectType()
 
       // $_modalImage.attr("data-default-file", "/dashboard/assets/img/grid-blog-style-3.jpg")
       // $(".btn-edit").off('click').click(function () {
@@ -453,6 +489,13 @@ $("#testDiv").hide()
                 // location.replace(res.redirect)
               }, 3000)
             }
+          } else if (phase.value == 'addQuestion') {
+            if (res.status) {
+              setTimeout(() => {
+                questionCard(res.data)
+                // location.replace(res.redirect)
+              }, 3000)
+            }
           }
         },
         error: function (err) {
@@ -594,8 +637,114 @@ $("#testDiv").hide()
 
 
 
+$('.question-dialog').on('click', e=>{
+  $('#existingQuestions').empty()
+
+   const itemid = $(e.target).attr('data-itemid');
+   const _csrf = $("#csrf").val();
+
+   $("#addQstId").val(itemid)
+   $.ajax({
+         url: "/dashboard/blog/getQuestions?_csrf=" + _csrf,
+         method: "POST",
+         data: {itemid},
+    dataType: "json",
+    
+    success: function (res) {
+      response(res.alert, res.response)
+      questionData(res.data);
+      
+      
+    },
+    error: function (err) {
+      errorDialog(err)
+    }
+  })
+})
 
 
+$('#existingQuestions').on('click', '.delete-qst', e => {
+  const itemid = $(e.target).attr('data-itemid');
+  const _csrf = $("#csrf").val();
+
+  console.log(itemid);
+  
+
+     swal({
+         title: 'Are you sure?',
+         text: "Action cannot be reversed!",
+         type: 'warning',
+         showCancelButton: true,
+         confirmButtonText: 'Delete',
+         padding: '2em'
+       })
+       .then(function (x) {
+          if (x.value) {
+        $(e.target).parents('.note-item').fadeOut()
+
+         $.ajax({
+           url: "/dashboard/blog/deleteQuestion?_csrf=" + _csrf,
+           method: "POST",
+           data: {
+             itemid
+           },
+           dataType: "json",
+
+           success: function (res) {
+             response(res.alert, res.response)
+
+           },
+           error: function (err) {
+             errorDialog(err)
+           }
+         })
+        }
+         
+       })
+
+
+  
+})
+
+
+
+
+
+
+
+
+function questionData(data){
+  data.forEach((e, i) => {
+    var itemid = e._id;
+    questionCard(e, itemid, i)
+  });
+  
+}
+
+function questionCard(data, itemid){
+  
+  const questionCard = '<div class="note-item all-notes note-fav col-6">' +
+    '<div class="note-inner-content">' +
+    '<div class="note-content">' +
+    '<p class="meta-time">' + data.question + '</p>' +
+    '<div class="note-description-content row mt-3 pr-2 pl-2">' +
+    '<p class="note-description opt- col-12" >' + data.optionA + (data.answer == data.optionA ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
+    '<p class="note-description opt- col-12" >' + data.optionB + (data.answer == data.optionB ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
+    '<p class="note-description opt- col-12" >' + data.optionC + (data.answer == data.optionC ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
+    '<p class="note-description opt- col-12" >' + data.optionD + (data.answer == data.optionD ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
+
+    '</div></div>' +
+    ' <div class="note-action float-right btn btn-dark rounded">' +
+    '<i data-itemid="' + itemid + '" class="fa fa-trash delete-qst">' +
+  
+    '</i>'+
+    '</div></div></div>'
+
+
+  $('#existingQuestions').append(questionCard)
+
+
+}
 
 
 
@@ -649,3 +798,5 @@ $("#testDiv").hide()
 
 //   ['clean'] // remove formatting button
 // ]
+
+

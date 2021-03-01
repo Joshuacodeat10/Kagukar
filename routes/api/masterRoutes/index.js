@@ -6,6 +6,7 @@ const httpMsgs = require("http-msgs");
 const Master = require("../../../models/master");
 const User = require("../../../models/user");
 const Blog = require("../../../models/blog");
+const Experience = require("../../../models/person/experience");
 const options = require("../../../config/options");
 const notif = require("../../../config/response");
 const resetPass = require("../../../config/reset");
@@ -18,13 +19,14 @@ router.get("/", (req, res) => {
     Master.findOne({}, (err, master) => {
       User.find({}, (err, users) => {
       Blog.find({}, (err, blog) => {
+      Experience.find({}, (err, exp) => {
 
         //---route function start
         if (req.isAuthenticated()) {
 
             res.render("dashboard/pages/dashboard/index", {
                 csrfToken: req.csrfToken(),
-                master, page, phase, user: req.user, users, blog
+                master, page, phase, user: req.user, users, blog, exp
             })
 
         } else {
@@ -34,6 +36,7 @@ router.get("/", (req, res) => {
 
         //---route function end
 
+        })
         })
      })
     })

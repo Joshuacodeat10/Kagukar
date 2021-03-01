@@ -5,6 +5,7 @@ const passport = require("passport");
 const httpMsgs = require("http-msgs");
 const Blog = require("../../models/blog");
 const Master = require("../../models/master");
+const Education = require("../../models/person/education");
 const options = require("../../config/options");
 const notif = require("../../config/response");
 const resetPass = require("../../config/reset");
@@ -90,6 +91,49 @@ router.patch("/", fileUpload.single("image"), (req, res, next) => {
     })
   }
 })
+
+
+router.post("/getQuestions", (req, res)=>{
+
+  console.log(req.body)
+
+
+  Education.find({itemid: req.body.itemid}, (err, foundQuestions)=>{
+    // res.json(foundQuestions)
+      notif(req, res, "success", "Fetched", true, "#", foundQuestions)
+  })
+
+})
+
+
+router.post("/addQuestion", fileUpload.single("image"), (req, res) => {
+
+  console.log(req.body)
+
+  const newQuestion = new Education({
+    ...req.body,
+  })
+ 
+      newQuestion.save()
+      notif(req, res, "success", "Question Added Successfully", true, "#", newQuestion)
+  
+
+  //after saving, the .then() spits out the item collections
+})
+
+router.post("/deleteQuestion", fileUpload.single("image"), (req, res) => {
+
+
+  Education.deleteOne({_id: req.body.itemid},(err)=>{
+    notif(req, res, "success", "Question Removed Successfully", true, "#", null)
+  })
+
+
+
+  //after saving, the .then() spits out the item collections
+})
+
+
 //FUNCTION TO UPDATE BLOG POST
 function updateBlog(image, req, res, path) {
 

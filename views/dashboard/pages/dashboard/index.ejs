@@ -27,7 +27,7 @@
                     <div class="widget-content">
                         <div class="w-content">
                             <div class="w-info">
-                                <h6 class="value">141</h6>
+                                <h6 class="value"><%=blog.length%></h6>
                                 <p class="">Resources</p>
                             </div>
                             <div class="">
@@ -48,7 +48,7 @@
                     <div class="widget-content">
                         <div class="w-content">
                             <div class="w-info">
-                                <h6 class="value">20,000</h6>
+                                <h6 class="value"><%=users.length%></h6>
                                 <p class="">Users</p>
                             </div>
                             <div class="">
@@ -69,12 +69,12 @@
                     <div class="widget-content">
                         <div class="w-content">
                             <div class="w-info">
-                                <h6 class="value">20,000</h6>
-                                <p class="">Sponsors</p>
+                                <h6 class="value"><%=master.activities%></h6>
+                                <p class="">Activities Recorded</p>
                             </div>
                             <div class="">
                                 <div class="w-icon">
-                                    <i class="fa fa-handshake" style="font-size: 24px"></i>
+                                    <i class="fa fa-running" style="font-size: 24px"></i>
                                 </div>
                             </div>
                         </div>
@@ -90,12 +90,19 @@
                     <div class="widget-content">
                         <div class="w-content">
                             <div class="w-info">
-                                <h6 class="value">₦ 5,000</h6>
-                                <p class="">Revenue</p>
+                                <!-- <h6 class="value">₦ 5,000</h6>
+                                <p class="">Revenue</p> -->
+                                <h6 class="value">
+                                    <%users.filter(u=>{%>
+                                        <%u.cache == 'administrator' %> 
+                                        <%return u.length%>   
+                                    <%})%>
+                                </h6>
+                                <p class="">Admin</p>
                             </div>
                             <div class="">
                                 <div class="w-icon">
-                                    <i class="fa fa-coins" style="font-size: 24px"></i>
+                                    <i class="fa fa-user-cog" style="font-size: 24px"></i>
                                 </div>
                             </div>
                         </div>
@@ -119,30 +126,28 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Age</th>
+                                    <th>Email</th>
                                     <th>School</th>
                                     <th>Class</th>
                                     <!-- <th>Start date</th>
                                     <th>Salary</th> -->
                                     <th>Joined</th>
-                                    <th>Role</th>
+                                    <th>Total Activities</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <%users.map(u=>{%>
                                 <tr>
-                                    <td>Kagukar Mentee</td>
-                                    <td>Kagukar</td>
-                                    <td>Lagos</td>
-                                    <td>2021</td>
-                                    <!-- <td>2011/06/07</td>
-                                    <td>$206,850</td> -->
-                                    <td>2011/06/07</td>
+                                    <td><%=u.name%></td>
+                                    <td><%=u.username%></td>
+                                    <td><%=u.department%></td>
+                                    <td><%=u.section%></td>
+                                    <td><%=u.createdAt%></td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="usr-img-frame mr-2 rounded-circle">
-                                                <!-- <img alt="avatar" class="img-fluid rounded-circle"
-                                                    src="/secondary/assets/img/logo.png"> -->
+                                               <p class="font-weight-bold">12</p>
                                             </div>
                                         </div>
                                     </td>
@@ -167,6 +172,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <%})%>
                             </tbody>
                         </table>
                     </div>

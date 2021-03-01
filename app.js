@@ -30,8 +30,7 @@ app.use(
         secret: "Our little secret.",
         resave: false,
         saveUninitialized: false,
-    })
-);
+    }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,6 +49,7 @@ mongoose.set("useCreateIndex", true);
 const Master = require("./models/master");
 const Content = require("./models/blog");
 const Users = require("./models/user");
+const Experience = require("./models/person/experience");
 
 const admin = require("./routes/api/masterRoute");
 const adminDashboard = require("./routes/api/masterRoutes/index");
@@ -115,11 +115,14 @@ app.use("/resources", pageBlog);
 app.get("/profile", (req, res)=>{
     if(req.isAuthenticated()){
     Master.findOne({}, (err, master)=>{
+     Experience.find({userid: req.user.id}, (err, foundExp)=>{
+
                     csrfToken: req.csrfToken(),
        res.render("client/secondary/pages/profile", {user: req.user, master, 
-                    csrfToken: req.csrfToken(),
+                    csrfToken: req.csrfToken(), foundExp
                     })
-    })
+        })
+     })
     }else{
         res.redirect('/')
     }
@@ -133,6 +136,72 @@ app.get("/contact", (req, res) => {
                         master,
         })
     })
+})
+
+app.get("/update/profile", (req, res) => {
+    if (req.isAuthenticated()) {
+        Master.findOne({}, (err, master) => {
+            csrfToken: req.csrfToken(),
+            res.render("client/secondary/pages/kaguAuth", {
+                user: req.user,
+                master,
+                csrfToken: req.csrfToken(),
+            })
+        })
+    } else {
+        res.redirect('/')
+    }
+})
+
+app.post('/engage', (req, res)=>{
+
+console.log(req.body);
+
+
+if(!req.isAuthenticated()){
+    httpMsgs.sendJSON(req, res, {
+      
+    });
+    return
+}
+
+const newExp = new Experience({
+    ...req.body,
+    userid: req.user.id,
+    conut: 1
+})
+
+    Experience.findOne({userid: req.user.id, itemid: req.body.itemid}, (err, found)=>{
+        if(found){
+                Experience.updateOne({
+                            userid: req.user.id,
+                            itemid: req.body.id
+                        }, {
+                            $inc: {
+                                'count': 1
+                            }
+                        }, (err) => {
+
+                        })
+
+        }else{
+            newExp.save();
+        }
+    })
+
+    Content.updateOne({
+        _id: req.body.itemid
+    }, {
+        $inc: {
+            'views': 1
+        }
+    }, (err) => {})
+    
+
+      httpMsgs.sendJSON(req, res, {
+         
+      });
+    
 })
 
 // app.use("/explore", explore)

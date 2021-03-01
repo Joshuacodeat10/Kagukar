@@ -152,15 +152,34 @@
                 <p><%-c.articleText.substring(0, 120)+'...'%></p>
                 <code class="read-content" style="display: none"><%-c.articleText%></code>
                 <code class="display-content" style="display: none"><%=c.article%></code>
+       
 
                 <div class="btn-resources"> 
-                <a class="btn btn-info read" href="javascript:void(0)" data-title='<%-c.articleText%>'>Read</a>
-                <a class="btn btn-success listen" href="javascript:void(0)" data-title='<%-c.articleText%>'>Listen</a>
-                </div>
+                <%if(c.type==='curriculum'){%>
+                <a class="btn btn-info read" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Read</a>
+                <a class="btn btn-success listen" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Listen</a>
+                <%}else if (c.type==='test'){%>
+                <a class="btn btn-success take-test" data-optA="<%=c.optionA%>" data-optB="<%=c.optionB%>"
+                    data-optC="<%=c.optionC%>" data-optD="<%=c.optionD%>"
+                    data-answer="<%=c.answer%>"
+                    href="javascript:void(0)" data-title='<%=c.title%>'
+                    data-id="<%=c.id%>">Take Test</a>
+                <%}%>
+            </div>
             </div>
             </div>
           </div>
         <%})%>
+
+        <form id="targetItem" enctype="multipart/form-data" style="display: none;">
+            <!-- <input id="" type="file" name="" value=""> -->
+            <input id="itemid" type="text" name="itemid" value="">
+            <input id="itemTitle" type="text" name="itemTitle" value="">
+            <input type="text" name="_url" value="/engage">
+            <input type="text" name="_csrf" value="<%=csrfToken%>">
+            <input type="text" name="method" value="POST">
+            <input type="submit" id="submitTarget">
+        </form>
          
         </div>
       </div>
