@@ -11,8 +11,11 @@ var msg = new SpeechSynthesisUtterance();
 msg.voiceURI = 'native';
 msg.volume = 1; // 0 to 1
 msg.rate = 1; // 0.1 to 10
-msg.pitch = 2; //0 to 2
-msg.lang = 'en-US';
+// msg.pitch = 2; //0 to 2
+// msg.speakingRate = 1
+msg.pitch = 0; //0 to 2
+// msg.lang = 'en-US';
+msg.lang = 'en-GB';
 
  var final_transcript = '';
  var recognizing = false;
@@ -88,6 +91,8 @@ window.addEventListener('load', async e => {
 
 async function speak(message, func, start_func) {
    var voices = synth.getVoices();
+  //  console.log(voices);
+   
    msg.text = message;
    msg.onstart = start_func
    msg.onend = func;
@@ -96,6 +101,7 @@ async function speak(message, func, start_func) {
 
  }
 
+ 
  const openModalFunc = async e =>{
     if (!$("#processModal").hasClass('show')) {
       return modal_process.click();
@@ -303,154 +309,6 @@ document.onkeypress = async function ({
 
 
 
- if (!('webkitSpeechRecognition' in window)) {
-   upgrade();
- } else {
-   var recognition = new webkitSpeechRecognition();
-  //  recognition.continuous = true;
-   recognition.interimResults = true;
-
-   recognition.onstart = function (e) {
-     recognizing = true;
-    //  console.log("Start")
-    //  console.log(e)
-     // showInfo('info_speak_now');
-   }
-
-   recognition.onerror = function (event) {
-     if (event.error == 'no-speech') {
-       // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
-       // showInfo('info_no_speech');
-      //  console.log('info_no_speech');
-       ignore_onend = true;
-     }
-     if (event.error == 'audio-capture') {
-       // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
-       // showInfo('info_no_microphone');
-      //  console.log('info_no_microphone');
-       ignore_onend = true;
-     }
-     if (event.error == 'not-allowed') {
-       if (event.timeStamp - start_timestamp < 100) {
-         // showInfo('info_blocked');
-        //  console.log('info_blocked');
-       } else {
-         // showInfo('info_denied');
-        //  console.log('info_denied');
-       }
-       ignore_onend = true;
-     }
-   };
-
-
-   recognition.onend = function () {
-     recognizing = false;
-     if (ignore_onend) {
-       return;
-     }
-     // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
-     if (!final_transcript) {
-       // showInfo('info_start');
-      //  console.log('info_start');
-       return;
-     }
-     // showInfo('');
-     if (window.getSelection) {
-       window.getSelection().removeAllRanges();
-       var range = document.createRange();
-      //  console.log("range")
-      //  console.log(range)
-       range.selectNode(document.getElementById('final_span'));
-       window.getSelection().addRange(range);
-     }
-   };
-
-
-   recognition.onresult = async (event) => {
-     var interim_transcript = '';
-    // console.log(event)
-
-     if (typeof (event.results) == 'undefined') {
-       recognition.onend = null;
-       recognition.stop();
-       upgrade();
-
-        setTimeout(() => {
-          recognition.start();
-        }, 3000);
-       return;
-     }
-
-     for (var i = event.resultIndex; i < event.results.length; ++i) {
-       if (event.results[i].isFinal) {
-         final_transcript += event.results[i][0].transcript;
-          
-         text = event.results[i][0].transcript;
-          await speakResponse(text)
-       } else {
-         interim_transcript += event.results[i][0].transcript;
-       }
-     }
-
-    //  console.log(final_transcript)
-    //  console.log(interim_transcript)
-    
-
-     final_transcript = capitalize(final_transcript);
-    //  final_span.innerHTML = linebreak(final_transcript);
-    //  interim_span.innerHTML = linebreak(interim_transcript);
-
-        final_span.value = linebreak(final_transcript);
-        interim_span.value = linebreak(interim_transcript);
-
-     // if (final_transcript || interim_transcript) {
-     //   showButtons('inline-block');
-     // }
-
-   };
-
-
- }
-
-
- var two_line = /\n\n/g;
- var one_line = /\n/g;
-
- function linebreak(s) {
-   return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
- }
-
- var first_char = /\S/;
-
- function capitalize(s) {
-   return s.replace(first_char, function (m) {
-     return m.toUpperCase();
-   });
- }
-
-
- async function startButton() {
-   if (recognizing) {
-     recognition.stop();
-     return;
-   }
-
-   final_transcript = '';
-   recognition.lang = 'en-NG';
-   // recognition.lang = select_dialect.value;
-   recognition.start();
- }
-
- 
- async function stopButton(){
-    window.speechSynthesis.cancel();
-    recognition.stop();
-    return;
-  
- }
-
-
-
 
 
 
@@ -472,7 +330,8 @@ fback.voiceURI = 'native';
 fback.volume = 1; // 0 to 1
 fback.rate = 1; // 0.1 to 10
 fback.pitch = 2; //0 to 2
-fback.lang = 'en-US';
+// fback.lang = 'en-US';
+fback.lang = 'en-IN';
 
 async function warn(message) {
   // console.log(message)
@@ -532,8 +391,7 @@ var toReplay;
     targetItem(e)
 
     openModalFunc()
-
-    
+   
      $("#test-options").hide()
      $('#options').hide();
     $('#final_span').hide();
@@ -542,93 +400,212 @@ var toReplay;
   })
 
 
-  var testAnswer, answered = false;
-  $('.take-test').click(e => {
+  var testAnswer, qstIndex = 0, answered = false, questions, correct = 0, wrong = 0, activeExercise = false;
+  $('.take-test').click(async e => {
+     activeExercise = true
      if (synth.speaking) {
        synth.cancel()
      }
-     var display = $(e.target).parents('.event-info').find('.display-content')
-     var toDisplay = display.text();
+     qstIndex = 0, answered = false,
+     questions = undefined, correct = 0, wrong = 0;
+    //  var display = $(e.target).parents('.event-info').find('.display-content')
+    //  var toDisplay = display.text();
 
-     targetItem(e)
+    questions = await targetItem(e)
 
-     openModalFunc()
 
-     var optA = $(e.target).attr('data-optA')
-     var optB = $(e.target).attr('data-optB')
-     var optC = $(e.target).attr('data-optC')
-     var optD = $(e.target).attr('data-optD')
-     testAnswer = $(e.target).attr('data-answer')
+       var prompt =
+    (window.location.pathname.split('/')[2] == 'test'?
+     "Welcome, your test starts in" +
+         "\n 4" +
+         "\n 3" +
+         "\n 2" +
+         "\n 1": 'Kindly relax as I take you on this Journey ');
+
+       await speak(prompt, speechEnd)
+
+    // await openModalFunc();
+
      
-     console.log(optA +" "+optB)
-     $("#optA p").text(optA)
-     $("#optB p").text(optB)
-     $("#optC p").text(optC)
-     $("#optD p").text(optD)
 
+    //  var optA = $(e.target).attr('data-optA')
+    //  var optB = $(e.target).attr('data-optB')
+    //  var optC = $(e.target).attr('data-optC')
+    //  var optD = $(e.target).attr('data-optD')
+    //  testAnswer = $(e.target).attr('data-answer')
+     
+    //  console.log(optA +" "+optB)
+ 
 
      $("#test-options").show()
      $('#options').hide();
      $('#final_span').hide();
      $('#final_span_read').show()
-     $('#final_span_read').html(toDisplay)
+    //  $('#final_span_read').html(toDisplay)
+     return (questions.length > 0 && setQuestion(e.target, questions))
    })
 
 
 
-$('.optionTest').click(e => {
+const setQuestion = async () =>{
+  if (qstIndex >= questions.length) {
 
-console.log(testAnswer)
-if(!answered){
-  if (testAnswer == $(e.target).text()){
-    $(e.target).css({'background': '#00800033', fontWeight: '600'})
-  }else{
-    $(e.target).css({
-      'background':
-      '#f7040433',
-      fontWeight: '600'
-    })
+    const score = (correct / questions.length)*100;
+    const average = score >= 50 ? " Good Job, Keep it up ": " Nice Try, You can do better "
+    const report = "You have come to the end of the Test"+
+                "\n  Here's your score" +
+                "\n  You got " + correct + " " + (correct > 1 ? " questions " : " question ") + " correctly"+
+                "\n  You missed " + wrong + " " + (wrong > 1 ? " questions " : " question ") + 
+                "\n  out of a total of " + questions.length + " " + (questions.length > 1 ? " questions " : " question ")+
+                " \n You scored a total percentage of " +score +"% "+
+                "\n  " + average 
+
+    await speak(report, speechEnd)
+     activeExercise = false
+    // $("#stop").click();
+    return
   }
-  answered = true;
+
+  var readQst = 
+  (window.location.pathname.split('/')[2] == 'test' ?
+   "Question " + (qstIndex + 1) +
+    "\n" + questions[qstIndex].question +
+    "\n A "+ questions[qstIndex].optionA + 
+    "\n B " + questions[qstIndex].optionB +
+    "\n C " + questions[qstIndex].optionC +
+    "\n D " + questions[qstIndex].optionD
+   : (qstIndex + 1))
+
+
+    $('#final_span_read').html(questions[qstIndex].question)
+    $("#optA p").text(questions[qstIndex].optionA)
+    $("#optB p").text(questions[qstIndex].optionB)
+    $("#optC p").text(questions[qstIndex].optionC)
+    $("#optD p").text(questions[qstIndex].optionD)
+    testAnswer = questions[qstIndex].answer;
+
+    await speak(readQst, voiceResponse)
 }
 
-setTimeout(()=>{
-  answered = false;
-}, 5000)
+const voiceResponse = async e => {
+  $('#options').hide();
+  openModalFunc();
+  menu_process.slideUp()
+  if (!recognizing) {
+    await startButton()
+  } else {
+    await stopButton()
+  }
+}
+
+const answerResponse = async e =>{
+  console.log(e)
+  const resWord = e;
+
+  console.log(e.length)
+
+  // await attempt(e)
+  
+}
+
+$('.optionTest').click(async e => {
+console.log(testAnswer)
+
+const res = await attempt(e.target)
+
+console.log(res);
+
+//  $(e.target).removeClass('correct');
+//  $(e.target).removeClass('wrong');
 
 })
 
+const attempt = async e =>{
 
-function targetItem(e){
+   return new Promise(async (resolve) => {
+
+  window.speechSynthesis.cancel();
+  if (qstIndex >= questions.length) {
+    return
+  }
+
+   var optA =  $("#optA p").text(questions[qstIndex].optionA)
+   var optB = $("#optB p").text(questions[qstIndex].optionB)
+   var optC = $("#optC p").text(questions[qstIndex].optionC)
+   var optD = $("#optD p").text(questions[qstIndex].optionD)
+
+  if (!answered) {
+    if (testAnswer == $(e).text() ) {
+      correct += 1;
+      $(e).addClass('correct');
+
+      await speak('Correct', speechEnd)
+    } else {
+      wrong += 1
+      $(e).addClass('wrong')
+      await speak('Incorrect', speechEnd)
+    }
+    answered = true;
+  }
+  
+
+     resolve(setTimeout(() => {
+           answered = false;
+           qstIndex += 1;
+           $(e).removeClass('correct');
+           $(e).removeClass('wrong');
+           return setQuestion();
+         }, 5000));
+
+     })
+}
+
+
+const targetItem = async (e) =>{
   var id = $(e.target).attr('data-id');
   var title = $(e.target).attr('data-title');
     console.log(id + " " + title)
 
-    $('#itemid').val(id)
-    $('#itemTitle').val(title)
-  console.log($("#targetItem"))
+ await  $('#itemid').val(id)
+  await $('#itemTitle').val(title)
+ await $('#itemType').val('test')
+  const type = $('#itemType').val()
+  console.log($("#itemType").val());
 
-  submitTarget();
+ const res = await submitTarget(type);
+ return res
 }
 
-function submitTarget(){
+const submitTarget= async (type) =>{
     // $('#submitTarget').trigger('click')
-
-       $.ajax({
+    var result
+      await $.ajax({
        url: "/engage",
        method: "POST",
        data: $("#targetItem").serialize(),
        dataType: "JSON",
-       success: function (res) {
-         
+       success: async (res) => {
+        result = (type == 'test' && await res.questions)
        },
        error: function (err) {
-       }
+        }
        })
+       return result
 }
 
 
+const getQuestions = async () =>{
+    $.ajax({
+      url: "/engage",
+      method: "POST",
+      data: $("#targetItem").serialize(),
+      dataType: "JSON",
+      success: function (res) {
 
+      },
+      error: function (err) {}
+    })
+}
 
 
 
@@ -660,7 +637,8 @@ function submitTarget(){
 
 
  var utterance = new SpeechSynthesisUtterance();
- utterance.lang = 'en-UK';
+//  utterance.lang = 'en-UK';
+ utterance.lang = 'en-IN';
  utterance.rate = 1;
 
 //  document.getElementById('playButton').onclick = function () {
@@ -819,3 +797,158 @@ $('#edit-profile').on('click', ()=>{
 })
 
 
+
+
+
+//SPEECH TAKE IN
+if (!('webkitSpeechRecognition' in window)) {
+  upgrade();
+} else {
+  var recognition = new webkitSpeechRecognition();
+  //  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onstart = function (e) {
+    recognizing = true;
+    //  console.log("Start")
+    //  console.log(e)
+    // showInfo('info_speak_now');
+  }
+
+  recognition.onerror = function (event) {
+    if (event.error == 'no-speech') {
+      // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
+      // showInfo('info_no_speech');
+      //  console.log('info_no_speech');
+      ignore_onend = true;
+    }
+    if (event.error == 'audio-capture') {
+      // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
+      // showInfo('info_no_microphone');
+      //  console.log('info_no_microphone');
+      ignore_onend = true;
+    }
+    if (event.error == 'not-allowed') {
+      if (event.timeStamp - start_timestamp < 100) {
+        // showInfo('info_blocked');
+        //  console.log('info_blocked');
+      } else {
+        // showInfo('info_denied');
+        //  console.log('info_denied');
+      }
+      ignore_onend = true;
+    }
+  };
+
+
+  recognition.onend = function () {
+    recognizing = false;
+    if (ignore_onend) {
+      return;
+    }
+    // start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
+    if (!final_transcript) {
+      // showInfo('info_start');
+      //  console.log('info_start');
+      return;
+    }
+    // showInfo('');
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+      var range = document.createRange();
+      //  console.log("range")
+      //  console.log(range)
+      range.selectNode(document.getElementById('final_span'));
+      window.getSelection().addRange(range);
+    }
+  };
+
+
+  recognition.onresult = async (event) => {
+    var interim_transcript = '';
+    // console.log(event)
+
+    if (typeof (event.results) == 'undefined') {
+      recognition.onend = null;
+      recognition.stop();
+      upgrade();
+
+      setTimeout(() => {
+        recognition.start();
+      }, 3000);
+      return;
+    }
+
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final_transcript += event.results[i][0].transcript;
+
+        text = event.results[i][0].transcript;
+
+        if (!activeExercise) {
+          await speakResponse(text)
+        }else{
+          await answerResponse(text)
+        }
+
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+
+    //  console.log(final_transcript)
+    //  console.log(interim_transcript)
+
+
+    final_transcript = capitalize(final_transcript);
+    //  final_span.innerHTML = linebreak(final_transcript);
+    //  interim_span.innerHTML = linebreak(interim_transcript);
+
+    final_span.value = linebreak(final_transcript);
+    interim_span.value = linebreak(interim_transcript);
+
+    // if (final_transcript || interim_transcript) {
+    //   showButtons('inline-block');
+    // }
+
+  };
+
+
+}
+
+
+var two_line = /\n\n/g;
+var one_line = /\n/g;
+
+function linebreak(s) {
+  return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+}
+
+var first_char = /\S/;
+
+function capitalize(s) {
+  return s.replace(first_char, function (m) {
+    return m.toUpperCase();
+  });
+}
+
+
+async function startButton() {
+  if (recognizing) {
+    recognition.stop();
+    return;
+  }
+
+  final_transcript = '';
+  recognition.lang = 'en-NG';
+  // recognition.lang = select_dialect.value;
+  recognition.start();
+}
+
+
+async function stopButton() {
+  window.speechSynthesis.cancel();
+  recognition.stop();
+  return;
+
+}

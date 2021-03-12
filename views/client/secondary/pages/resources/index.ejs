@@ -35,24 +35,13 @@
                   <input id="title-filter-form" type="text" class="form-control" placeholder="Search by Title" oninput="filter(this.value)">
               </div>
 
-                <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
-                  <select id="class-filter-form" onchange="filter(this.value)" class="form-control basic-select">
-                      <!-- <option value="1" selected="selected">Class</option> -->
-                      <optgroup> Junior Class </optgroup>
-                      <option value="JSS 1">JSS 1</option>
-                      <option value="JSS 2">JSS 2</option>
-                      <option value="JSS 3">JSS 3</option>
-                      <optgroup> Senior Class </optgroup>
-                      <option value="SSS 1">SSS 1</option>
-                      <option value="SSS 2">SSS 2</option>
-                      <option value="SSS 3">SSS 3</option>
-                  </select>
-              </div>
+             
 
                 <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
                <select id="subject-filter-form" onchange="filter(this.value)" class="form-control basic-select">
                    <!-- <option value="1" selected="selected">Subject</option> -->
-                     <option>Agricultural Science</option>
+                  <%if(param==='curriculum' ||param==='test'){%>
+                   <option>Agricultural Science</option>
                      <option>Accounting</option>
                      <option>Basic Science</option>
                      <option>Basic Technology</option>
@@ -69,17 +58,38 @@
                      <option>Music</option>
                      <option>Physics</option>
                      <option>Social Studies</option>
+                     <%} else if(param==='play'){%>
+                     <option>Jokes</option>
+                     <option>Riddles</option>
+                     <%}%>
                </select>
               </div>
+
+                  <%if(param==='curriculum' ||param==='test'){%>
+                 <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
+                   <select id="class-filter-form" onchange="filter(this.value)" class="form-control basic-select">
+                     <!-- <option value="1" selected="selected">Class</option> -->
+                     <optgroup> Junior Class </optgroup>
+                     <option value="JSS 1">JSS 1</option>
+                     <option value="JSS 2">JSS 2</option>
+                     <option value="JSS 3">JSS 3</option>
+                     <optgroup> Senior Class </optgroup>
+                     <option value="SSS 1">SSS 1</option>
+                     <option value="SSS 2">SSS 2</option>
+                     <option value="SSS 3">SSS 3</option>
+                   </select>
+                 </div>
             
                <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
-                   <select id="term-filter-form" onchange="filter(this.value)" class="form-control basic-select">
+                <select id="term-filter-form" onchange="filter(this.value)" class="form-control basic-select">
                        <!-- <option value="1" selected="selected">Term </option> -->
                          <option>1st Term</option>
                          <option>2nd Term</option>
                          <option>3rd Term</option>
                    </select>
                </div>
+                   <%}%>
+
             </div>
         </div>
       </div>
@@ -94,17 +104,39 @@
             var subjectVal =$('#subject-filter-form').val();
             var termVal = $('#term-filter-form').val();
 
-            var res = titleVal+ " "+classVal + " "+subjectVal+" "+termVal;
+
+            var res = 
+            ((titleVal && classVal && subjectVal && termval)?
+             titleVal+ " "+classVal + " "+subjectVal+" "+termVal
+            : (!titleVal && classVal && subjectVal && termval)?
+              classVal + " "+subjectVal+" "+termVal
+            : (!titleVal && !classVal && subjectVal )?
+              subjectVal.toLowerCase() : ''
+             )
+            console.log("res");
+            
             console.log(res);
+            
+            
+            console.log("end");
+            
              
             
             
 
             var rex = new RegExp(res, 'i');
+            console.log(rex);
+            
             $('.searchable-items .items').fadeOut();
 
             $('.searchable-items .items').filter(function () {
-                return rex.test($('.searchable-items .items').text());
+                return (titleVal && classVal && subjectVal && termval?
+                 rex.test($('.searchable-items .items').text()):
+                !titleVal && !classVal && subjectVal?
+                //  console.log($('.searchable-items .item-cache').text().toLowerCase())
+                 rex.test($('.searchable-items .item-cache').text())
+                :''
+                 )
             }).fadeIn();
          };
     </script>
@@ -134,36 +166,42 @@
             <div class="event">
               <div class="event-img">
                 <img class="img-fluid" src="<%=c.image%>" alt="">
+                  <%if(param==='curriculum' ||param==='test'){%>
                 <div class="event-date">
                   <%=c.genre%>
                   <!-- <small>Jan</small> -->
                   <span class="years font-weight-bold">TERM</span>
                 </div>
+                <% } %>
               </div>
               <div class="event-info">
                 <ul class="meta-event">
-                  <li><i class="fa fa-clock"></i><%=c.cache%></li>
-                  <li><i class="fa fa-map-marker-alt"></i><%=c.category%></li>
+                  <%if(param==='curriculum' ||param==='test'){%>
+                  <li><%=c.cache%></li>
+                  <li><%=c.category%></li>
+                  <%}else if(param==='play'){%>
+                  <li class="item-cache"><%=c.cache%></li>
+                    <%}%>
                 </ul>
             <div>
                 <h4 class="event-title"><a href="#"><%=c.title%> </a></h4>
             </div>
                 <code style="display: none;"> <%=c.title + " " +c.cache +" "+c.category+" "+c.genre+" Term"%> </code>
-                <p><%-c.articleText.substring(0, 120)+'...'%></p>
+                <p><%-c.articleText.substring(0, 100)+'...'%></p>
                 <code class="read-content" style="display: none"><%-c.articleText%></code>
                 <code class="display-content" style="display: none"><%=c.article%></code>
        
 
                 <div class="btn-resources"> 
-                <%if(c.type==='curriculum'){%>
+                <%if(c.type==='curriculum' || c.type==='stories'){%>
                 <a class="btn btn-info read" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Read</a>
                 <a class="btn btn-success listen" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Listen</a>
-                <%}else if (c.type==='test'){%>
+                <%}else if (c.type==='test' || c.type==='play'){%>
                 <a class="btn btn-success take-test" data-optA="<%=c.optionA%>" data-optB="<%=c.optionB%>"
                     data-optC="<%=c.optionC%>" data-optD="<%=c.optionD%>"
                     data-answer="<%=c.answer%>"
                     href="javascript:void(0)" data-title='<%=c.title%>'
-                    data-id="<%=c.id%>">Take Test</a>
+                    data-id="<%=c.id%>">Start</a>
                 <%}%>
             </div>
             </div>
@@ -175,6 +213,7 @@
             <!-- <input id="" type="file" name="" value=""> -->
             <input id="itemid" type="text" name="itemid" value="">
             <input id="itemTitle" type="text" name="itemTitle" value="">
+            <input id="itemType" type="hidden" name="itemType" value="">
             <input type="text" name="_url" value="/engage">
             <input type="text" name="_csrf" value="<%=csrfToken%>">
             <input type="text" name="method" value="POST">

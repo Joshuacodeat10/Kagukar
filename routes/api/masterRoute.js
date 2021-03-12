@@ -4,6 +4,7 @@ const router = express.Router();
 const passport = require("passport");
 const httpMsgs = require("http-msgs");
 const User = require("../../models/master");
+const User_ = require("../../models/user");
 const options = require("../../config/options");
 const notif = require("../../config/response");
 const resetPass = require("../../config/reset");
@@ -71,11 +72,15 @@ router.post("/", function (req, res) {
     password: req.body.password,
   });
 
+   User_.findOne({
+         username
+       },
+       function (err, userFound_) {
   User.findOne({
     username
   }, function (err, userFound) {
     if (err) throw err;
-    if (userFound) {
+    if (userFound_.cache == 'administrator' || userFound) {
       req.login(user, function (err, users) {
         if (err) throw err
 
@@ -89,6 +94,7 @@ router.post("/", function (req, res) {
     } else {
       notif(req, res, "error", "Unauthorized Access!", false, "/")
     }
+  });
   });
 });
 

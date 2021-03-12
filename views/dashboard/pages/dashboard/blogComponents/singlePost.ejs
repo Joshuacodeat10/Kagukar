@@ -59,7 +59,7 @@
 
               <p class="genre-dialog btn btn-dark"><span class="card-genre genre"
                       data-genre="<%=post.genre%>"><%=post.genre%></span> Term </p>
-                <%if(post.type == 'test'){%>
+                <%if(post.type == 'test' || post.cache == 'riddles' || post.cache == 'jokes'){%>
                        <p class="question-dialog btn btn-outline-dark dark" title='Questions'
                            data-html="true" href="javascript:void(0);" data-toggle="modal"
                            data-target=".bq-example-modal-xl"

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 /*================================================
 [  Table of contents  ]
 ================================================
@@ -49,8 +50,9 @@
 *****************************/
 
 body {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Poppins', sans-serif !important;
   font-weight: 500;
+  letter-spacing: 1px !important;
   font-style: normal;
   font-size: 14px;
   line-height: 24px;
@@ -89,11 +91,11 @@ input {
 }
 
 .h1, h1, .h2, h2, .h3, h3, .h4, h4, .h5, h5, .h6, h6 {
-  font-family: "Quicksand", sans-serif;
+  /* font-family: "Quicksand", sans-serif; */
   font-weight: 600;
   color: #1c1a1f;
   margin-top: 0px;
-  letter-spacing: -1px;
+  /* letter-spacing: -1px; */
 }
 
 .h1 a, h1 a, .h2 a, h2 a, .h3 a, h3 a, .h4 a, h4 a, .h5 a, h5 a, .h6 a, h6 a {
@@ -3880,8 +3882,10 @@ ul.list li a:hover {
 *****************************/
 
 .event {
-  -webkit-box-shadow: 0px 3px 4px 0px rgba(28, 26, 31, 0.1);
-  box-shadow: 0px 3px 4px 0px rgba(28, 26, 31, 0.1);
+  /* -webkit-box-shadow: 0px 3px 4px 0px rgba(28, 26, 31, 0.1); */
+  -webkit-box-shadow: 5px 5px 10px #cccccc, -5px -5px 10px #f4f4f4;
+  /* box-shadow: 0px 3px 4px 0px rgba(28, 26, 31, 0.1); */
+  box-shadow: 5px 5px 10px #cccccc, -5px -5px 10px #f4f4f4;
   border-radius: 3px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -4462,7 +4466,7 @@ ul.list li a:hover {
 }
 
 .header .navbar .dropdown-menu {
-  padding: 0px 0px 15px 0px;
+  padding: 0;
   z-index: 9999;
   border: none;
 }
@@ -4995,7 +4999,8 @@ ul.list li a:hover {
 
 @media (min-width: 992px) {
   .header .navbar .dropdown-menu.dropdown-menu-md {
-    min-width: 400px;
+    /* min-width: 400px; */
+    min-width: auto;
   }
   .header .navbar .dropdown-menu.dropdown-menu-lg {
     min-width: 600px;
@@ -5065,9 +5070,9 @@ ul.list li a:hover {
     border: none;
   }
   .header .navbar .dropdown-menu {
-    max-height: 350px;
+    max-height: 320px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
   .header .search-category {
     display: none;
@@ -7391,13 +7396,19 @@ ul.list li a:hover {
   filter: grayscale(100%);
 }
 
-
-
-
-
-#test-options p{
+#test-options p {
   border: 1px solid black;
   border-radius: 15px;
   padding: 5px 10px;
   margin: 10px;
+}
+
+.correct {
+  background: #00800033;
+  font-weight: 600
+}
+
+.wrong {
+  background: #f7040433;
+  font-weight: 600
 }

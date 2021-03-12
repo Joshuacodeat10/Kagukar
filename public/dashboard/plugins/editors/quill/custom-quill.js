@@ -640,6 +640,30 @@ $("#testDiv").hide()
 $('.question-dialog').on('click', e=>{
   $('#existingQuestions').empty()
 
+  var cache = $(e.target).parents('.card-body').find('.card-cache').attr('data-cache')
+  var type = $(e.target).parents('.card-body').find('.card-type').attr('data-ptype')
+  console.log(cache +" "+type)
+
+  if (type == 'test') {
+    $("#optionsDiv").show()
+    $("#optionsDiv").find('input[name = "ans"]').attr('required', true)
+    $("#optionsDiv").find('input.opt').attr('required', true)
+    $(".test-answer-dialog").hide();
+
+  }else if(cache == 'riddles'){
+    $("#optionsDiv").hide();
+    $("#optionsDiv").find('input[name = "ans"]').attr('required', false)
+    $("#optionsDiv").find('input.opt').attr('required', false)
+
+    $(".test-answer-dialog").show();
+  } else if (cache == 'jokes') {
+    $("#optionsDiv").hide();
+    $("#optionsDiv").find('input[name = "ans"]').attr('required', false)
+    $("#optionsDiv").find('input.opt').attr('required', false)
+
+    $(".test-answer-dialog").hide();
+  }
+
    const itemid = $(e.target).attr('data-itemid');
    const _csrf = $("#csrf").val();
 
@@ -723,15 +747,22 @@ function questionData(data){
 
 function questionCard(data, itemid){
   
+  console.log();
+  
+
   const questionCard = '<div class="note-item all-notes note-fav col-6">' +
     '<div class="note-inner-content">' +
     '<div class="note-content">' +
     '<p class="meta-time">' + data.question + '</p>' +
     '<div class="note-description-content row mt-3 pr-2 pl-2">' +
+    (data.optionA && data.optionB && data.optionC && data.optionD ?
     '<p class="note-description opt- col-12" >' + data.optionA + (data.answer == data.optionA ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
     '<p class="note-description opt- col-12" >' + data.optionB + (data.answer == data.optionB ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
     '<p class="note-description opt- col-12" >' + data.optionC + (data.answer == data.optionC ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
-    '<p class="note-description opt- col-12" >' + data.optionD + (data.answer == data.optionD ? '<i class="fa fa-check float-right"></i> ': '') + '</p>' +
+    '<p class="note-description opt- col-12" >' + data.optionD + (data.answer == data.optionD ? '<i class="fa fa-check float-right"></i> ': '') + '</p>'
+    : 
+    (data.answer? '<p class="note-description opt- col-12" >Answer: ' + data.answer + '</p>':'')
+    ) +
 
     '</div></div>' +
     ' <div class="note-action float-right btn btn-dark rounded">' +

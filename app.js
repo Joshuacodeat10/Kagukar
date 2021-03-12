@@ -50,6 +50,7 @@ const Master = require("./models/master");
 const Content = require("./models/blog");
 const Users = require("./models/user");
 const Experience = require("./models/person/experience");
+const Education = require("./models/person/education");
 
 const admin = require("./routes/api/masterRoute");
 const adminDashboard = require("./routes/api/masterRoutes/index");
@@ -153,14 +154,21 @@ app.get("/update/profile", (req, res) => {
     }
 })
 
-app.post('/engage', (req, res)=>{
+app.post('/engage', async (req, res) =>{
 
 console.log(req.body);
 
 
-if(!req.isAuthenticated()){
+var questions
+if(req.body.itemType === 'test'){
+    questions = await Education.find({itemid: req.body.itemid})
+}
+
+console.log(questions)
+
+if (!req.isAuthenticated()) {
     httpMsgs.sendJSON(req, res, {
-      
+        questions
     });
     return
 }
@@ -168,7 +176,7 @@ if(!req.isAuthenticated()){
 const newExp = new Experience({
     ...req.body,
     userid: req.user.id,
-    conut: 1
+    count: 1
 })
 
     Experience.findOne({userid: req.user.id, itemid: req.body.itemid}, (err, found)=>{
@@ -199,7 +207,7 @@ const newExp = new Experience({
     
 
       httpMsgs.sendJSON(req, res, {
-         
+         questions
       });
     
 })
