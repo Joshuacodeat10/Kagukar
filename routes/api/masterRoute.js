@@ -67,7 +67,7 @@ router.get("/", (req, res) => {
 router.post("/", function (req, res) {
 
   var username = req.body.username.toLowerCase();
-  const user = new User({
+  const user = new User_({
     username: username,
     password: req.body.password,
   });
