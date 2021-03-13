@@ -38,8 +38,7 @@ app.use(passport.session());
 var csrfProtection = csrf();
 app.use(csrfProtection);
 
-mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
-// mongoose.connect("mongodb://localhost:27017/portalDB", {
+mongoose.connect("mongodb://localhost:27017/kagukarDB", {
     useNewUrlParser: true,
     // useUnifiedTopology: true
 });
