@@ -500,9 +500,9 @@ const voiceResponse = async e => {
 
 const answerResponse = async e =>{
   console.log(e)
-  const resWord = e;
+  const resWord = e.split(" ", 1)[0];
 
-  console.log(e.length)
+  console.log(resWord)
 
   // await attempt(e)
   
