@@ -10,7 +10,7 @@ var menuOption = 0; //main menu 0, next 1
 var msg = new SpeechSynthesisUtterance();
 msg.voiceURI = 'native';
 msg.volume = 1; // 0 to 1
-msg.rate = 1; // 0.1 to 10
+msg.rate = 0; // 0.1 to 10
 // msg.pitch = 2; //0 to 2
 // msg.speakingRate = 1
 msg.pitch = 0; //0 to 2
@@ -405,7 +405,7 @@ document.onkeypress = async ({key}) => {
 var fback = new SpeechSynthesisUtterance();
 fback.voiceURI = 'native';
 fback.volume = 1; // 0 to 1
-fback.rate = 1; // 0.1 to 10
+fback.rate = 0; // 0.1 to 10
 fback.pitch = 2; //0 to 2
 // fback.lang = 'en-US';
 fback.lang = 'en-IN';
@@ -751,7 +751,7 @@ const getQuestions = async () =>{
  var utterance = new SpeechSynthesisUtterance();
 //  utterance.lang = 'en-UK';
  utterance.lang = 'en-IN';
- utterance.rate = 1;
+ utterance.rate = 0;
 
 //  document.getElementById('playButton').onclick = function () {
 //    var text = document.getElementById('textarea').value;
