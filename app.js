@@ -38,7 +38,8 @@ app.use(passport.session());
 var csrfProtection = csrf();
 app.use(csrfProtection);
 
-mongoose.connect("mongodb://localhost:27017/kagukarDB", {
+mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
+// mongoose.connect("mongodb://localhost:27017/portalDB", {
     useNewUrlParser: true,
     // useUnifiedTopology: true
 });
@@ -77,7 +78,7 @@ app.get('/', (req, res)=>{
                     csrfToken: req.csrfToken(),
                     master, 
                     user: req.user,
-                    contents
+                    contents, param: ''
                 });
             })
         })
@@ -119,7 +120,7 @@ app.get("/profile", (req, res)=>{
 
                     csrfToken: req.csrfToken(),
        res.render("client/secondary/pages/profile", {user: req.user, master, 
-                    csrfToken: req.csrfToken(), foundExp
+                    csrfToken: req.csrfToken(), foundExp, param: ''
                     })
         })
      })
@@ -133,7 +134,7 @@ app.get("/contact", (req, res) => {
         res.render("client/secondary/pages/contact", {
             user: req.user,
                     csrfToken: req.csrfToken(),
-                        master,
+                        master,param: ''
         })
     })
 })
@@ -145,7 +146,7 @@ app.get("/update/profile", (req, res) => {
             res.render("client/secondary/pages/kaguAuth", {
                 user: req.user,
                 master,
-                csrfToken: req.csrfToken(),
+                csrfToken: req.csrfToken(), param: ''
             })
         })
     } else {

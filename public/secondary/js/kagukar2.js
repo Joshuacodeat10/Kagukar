@@ -78,15 +78,55 @@ var quickLink;
 window.addEventListener('load', async e => {
   // console.clear()
   speechSynthesis.cancel()
+  stopButton()
   const welcome = 'Welcome to Kagukar, what would you like to do today? press key X to get a list of the available shortcuts or Triple tap to start learning';
   if(window.location.pathname === '/'){
     await speak(welcome)
   }
 
   if(window.location.pathname === '/resources/test'){
-      $("#test-options").show()
+      $("#test-options").show();
   }
+   if (window.location.pathname.match(/resources/gi)) {
+     return readTitles()
+
+   }
+
+
+
 });
+const readTitles = async e =>{
+    var title = $(".event-title a")
+
+    var titles = ["Welcome,"+(title.length>1? " Kindly select from the following Topics":" There's only one content for this category")];
+
+      for (var i = 0; i < title.length; i++) {
+        // '\n 1: Agriculture' +
+        console.log(title[i].text)
+        titles.push("\n " + [i+1] + ", " + title[i].text);
+      }
+   
+    
+    // console.log(titles.toString())
+    const speakTitles = titles.toString()
+    await speak(speakTitles, readTitleEnd)
+}
+
+
+const readTitleEnd = async () =>{
+  // $('#options').hide();
+
+  // openModalFunc();
+  // menu_process.slideUp()
+
+  if (!recognizing) {
+    await startButton()
+  } else {
+    await stopButton()
+  }
+}
+
+
 
 
 async function speak(message, func, start_func) {
@@ -185,10 +225,12 @@ window.addEventListener('click', async e=>{
     return
   }
   speechSynthesis.cancel();
+  stopButton()
  
   if(window.location.pathname === '/' || menuOption == 0){
 
-     await speak(mainMenu, speechEnd, menu_process.slideDown());
+    //  await speak(mainMenu, speechEnd, menu_process.slideDown());
+    await menuFunction()
      menuOption = 1;
 
   }else if(window.location.pathname.includes('resources')){
@@ -260,10 +302,43 @@ modal_process.addEventListener('click', (e) => {
 
 
 
+// var inputing = false
 
-document.onkeypress = async function ({
-  key
-}) {
+var typingTimer; //timer identifier
+var doneTypingInterval = 3000; //time in ms, 5 second for example
+var $input = $('input');
+var inputing = false
+
+$input.on('keyup', e=>{
+  clearTimeout(typingTimer);
+  // console.log("Start")
+  inputing = true
+  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+})
+
+//on keydown, clear the countdown 
+$input.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is "finished typing," do something
+async function doneTyping() {
+  //do something
+  // console.log("DOne ")
+  inputing = false
+}
+
+
+const menuFunction = async e =>{
+  $("#final_read_span").text(" ")
+  $("#test-options").hide()
+  await speak(mainMenu, speechEnd, menu_process.slideDown());
+}
+
+document.onkeypress = async ({key}) => {
+
+ if (inputing)  return;
+
   if(level > 0){
     return 
   }
@@ -281,7 +356,8 @@ document.onkeypress = async function ({
   } else if (e == 's' || e == 'S') {
     quickLink = 'stories'
   } else if (e == 'm' || e == 'M') {
-    await speak(mainMenu, speechEnd, menu_process.slideDown());
+     speechSynthesis.cancel()
+    menuFunction()
     return
   } else if (e == 'k' || e == 'K') {
       chosenOption = window.location.pathname.split('/')[2];
@@ -290,6 +366,7 @@ document.onkeypress = async function ({
       // level = 1
 
   } else if (e == 'x' || e == 'X') {
+
    await speak(shortCut, speechEnd)
    return
 }else {
@@ -358,6 +435,7 @@ var toReplay;
 
    if (synth.speaking) {
         synth.cancel()
+        stopButton()
    }
 
    var read = $(e.target).parents('.event-info').find('.read-content')
@@ -384,6 +462,7 @@ var toReplay;
   $('.read').click(e => {
     if (synth.speaking) {
       synth.cancel()
+      stopButton()
     }
     var display = $(e.target).parents('.event-info').find('.display-content')
     var toDisplay = display.text();
@@ -405,6 +484,7 @@ var toReplay;
      activeExercise = true
      if (synth.speaking) {
        synth.cancel()
+       stopButton()
      }
      qstIndex = 0, answered = false,
      questions = undefined, correct = 0, wrong = 0;
@@ -412,7 +492,7 @@ var toReplay;
     //  var toDisplay = display.text();
 
     questions = await targetItem(e)
-
+    $("#test-options").show()
 
        var prompt =
     (window.location.pathname.split('/')[2] == 'test'?
@@ -447,6 +527,12 @@ var toReplay;
 
 
 
+
+const testEnd = e =>{
+  $("#stop").click();
+  // modal_process.click()
+}
+
 const setQuestion = async () =>{
   if (qstIndex >= questions.length) {
 
@@ -460,10 +546,9 @@ const setQuestion = async () =>{
                 " \n You scored a total percentage of " +score +"% "+
                 "\n  " + average 
 
-    await speak(report, speechEnd)
+    await speak(report, testEnd)
      activeExercise = false
-    // $("#stop").click();
-    return
+    return false
   }
 
   var readQst = 
@@ -490,7 +575,8 @@ const setQuestion = async () =>{
 const voiceResponse = async e => {
   $('#options').hide();
   openModalFunc();
-  menu_process.slideUp()
+  menu_process.slideUp();
+
   if (!recognizing) {
     await startButton()
   } else {
@@ -499,12 +585,31 @@ const voiceResponse = async e => {
 }
 
 const answerResponse = async e =>{
-  console.log(e)
   const resWord = e.split(" ", 1)[0];
 
-  console.log(resWord)
+  const options = [questions[qstIndex].optionA, questions[qstIndex].optionB,
+                  questions[qstIndex].optionC, questions[qstIndex].optionD, questions[qstIndex].answer]
 
-  // await attempt(e)
+  console.log(options)
+
+  console.log(resWord)
+  if (options[0].toLowerCase() == resWord || options[1].toLowerCase() == resWord 
+  || options[2].toLowerCase() == resWord || options[3].toLowerCase() == resWord || ['a', 'b','c','d'].includes(resWord)) {
+    console.log("Valid option");
+      await attempt(resWord)
+  }
+  // else{
+  //   setQuestion()
+  // }
+  
+  // if (resWord == options[5]){
+  //   console.log("Correct")
+  //     await speak('Correct', speechEnd)
+  //     // await speak('You have entered an incorrect option ', setQuestion)
+  // }else{
+
+  // }
+
   
 }
 
@@ -525,9 +630,13 @@ const attempt = async e =>{
    return new Promise(async (resolve) => {
 
   window.speechSynthesis.cancel();
+  stopButton()
+
   if (qstIndex >= questions.length) {
     return
   }
+
+  console.log(e)
 
    var optA =  $("#optA p").text(questions[qstIndex].optionA)
    var optB = $("#optB p").text(questions[qstIndex].optionB)
@@ -535,7 +644,10 @@ const attempt = async e =>{
    var optD = $("#optD p").text(questions[qstIndex].optionD)
 
   if (!answered) {
-    if (testAnswer == $(e).text() ) {
+    if (testAnswer == $(e).text() || testAnswer.toLowerCase() == e || 
+      e == 'a' && questions[qstIndex].optionA == testAnswer || e == 'b' && questions[qstIndex].optionB == testAnswer ||
+         e == 'c' && questions[qstIndex].optionC == testAnswer || e == 'd' && questions[qstIndex].optionD == testAnswer
+    ) {
       correct += 1;
       $(e).addClass('correct');
 
@@ -657,6 +769,8 @@ const getQuestions = async () =>{
  document.getElementById('play').onclick = function () {
     if (speechSynthesis) {
       window.speechSynthesis.cancel();
+     stopButton()
+
     }
   speak(toReplay);
  };
@@ -682,6 +796,7 @@ const getQuestions = async () =>{
  document.getElementById('stop').onclick = function () {
    if (speechSynthesis) {
      window.speechSynthesis.cancel();
+     stopButton()
    }
   modal_process.click()
  };

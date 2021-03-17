@@ -214,6 +214,11 @@ small, .small {
   line-height: 50px;
 }
 
+.img-fluid {
+  height: 280px;
+  object-fit: cover;
+}
+
 /*****************************
   Responsive
 *****************************/
@@ -346,6 +351,15 @@ small, .small {
 
 .bg-primary {
   background-color: #21c87a !important;
+}
+
+.feature-info-icon i {}
+
+.bg-primary:hover {
+  background-color: #09a95e !important;
+  box-shadow: 1px 3px 8px black;
+  transform: scale(1.1);
+  transition: .3s transform ease-in;
 }
 
 .bg-dark {
@@ -3916,6 +3930,8 @@ ul.list li a:hover {
   top: 20px;
   right: 20px;
   border-radius: 3px;
+
+  box-shadow: 1px 1px 6px black;
 }
 
 .event .event-img .event-date small {
@@ -3929,7 +3945,7 @@ ul.list li a:hover {
   font-size: 14px;
   font-weight: normal;
   padding: 5px 0px;
-  background-color: #666666;
+  background-color: #21c87a;
   border-radius: 0px 0px 3px 3px;
 }
 
@@ -3943,7 +3959,7 @@ ul.list li a:hover {
 
 .event .event-info p {
   /* height: 72px; */
-  height: auto;
+  height: 250.01px;
   margin-bottom: 0px;
 }
 
