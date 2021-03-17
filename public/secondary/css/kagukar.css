@@ -582,8 +582,10 @@ small, .small {
 /* Img Holder */
 
 .bg-holder {
-  background-size: cover;
-  background-position: center center;
+  /* background-size: cover;
+  background-position: center center; */
+  background-size: contain;
+  background-position: right;
   background-repeat: no-repeat;
   width: 100%;
 }
@@ -3930,7 +3932,6 @@ ul.list li a:hover {
   top: 20px;
   right: 20px;
   border-radius: 3px;
-
   box-shadow: 1px 1px 6px black;
 }
 
@@ -4355,6 +4356,7 @@ ul.list li a:hover {
 
 .header.is-sticky {
   position: fixed;
+  transition: .3s ease-in;
   top: 0;
   z-index: 3;
   width: 100%;

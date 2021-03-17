@@ -72,7 +72,7 @@ router.post("/", function (req, res) {
           // if (err) throw err;
           // else {
 
-            notif(req, res, "success", "Signed in Successfully", true, "/")
+            notif(req, res, "success", "Signed in Successfully", true, (userFound.cache == 'administrator' ? "/admin/dashboard" : "/resources/curriculum"))
             // httpMsgs.sendJSON(req, res, {
             //   alert: "alert alert-info text-info",
             //   response: "Login Successful",
