@@ -98,7 +98,7 @@ window.addEventListener('load', async e => {
 const readTitles = async e =>{
     var title = $(".event-title a")
 
-    var titles = ["Welcome,"+(title,length>1? " Kindly select from the following Topics":" There's only one content for this category")];
+    var titles = ["Welcome,"+(title.length>1 ? " Kindly select from the following Topics":" There's only one content for this category")];
 
       for (var i = 0; i < title.length; i++) {
         // '\n 1: Agriculture' +
