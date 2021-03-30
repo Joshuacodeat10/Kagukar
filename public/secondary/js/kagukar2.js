@@ -2,6 +2,24 @@
 
 // }
 
+var howTo = true;
+
+$("#howTo").on('click', e=>{
+  howTo = !howTo;
+  // $(e.target).addClass('fa-volume-down')
+  if(!howTo){
+    window.speechSynthesis.cancel();
+    $('.listen').hide();
+  $("#howTo i").attr('class', 'fa fa-volume-down')
+
+  }else{
+    $('.listen').show()
+    $("#howTo i").attr('class','fa fa-volume-up')
+  }
+     
+   
+  console.log(howTo)
+})
 
 var synth = window.speechSynthesis;
 // var synth = window.speechSynthesis;
@@ -89,7 +107,6 @@ window.addEventListener('load', async e => {
   }
    if (window.location.pathname.match(/resources/gi)) {
      return readTitles()
-
    }
 
 
@@ -130,6 +147,11 @@ const readTitleEnd = async () =>{
 
 
 async function speak(message, func, start_func) {
+
+  if (!howTo) {
+    return false
+  }
+
    var voices = synth.getVoices();
   //  console.log(voices);
    

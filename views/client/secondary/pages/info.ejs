@@ -1,0 +1,50 @@
+<%- include('../partials/header')%>
+
+<%- include('../partials/common/modal')%>
+<%- include('../partials/common/modal-process')%>
+<%- include('../partials/common/alert')%>
+
+<!--=================================Inner Header -->
+<section class="inner-header bg-holder bg-overlay-black-90"
+    style="background-image: url('/secondary/assets/img/landing-img.png');">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+                <h1 class="breadcrumb-title mb-0 text-white"><%=param%></h1>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb d-flex justify-content-center justify-content-md-end ml-auto">
+                    <li class="breadcrumb-item"><a href="/"><i class="fa fa-home mr-1"></i>Home</a>
+                    </li>
+                    <li class="breadcrumb-item active"><span><%=user && user.name%></span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <!-- about: String,
+ aboutText: String,
+ privacy: String,
+ privacyText: String,
+ tnc: String,
+ tncText: String, -->
+
+ <section class="space-ptb course-details">
+      <div class="container">
+          <%if(param=="about"){%>
+            <%-master.about%>
+          <%}else if(param == "privacy"){%>
+            <%-master.privacy%>
+          <%}else if(param == "tnc"){%>
+            <%-master.tnc%>
+          <%}%>
+          
+
+      </div>
+    </section>
+
+
+
+<%- include('../partials/footer')%>

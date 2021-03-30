@@ -34,9 +34,9 @@
 
 
         <header class="su-Branding ">
-            <div class="su-Branding_Logo"></div>
+         
             <h1 class="su-Branding_Title">Update Details</h1>
-            <span class="su-Branding_CloseButton"></span>
+ 
         </header>
 
 
@@ -68,7 +68,7 @@
                                         data-val-regex-expression="^[0-9\ \u00B4\u0041-\u005A\u005F\u0061-\u007A\u00C0-\u0233\u0250-\u02AD\u1E00-\u1EF9\uFB00-\uFB06\uFF20-\uFF2A\uFF41-\uFF4A\u002D\u002E]*$"
                                         data-val-regex-onblur="" data-val-regex-options=""
                                         data-val-required="Please enter your first name." data-val-required-onblur=""
-                                        id="FirstName" name="FirstName" spellcheck="false" type="text" value="<%=user.name%>" />
+                                        id="FirstName" name="name" spellcheck="false" type="text" value="<%=user.name%>" />
                                     <span class="flexiField_Label">Full Name</span>
 
                                     <div></div>
@@ -76,7 +76,53 @@
                                 </div>
                             </div>
 
+
+                             <div>
+                                 <div>
+                                     <input autocorrect="off" class="flexiField_Input" data-val="true"
+                                         data-val-characterlimit="Please enter your first name."
+                                         data-val-characterlimit-isoptional="False"
+                                         data-val-characterlimit-maxlength="50"
+                                         data-val-characterlimit-maxuserinput="50" data-val-characterlimit-minlength="1"
+                                         data-val-characterlimit-onblur=""
+                                         data-val-regex="Please enter valid characters only."
+                                         data-val-regex-expression="^[0-9\ \u00B4\u0041-\u005A\u005F\u0061-\u007A\u00C0-\u0233\u0250-\u02AD\u1E00-\u1EF9\uFB00-\uFB06\uFF20-\uFF2A\uFF41-\uFF4A\u002D\u002E]*$"
+                                         data-val-regex-onblur="" data-val-regex-options=""
+                                         data-val-required="Please enter your first name." data-val-required-onblur=""
+                                         id="schoolName" name="department" spellcheck="false" type="text"
+                                         value="<%=user.department%>" />
+                                     <span class="flexiField_Label">School</span>
+
+                                     <div></div>
+                                     <span class="flexiField_AditionalInfo"></span>
+                                 </div>
+                             </div>
+
+                              <div>
+                                  <div>
+                                      <input autocorrect="off" class="flexiField_Input" data-val="true"
+                                          data-val-characterlimit="Please enter your first name."
+                                          data-val-characterlimit-isoptional="False"
+                                          data-val-characterlimit-maxlength="50"
+                                          data-val-characterlimit-maxuserinput="50"
+                                          data-val-characterlimit-minlength="1" data-val-characterlimit-onblur=""
+                                          data-val-regex="Please enter valid characters only."
+                                          data-val-regex-expression="^[0-9\ \u00B4\u0041-\u005A\u005F\u0061-\u007A\u00C0-\u0233\u0250-\u02AD\u1E00-\u1EF9\uFB00-\uFB06\uFF20-\uFF2A\uFF41-\uFF4A\u002D\u002E]*$"
+                                          data-val-regex-onblur="" data-val-regex-options=""
+                                          data-val-required="Please enter your first name." data-val-required-onblur=""
+                                          id="className" name="rank" spellcheck="false" type="text"
+                                          value="<%=user.rank%>" placeholder="JSS 1 ... SSS 3" />
+                                      <span class="flexiField_Label">Class</span>
+
+                                      <div></div>
+                                      <span class="flexiField_AditionalInfo"></span>
+                                  </div>
+                              </div>
+                            
+
                         </div>
+
+                        
                     </fieldset>
                        
 
@@ -197,7 +243,6 @@
                                             data-val-regex-expression="^[a-zA-Z0-9]*$" data-val-regex-onblur=""
                                             data-val-regex-options="" id="BonusCode" name="about" spellcheck="false"
                                             type="text" style="width:331px;height:107px"><%=user.about%></textarea>
-                                        <span class="flexiField_Label">Bonus code</span>
 
                                         <div></div>
 

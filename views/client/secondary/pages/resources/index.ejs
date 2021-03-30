@@ -167,18 +167,18 @@
               <div class="event-img">
                 <img class="img-fluid" src="<%=c.image%>" alt="">
                   <%if(param==='curriculum' ||param==='test'){%>
-                <div class="event-date">
+                <div class="event-date two2">
                   <%=c.genre%>
                   <!-- <small>Jan</small> -->
-                  <span class="years font-weight-bold">TERM</span>
+                  <span class="years font-weight-bold one1">TERM</span>
                 </div>
                 <% } %>
               </div>
               <div class="event-info">
                 <ul class="meta-event">
                   <%if(param==='curriculum' ||param==='test'){%>
-                  <li><%=c.cache%></li>
-                  <li><%=c.category%></li>
+                  <li> <i class="fa fa-tag"></i> <%=c.cache%></li>
+                  <li> <i class="fa fa-gear text-info"></i> <%=c.category%></li>
                   <%}else if(param==='play'){%>
                   <li class="item-cache"><%=c.cache%></li>
                     <%}%>
@@ -194,8 +194,8 @@
 
                 <div class="btn-resources"> 
                 <%if(c.type==='curriculum' || c.type==='stories'){%>
-                <a class="btn btn-info read" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Read</a>
-                <a class="btn btn-success listen" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Listen</a>
+                <a class="btn btn-primary read three3" style="color: #fff;" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Read</a>
+                <a class="btn btn-primary listen one1" href="javascript:void(0)" data-title='<%=c.title%>' data-id="<%=c.id%>">Listen</a>
                 <%}else if (c.type==='test' || c.type==='play'){%>
                 <a class="btn btn-success take-test" data-optA="<%=c.optionA%>" data-optB="<%=c.optionB%>"
                     data-optC="<%=c.optionC%>" data-optD="<%=c.optionD%>"

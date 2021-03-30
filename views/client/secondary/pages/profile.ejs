@@ -74,9 +74,9 @@
                          <tbody>
                              <%foundExp.map(e=>{%>
                              <tr>
-                                 <td><%e.type%></td>
+                                 <td><%=e.type%></td>
                                  <td><%=e.itemTitle%></td>
-                                 <td><%e.count%></td>
+                                 <td><%=e.count%></td>
                                  <td><%=e.createdAt.toLocaleString()%></td>
                                  <td><%=e.updatedAt.toLocaleString()%></td>
                              </tr>

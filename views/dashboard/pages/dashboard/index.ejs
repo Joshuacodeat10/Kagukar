@@ -114,7 +114,40 @@
                 </div>
             </div>
 
+            <div class="modal fade bd-example-modal-xl show" tabindex="-1" role="dialog"
+                aria-labelledby="myExtraLargeModalLabel" aria-modal="true">
+                <div class="modal fade bd-example-modal-xl show" tabindex="-1" role="dialog"
+                    aria-labelledby="myExtraLargeModalLabel" aria-modal="true"
+                    style="padding-right: 25.9922px; display: block;">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title type" id="myExtraLargeModalLabel">Activities</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                                <div class="modal-body">
+                                    <table width="100%">
+                                      <tr>
+                                        <thead>
+                                            <th>Name</th>
+                                            <th>Item</th>
+                                            <th>Item</th>
+                                        </thead>
+                                      </tr>
+                                    </table>
+                                </div> 
+                            </div>
+                            </div>
+                            </div>
 
+            </div>
 
            
 
@@ -131,8 +164,8 @@
                                     <th>Class</th>
                                     <!-- <th>Start date</th>
                                     <th>Salary</th> -->
-                                    <th>Joined</th>
-                                    <th>Total Activities</th>
+                                    <th>Type</th>
+                                    <th>Activities</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -142,12 +175,16 @@
                                     <td><%=u.name%></td>
                                     <td><%=u.username%></td>
                                     <td><%=u.department%></td>
-                                    <td><%=u.section%></td>
-                                    <td><%=u.createdAt%></td>
+                                    <td><%=u.rank%></td>
+                                    <td><%=u.cache == 'administrator'? "Admin":"Regular" %></td>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="usr-img-frame mr-2 rounded-circle">
-                                               <p class="font-weight-bold">12</p>
+                                            <div class="usr-img-frame btn rounded-circle">
+                                               <p class="font-weight-bold " style="margin: 6px auto; width: fit-content;">
+                                                   <i data-toggle="modal" data-target=".bd-example-modal-xl"
+                                                       data-url="/api/auth/activities" data-id="<%=u._id%>"
+                                                       class="fa fa-eye "></i>
+                                               </p>
                                             </div>
                                         </div>
                                     </td>
@@ -166,8 +203,11 @@
                                                 </svg>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuReference28">
-                                                <a class="dropdown-item" href="#">Make Admin</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
+                                                <a class="dropdown-item actionate" data-url="/api/auth/makeAdmin" data-id="<%=u._id%>"
+                                                    href="javascript:void(0)">Make Admin</a>
+                                                <a class="dropdown-item actionate" data-url="/api/auth/deleteUser"
+                                                    data-id="<%=u._id%>"
+                                                    href="javascript:void(0)">Delete</a>
                                             </div>
                                         </div>
                                     </td>
@@ -180,8 +220,51 @@
             </div>
 
         </div>
-
     </div>
+
+    <script>
+        $('.actionate').on('click', e=>{
+            const _csrf = "<%=csrfToken%>"
+           const data = $(e.target).attr('data-id');
+           const url = $(e.target).attr('data-url');
+
+     swal({
+        title: 'Are you sure?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        padding: '2em'
+      })
+      .then(function (x) {
+        if (x.value) {
+            $.ajax({
+            url,
+            method: "POST",
+            data: {id: data, _csrf},
+            dataType: "JSON",
+            success: (res) => {
+              
+                response(res.alert, res.response)
+                if(res.response != 'Fetched'){
+                setTimeout(() => {
+                    location.reload()
+                }, 3000);
+                }else{
+
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                
+            }
+           })
+        }
+      })
+          
+           
+
+        })
+    </script>
 
 
 <%- include('../../componentSection/adminDashboard/partials/footer') %>

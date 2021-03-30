@@ -118,7 +118,7 @@ app.get("/profile", (req, res)=>{
     Master.findOne({}, (err, master)=>{
      Experience.find({userid: req.user.id}, (err, foundExp)=>{
 
-                    csrfToken: req.csrfToken(),
+                    // csrfToken: req.csrfToken(),
        res.render("client/secondary/pages/profile", {user: req.user, master, 
                     csrfToken: req.csrfToken(), foundExp, param: ''
                     })
@@ -129,15 +129,18 @@ app.get("/profile", (req, res)=>{
     }
 })
 
-app.get("/contact", (req, res) => {
+app.get("/info/:info", (req, res) => {
+
     Master.findOne({}, (err, master) => {
-        res.render("client/secondary/pages/contact", {
+        res.render("client/secondary/pages/info", {
             user: req.user,
                     csrfToken: req.csrfToken(),
-                        master,param: ''
+                        master, param: req.params.info
         })
     })
 })
+
+
 
 app.get("/update/profile", (req, res) => {
     if (req.isAuthenticated()) {

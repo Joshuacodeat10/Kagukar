@@ -1,6 +1,6 @@
 const Master = require("../models/master");
 
-module.exports = function resetPass(username) {
+module.exports = function resetPass(req, res, username) {
     Master.findOne({}, (err, found) => {
         console.log("Found")
         console.log(username)
@@ -26,12 +26,25 @@ module.exports = function resetPass(username) {
             text: "Link is only valid for 5 minutes",
             html: "<div style='margin: 0 -5px;'><div class='float: left; width: 50%; padding: 0 10px;'><div style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); padding: 16px; text-align: center; background-color: #f1f1f1;'><h3>Brainballer | Forgot Password</h3><p>Link is only valid for 20 minutes</p><p> <a style='color: blue; font-weight: bold; text-decoration: underline' href='https://brainballer.com/reset/" +
                 req.body._csrf +
-                "'> Reset</a> </p></div></div></div> <a href='https://brainballer.com/reset/" +
+                "'> Reset</a> </p></div></div></div> <a href='https://salty-oasis-64205.herokuapp.com/reset/" +
                 req.body._csrf +
                 "'></a>",
         };
 
 
         console.log(found)
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent: " + info.response);
+                httpMsgs.sendJSON(req, res, {
+                    alert: "alert alert-success text-success",
+                    response: "A Password reset link has been sent to your Mail",
+                    location: "#",
+                    status: "success-reset",
+                });
+            }
+        });
     })
 }

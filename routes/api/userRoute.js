@@ -5,6 +5,7 @@ const passport = require("passport");
 const httpMsgs = require("http-msgs");
 
 const User = require("../../models/user");
+const Experience = require("../../models/person/experience");
 const options = require("../../config/options");
 const notif = require("../../config/response");
 const resetPass = require("../../config/reset");
@@ -14,6 +15,10 @@ const page = "user"
 
 //LOGIN RENDER ROUTE
 router.get("/", (req, res) => {
+
+if(req.isAuthenticated() && req.user.cache !== "administrator"){
+  res.redirect("/")
+}
 
   User.find({}, (err, users) => {
     if (users.length === 0) {
@@ -123,25 +128,70 @@ router.post("/register", (req, res) => {
 router.post("/reset", (req, res) => {
 
 
-  resetPass(username)
+  resetPass(req, res, username)
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-      httpMsgs.sendJSON(req, res, {
-        alert: "alert alert-success text-success",
-        response: "A Password reset link has been sent to your Mail",
-        location: "#",
-        status: "success-reset",
-      });
-    }
-  });
+  // transporter.sendMail(mailOptions, function (error, info) {
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     console.log("Email sent: " + info.response);
+  //     httpMsgs.sendJSON(req, res, {
+  //       alert: "alert alert-success text-success",
+  //       response: "A Password reset link has been sent to your Mail",
+  //       location: "#",
+  //       status: "success-reset",
+  //     });
+  //   }
+  // });
 })
 
 
+router.post("/activities", (req,res)=>{
+    Experience.find({userid: req.body.id}, (err, foundExp)=>{
+
+    return notif(req, res, "success", "Fetched", true, foundExp)
+        })
+})
+
 //CHANGE MODE
+router.post("/updateUser", (req, res) => {
+ 
+  User.updateOne({
+    _id: user.id
+  }, {
+    ...req.body
+  }, (err) => {
+    notif(req, res, "success", "Profile updated successfully", true, " ")
+  });
+});
+
+
+router.post("/makeAdmin", (req, res) => {
+  const {
+    id
+  } = req.body;
+
+  User.updateOne({
+    _id: id
+  }, {
+    cache:"administrator"
+  }, (err) => {
+    notif(req, res, "success", "Admin role added successfully", true, " ")
+  });
+});
+
+router.post("/deleteUser", (req, res) => {
+  const {
+    id
+  } = req.body;
+
+  User.deleteOne({
+    _id: id
+  }, (err) => {
+    notif(req, res, "success", "Account removed successfully", true, " ")
+  });
+});
+
 router.patch("/mode", (req, res) => {
   const {
     mode
