@@ -22,8 +22,10 @@ const userSchema = new Schema({
   dob: String,
   date: String,
   
-  cache: String,   //master, admin:CMD, Principal, ICT, senior:HOD, junior:Doctor,Teacher, regular:Patient, Parent, basic: Others - role
-  
+  cache: {
+    type: String,
+    default: 'user'
+  }, //master, admin:CMD, official
   secret:String,
   gender: String,
   status: String, //for staffs or patients

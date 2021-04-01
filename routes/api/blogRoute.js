@@ -24,7 +24,9 @@ router.get("/:account", (req, res) => {
   Master.findOne({}, (err, master) => {
 
     if (req.isAuthenticated()) {
-      Blog.find({}, (err, blog) => {
+      Blog.find((req.user.cache == "creator" ? {
+            authorid: req.user
+          } : {}), (err, blog) => {
           res.render("dashboard/pages/dashboard/blog", {
             csrfToken: req.csrfToken(),
             master,

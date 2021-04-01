@@ -16,7 +16,7 @@ const page = "user"
 //LOGIN RENDER ROUTE
 router.get("/", (req, res) => {
 
-if(req.isAuthenticated() && req.user.cache !== "administrator"){
+if (req.isAuthenticated() && req.user.cache !== "administrator" || req.isAuthenticated() && req.user.cache !== "creator") {
   res.redirect("/")
 }
 
@@ -75,9 +75,9 @@ router.post("/", function (req, res) {
         //---
         passport.authenticate("local")(req, res, function (err) {
           // if (err) throw err;
-          // else {
+          // else             
 
-            notif(req, res, "success", "Signed in Successfully", true, (userFound.cache == 'administrator' ? "/admin/dashboard" : "/resources/curriculum"))
+            notif(req, res, "success", "Signed in Successfully", true, (userFound.cache == 'administrator' || userFound.cache == 'creator' ? "/admin/dashboard" : "/resources/curriculum"))
             // httpMsgs.sendJSON(req, res, {
             //   alert: "alert alert-info text-info",
             //   response: "Login Successful",
@@ -101,18 +101,21 @@ router.post("/register", (req, res) => {
   const {
     name,
     username,
-    password
+    password,
   } = req.body;
 
+console.log(req.body)
+
   User.findOne({
-    username
+    username: username.toLowerCase()
   }, (err, found) => {
     if (found) {
       notif(req, res, "error", "Username exists already", false, " ")
     } else {
       User.register({
           name,
-          username,
+          username: username.toLowerCase(),
+          ...req.body,
           date: new Date().toLocaleDateString("en-US", options)
         },
         password,
@@ -177,6 +180,20 @@ router.post("/makeAdmin", (req, res) => {
     cache:"administrator"
   }, (err) => {
     notif(req, res, "success", "Admin role added successfully", true, " ")
+  });
+});
+
+router.post("/makeCreator", (req, res) => {
+  const {
+    id
+  } = req.body;
+
+  User.updateOne({
+    _id: id
+  }, {
+    cache: "creator"
+  }, (err) => {
+    notif(req, res, "success", "Content creator role assigned successfully", true, " ")
   });
 });
 

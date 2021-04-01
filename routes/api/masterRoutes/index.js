@@ -18,11 +18,12 @@ const phase = "dashboard"
 router.get("/", (req, res) => {
     Master.findOne({}, (err, master) => {
       User.find({}, (err, users) => {
-      Blog.find({}, (err, blog) => {
+      Blog.find((req.user.cache == "creator"? {authorid: req.user} : {}), (err, blog) => {
       Experience.find({}, (err, exp) => {
 
         //---route function start
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated() && req.user.cache == "creator" || 
+        req.isAuthenticated() && req.user.cache == "administrator") {
 
             res.render("dashboard/pages/dashboard/index", {
                 csrfToken: req.csrfToken(),

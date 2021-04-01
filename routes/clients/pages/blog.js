@@ -17,8 +17,15 @@ router.get("/:type", (req, res) => {
 
         console.log(req.params)
 
-        if (req.isAuthenticated() || !req.isAuthenticated()) {
-            Blog.find({type: req.params.type, published}, (err, blog) => {
+        if (req.isAuthenticated()) {
+            Blog.find((req.user.cache == "user" ? {
+                       type: req.params.type,
+                           published,
+                           cache: req.user.rank
+                    } : {
+                        type: req.params.type,
+                        published,
+                    }), (err, blog) => {
                     res.render("client/secondary/pages/resources/index", {
                         csrfToken: req.csrfToken(),
                         master,
@@ -32,6 +39,8 @@ router.get("/:type", (req, res) => {
                 .sort({
                     date: -1
                 })
+        } else{
+            res.redirect("/")
         }
     })
 })

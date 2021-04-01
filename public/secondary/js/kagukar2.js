@@ -42,7 +42,7 @@ msg.lang = 'en-GB';
  var text;
 
 const mainMenu = 'Hello, kindly select an option at the end of the following prompt! ' +
-  '\n 1: Curriculum: (collections topics included in a subject)' +
+  '\n 1: Learn: (collections topics included in a subject)' +
   // '\n 2: Read (get a topic read to you)' +
   '\n 2: Test: (test your knowledge of a subject topic)' +
   '\n 3: Stories: (allow me help you relax with a classic story)' +
@@ -51,7 +51,7 @@ const mainMenu = 'Hello, kindly select an option at the end of the following pro
   '\n 6: Quit';
 
 const shortCut = 'Kagukar Quicklinks! ' +
-  '\n 1: press C or 1 for Curriculum: (collections topics included in a subject)' +
+  '\n 1: press C or 1 for Learn: (collections topics included in a subject)' +
   // '\n 2: Read (get a topic read to you)' +
   '\n 2: press T or 2 for take a Test: (test your knowledge of a subject topic)' +
   '\n 3: press S or 3 to read Stories: (allow me help you relax with a classic story)' +
@@ -274,7 +274,7 @@ const read = e =>{
 
   menu_process.fadeOut()
 
-  if (e.includes('curriculum') || e.includes('one') || e.includes('1')) {
+  if (e.includes('learn') || e.includes('one') || e.includes('1')) {
     chosenOption = 'curriculum';
   } else if (e.includes('test') || e.includes('two') || e.includes('2')) {
      chosenOption = 'test'
@@ -365,7 +365,7 @@ document.onkeypress = async ({key}) => {
     return 
   }
   var e = key;
-  if (e == 'c' || e == 'C') {
+  if (e == 'l' || e == 'L') {
     quickLink = 'curriculum';
   } else if (e == 't' || e == 'T') {
     quickLink = 'test'

@@ -5220,7 +5220,7 @@ ul.list li a:hover {
     position: absolute;
     right: 0px;
     padding-right: 0;
-    color: #ffffff;
+    color: #297754;
   }
   .header .navbar .woo-action {
     margin-right: 40px;
@@ -5237,7 +5237,7 @@ ul.list li a:hover {
   /* Header Style 01 */
   .header .navbar {
     position: relative;
-    background: #1c1a1f;
+    /* background: #1c1a1f; */
   }
   .header .navbar .navbar-nav .nav-item {
     margin-right: 0;
@@ -5297,6 +5297,11 @@ ul.list li a:hover {
   }
   .header .navbar .woo-action ul li>a {
     font-size: 0px;
+    padding: 6px;
+    border-radius: 5px;
+  }
+  .pl-1, .px-1 {
+    padding-left: 0 !important;
   }
   .header .navbar .woo-action ul li.cart .dropdown-menu-right {
     width: 270px;

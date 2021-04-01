@@ -6,7 +6,6 @@
      padding: '2em'
  });
 
-console.log("I gt into the Notification")
 
  function response(type, title) {
      toast({

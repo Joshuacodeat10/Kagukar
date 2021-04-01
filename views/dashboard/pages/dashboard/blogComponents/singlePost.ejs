@@ -66,7 +66,7 @@
                            data-itemid="<%=post._id%>"><i class="fa fa-question-mark">?</i></p>
                 <%}%>
               <h5 class="card-title title" data-title="<%=post.slug%>"><%=post.title%></h5>
-              <h6 class="card-type p-type" data-ptype="<%=post.type%>"><%=post.type%> | <span
+              <h6 class="card-type p-type" data-ptype="<%=post.type%>"><%=post.type=="curriculum"? "learn": post.type%> | <span
                       class="text-warning card-cache cache" data-cache="<%=post.cache%>"><%=post.cache%></span> </h6>
               <p class="card-text article" data-article="<%=post.article%>" data-optA="<%=post.optionA%>"
                 data-optB="<%=post.optionB%>" data-optC="<%=post.optionC%>" data-optD="<%=post.optionD%>"

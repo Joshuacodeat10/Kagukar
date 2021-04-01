@@ -17,7 +17,7 @@
             </div>
 
             <div id="email-field" class="field-wrapper input">
-                <label for="username">USERNAME</label>
+                <label for="username">USERNAME<small>same as email</small></label>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="feather feather-at-sign register">
@@ -28,6 +28,73 @@
                     required>
             </div>
 
+             <div id="" class="field-wrapper input mb-2">
+                 <div class="d-flex justify-content-between">
+                     <label for="">Gender</label>
+                 </div>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-lock pr-3">
+                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                 </svg>
+                 <select name="gender" class=" form-control" id="" required>
+                     <option value="" selected disabled hidden> Select Gender </option>
+                     <option>Male</option>
+                     <option>Female</option>
+                     <option>Prefer not to Say</option>
+                 </select>
+               </div>
+              <div  class="field-wrapper input mb-2">
+                  <div class="d-flex justify-content-between">
+                      <label for="">Account Type</label>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-lock pr-3">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <select id="type" name="cache" class=" form-control"  required>
+                      <option value="" selected disabled hidden> Select Account Type </option>
+                      <option value="user">Student</option>
+                      <option value="creator">Content Creator</option>
+                  </select>
+              </div>
+
+              <script>
+                  $("#type").on('change', e=>{
+                      const val = $(e.target).val();
+                      if(val == 'creator'){
+                        $("#userClass").hide()
+                        $("#userClassSelect").attr("required", false)
+                      }else{
+                           $("#userClass").show()
+                           $("#userClassSelect").attr("required", true)
+                      }
+                  })
+              </script>
+
+              <div id="userClass" class="field-wrapper input mb-2">
+                  <div class="d-flex justify-content-between">
+                      <label for="password">CLASS</label>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-lock pr-3">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <select id="userClassSelect" name="rank" class=" form-control"  required>
+                      <option value="" selected disabled hidden> Select Class </option>
+                        <option>JSS 1</option>
+                        <option>JSS 2</option>
+                        <option>JSS 3</option>
+                        <option>SSS 1</option>
+                        <option>SSS 2</option>
+                        <option>SSS 3</option>
+                  </select>
+              </div>
             <div>
                 <input type="hidden" name="csrf" value="<%=csrfToken%>">
                 <input type="hidden" name="url" value="users/register">

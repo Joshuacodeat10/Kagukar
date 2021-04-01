@@ -38,10 +38,13 @@
 
 
          if (pass == cPass) {
+             var other = $(e.target).serialize()
+             console.log(other);
+             
              body = {
                  name,
                  username: user,
-                 password: pass
+                 password: pass, ...other
              }
          } else {
              response("error", "Passwords does not Match")
@@ -51,7 +54,7 @@
 
      $.ajax({
          url: "/api/" + _url + "?_csrf=" + _csrf,
-         data: body,
+         data: other,
          method: "POST",
          contentType: "application/x-www-form-urlencoded",
          dataType: "json",
