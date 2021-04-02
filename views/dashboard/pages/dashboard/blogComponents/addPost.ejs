@@ -2,8 +2,12 @@
          <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
              <div class="row">
                  <div class="col-xl-12 col-lg-12 col-md-12  mt-md-0 mt-4">
-                   <div class="float-right"> <i > Published </i> <%- include('./common/switcher')%></div>
-                 </div>
+                    <div class="float-right">
+                <% if(user.cache == 'administrator') {%>
+                         <i> Published </i> <%- include('./common/switcher')%>
+                <%} %>
+                    </div>
+                </div>
 
                  <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                      <div id="general-info" class="section general-info">

@@ -28,7 +28,7 @@
                         <div class="w-content">
                             <div class="w-info">
                                 <h6 class="value"><%=blog.length%></h6>
-                                <p class="">Resources</p>
+                                <p class=""><%=user.cache == "creator"? "Content Created":"Resources"%></p>
                             </div>
                             <div class="">
                                 <div class="w-icon">
@@ -43,33 +43,13 @@
                     </div>
                 </div>
             </div>
+          
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
                 <div class="widget widget-card-four">
                     <div class="widget-content">
                         <div class="w-content">
                             <div class="w-info">
-                                <h6 class="value"><%=users.length%></h6>
-                                <p class="">Users</p>
-                            </div>
-                            <div class="">
-                                <div class="w-icon">
-                                    <i class="fa fa-users" style="font-size: 24px"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: 57%"
-                                aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-                <div class="widget widget-card-four">
-                    <div class="widget-content">
-                        <div class="w-content">
-                            <div class="w-info">
-                                <h6 class="value"><%=master.activities%></h6>
+                                <h6 class="value"><%=exp.length%></h6>
                                 <p class="">Activities Recorded</p>
                             </div>
                             <div class="">
@@ -85,6 +65,29 @@
                     </div>
                 </div>
             </div>
+              <% if(user.cache == 'administrator') {%>
+                  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+                      <div class="widget widget-card-four">
+                          <div class="widget-content">
+                              <div class="w-content">
+                                  <div class="w-info">
+                                      <h6 class="value"><%=users.length%></h6>
+                                      <p class="">Users</p>
+                                  </div>
+                                  <div class="">
+                                      <div class="w-icon">
+                                          <i class="fa fa-users" style="font-size: 24px"></i>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="progress">
+                                  <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: 57%"
+                                      aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
                 <div class="widget widget-card-four">
                     <div class="widget-content">
@@ -93,10 +96,12 @@
                                 <!-- <h6 class="value">₦ 5,000</h6>
                                 <p class="">Revenue</p> -->
                                 <h6 class="value">
-                                    <%users.filter(u=>{%>
-                                        <%u.cache == 'administrator' %> 
-                                        <%return u.length%>   
-                                    <%})%>
+                                    <%var ua = 0%>
+                                    <%users.map(u => {%>
+                                       <% if(u.cache == 'administrator') {%> 
+                                        <% ua += 1%>   
+                                    <%} })%>
+                                      <%= ua %>
                                 </h6>
                                 <p class="">Admin</p>
                             </div>
@@ -113,6 +118,7 @@
                     </div>
                 </div>
             </div>
+            <%}%>
 
             <div class="modal fade bd-example-modal-xl show" tabindex="-1" role="dialog"
                 aria-labelledby="myExtraLargeModalLabel" aria-modal="true">
@@ -136,11 +142,15 @@
                                     <table width="100%">
                                       <tr>
                                         <thead>
-                                            <th>Name</th>
-                                            <th>Item</th>
-                                            <th>Item</th>
+                                            <th>Type</th>
+                                            <th>Title</th>
+                                            <th>Count</th>
+                                            <th>Time of Visit</th>
                                         </thead>
                                       </tr>
+                                      <tbody id="activityBody">
+
+                                      </tbody>
                                     </table>
                                 </div> 
                             </div>
@@ -150,8 +160,7 @@
             </div>
 
            
-
-            
+<% if(user.cache == 'administrator') {%>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-card-two">
                     <div class="table-responsive mb-4 mt-4">
@@ -160,8 +169,8 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>School</th>
-                                    <th>Class</th>
+                                    <th>Gender</th>
+                                    <th>Class / Status</th>
                                     <!-- <th>Start date</th>
                                     <th>Salary</th> -->
                                     <th>Type</th>
@@ -174,13 +183,13 @@
                                 <tr>
                                     <td><%=u.name%></td>
                                     <td><%=u.username%></td>
-                                    <td><%=u.department%></td>
-                                    <td><%=u.rank%></td>
-                                    <td><%=u.cache == 'administrator'? "Admin":"Regular" %></td>
+                                    <td><%=u.gender%></td>
+                                    <td><%=u.cache == 'creator'? u.verified? "Verified":"Pending" : u.rank%></td>
+                                    <td><%=u.cache == 'administrator'? "Admin": u.cache %></td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="usr-img-frame btn rounded-circle">
-                                               <p class="font-weight-bold " style="margin: 6px auto; width: fit-content;">
+                                               <p class="font-weight-bold actionate" style="margin: 6px auto; width: fit-content;">
                                                    <i data-toggle="modal" data-target=".bd-example-modal-xl"
                                                        data-url="/api/auth/activities" data-id="<%=u._id%>"
                                                        class="fa fa-eye "></i>
@@ -203,8 +212,10 @@
                                                 </svg>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuReference28">
-                                                <a class="dropdown-item actionate" data-url="/api/auth/makeAdmin" data-id="<%=u._id%>"
-                                                    href="javascript:void(0)">Make Admin</a>
+                                                <a class="dropdown-item actionate" data-url="/api/auth/makeCreator" data-id="<%=u._id%>"
+                                                    href="javascript:void(0)"><%=u.verified?"Revoke Access": "Verify Account"%></a>
+                                                     <a class="dropdown-item actionate" data-url="/api/auth/makeAdmin"
+                                                         data-id="<%=u._id%>" href="javascript:void(0)">Make Admin</a>
                                                 <a class="dropdown-item actionate" data-url="/api/auth/deleteUser"
                                                     data-id="<%=u._id%>"
                                                     href="javascript:void(0)">Delete</a>
@@ -212,8 +223,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <%})%>
                             </tbody>
+                                <%})%>
+
                         </table>
                     </div>
                 </div>
@@ -243,8 +255,15 @@
             data: {id: data, _csrf},
             dataType: "JSON",
             success: (res) => {
-              
+                     $("#activityBody").empty()
                 response(res.alert, res.response)
+                res.redirect.map((e,i) =>{
+                     var html = "<tr><td>"+ (i+1) +"</td> <td>"+ e.itemType +"</td> <td>"+ e.itemTitle +"</td>  <td>"+ e.count +"</td> <td>"+ e.updatedAt +"</td> </tr>"
+                     $("#activityBody").append(html)
+                })
+               
+
+
                 if(res.response != 'Fetched'){
                 setTimeout(() => {
                     location.reload()
@@ -265,7 +284,43 @@
 
         })
     </script>
+<%}else{%>
+ <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+     <div class="widget widget-card-two">
+         <div class="table-responsive mb-4 mt-4">
+             <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                 <thead>
+                     <tr>
+                         <th>Name</th>
+                         <th>Gender</th>
+                         <th>Content Title </th>
+                        
+                         <th>Type</th>
+                         <th>Activity Count</th>
+                         <th>Time of Visit</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                    <%users.map(u=>{%>
+                      <%exp.map(e=>{%>
+                        <%if(e.userid == u.id){%>
+                        <tr>
+                          <td><%=u.name%></td>
+                          <td><%=u.gender%></td>
+                          <td><%=e.itemTitle%></td>
+                          <td><%=e.itemType%></td>
+                          <td><%=e.count%></td>
+                          <td><%=e.updatedAt.toLocaleString()%></td>
+                        </tr>
+                    <%} })%>
+                    <%})%>
 
+                </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
+<%}%>
 
 <%- include('../../componentSection/adminDashboard/partials/footer') %>
 

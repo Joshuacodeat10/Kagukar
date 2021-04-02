@@ -25,7 +25,7 @@ router.get("/:account", (req, res) => {
 
     if (req.isAuthenticated()) {
       Blog.find((req.user.cache == "creator" ? {
-            authorid: req.user
+            authorid: req.user.id
           } : {}), (err, blog) => {
           res.render("dashboard/pages/dashboard/blog", {
             csrfToken: req.csrfToken(),
@@ -36,7 +36,7 @@ router.get("/:account", (req, res) => {
           })
         })
         .sort({
-          date: -1
+          id: -1
         })
     } else {
       res.redirect("/api/users")

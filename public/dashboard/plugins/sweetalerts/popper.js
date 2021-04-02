@@ -3,16 +3,10 @@
  $("form").submit((e) => {
      e.preventDefault()
 
+     
      var body = {};
      const {
-         username: {
-             value: user
-         },
-         password: {
-             value: pass
-         },
-
-         csrf: {
+        csrf: {
              value: _csrf
          },
          url: {
@@ -21,13 +15,29 @@
      } = e.target;
 
      if (e.target.id == "signin") {
+              const {
+                  username: {
+                      value: user
+                  },
+                  password: {
+                      value: pass
+                  },
+              } = e.target;
+         var other = $(e.target).serialize()
+         console.log(other);
          body = {
              username: user,
              password: pass
          }
      }
      if (e.target.id == "register") {
-         const {
+              const {
+                  username: {
+                      value: user
+                  },
+                  password: {
+                      value: pass
+                  },
              name: {
                  value: name
              },
@@ -50,6 +60,11 @@
              response("error", "Passwords does not Match")
              return false
          }
+     }
+     if (e.target.id == "update") {
+         var other = $(e.target).serialize()
+         console.log(other);
+         body = other
      }
 
      $.ajax({

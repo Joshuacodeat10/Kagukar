@@ -16,31 +16,35 @@ const phase = "dashboard"
 
 
 router.get("/", (req, res) => {
-    Master.findOne({}, (err, master) => {
-      User.find({}, (err, users) => {
-      Blog.find((req.user.cache == "creator"? {authorid: req.user} : {}), (err, blog) => {
-      Experience.find({}, (err, exp) => {
+ 
 
         //---route function start
-        if (req.isAuthenticated() && req.user.cache == "creator" || 
-        req.isAuthenticated() && req.user.cache == "administrator") {
+        if (req.isAuthenticated()){
+        if (req.user.cache == "creator" && req.user.verified || req.user.cache == "administrator") {
 
+            Master.findOne({}, (err, master) => {
+                User.find({}, (err, users) => {
+                Blog.find((req.user.cache == "creator"? {authorid: req.user.id} : {}), (err, blog) => {
+                Experience.find((req.user.cache == "creator"? {authorid: req.user.id} : {}), (err, exp) => {
             res.render("dashboard/pages/dashboard/index", {
                 csrfToken: req.csrfToken(),
                 master, page, phase, user: req.user, users, blog, exp
-            })
+                })
+                })
+                })
+                })
+                })
 
         } else {
+            res.redirect("/api/auth")
+        } } else {
             res.redirect("/api/auth")
         }
 
 
         //---route function end
 
-        })
-        })
-     })
-    })
+       
 })
 
 module.exports = router;

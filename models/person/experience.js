@@ -5,9 +5,10 @@ const Schema = mongoose.Schema;
 
 const experienceSchema = new Schema({
     itemTitle: String,
-    type: String,
+    itemType: String,
     itemid: String,
     userid: String,
+    authorid: String,
     count: Number,
 }, {timestamps: true})
 

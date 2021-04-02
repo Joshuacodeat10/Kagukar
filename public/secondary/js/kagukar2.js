@@ -2,7 +2,7 @@
 
 // }
 
-var howTo = true;
+var howTo = false;
 
 $("#howTo").on('click', e=>{
   howTo = !howTo;
@@ -17,8 +17,6 @@ $("#howTo").on('click', e=>{
     $("#howTo i").attr('class','fa fa-volume-up')
   }
      
-   
-  console.log(howTo)
 })
 
 var synth = window.speechSynthesis;
@@ -702,6 +700,7 @@ const targetItem = async (e) =>{
 
  await  $('#itemid').val(id)
   await $('#itemTitle').val(title)
+  await $('#authorid').val(title)
  await $('#itemType').val('test')
   const type = $('#itemType').val()
   console.log($("#itemType").val());

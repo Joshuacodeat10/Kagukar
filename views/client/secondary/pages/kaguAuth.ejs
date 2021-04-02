@@ -1,342 +1,125 @@
-<!DOCTYPE html>
-
-
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=IE8" />
-    <!-- prevent user zooming -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="format-detection" content="telephone=no">
-    <title>Kagukar</title>
-
-    <!-- inject:css -->
-    <link rel='stylesheet'
-        href='/secondary/css/kaguAuth.css'
-        type='text/css' />
-    <!-- endinject -->
-
-    <script src="/secondary/js/kagQuery.js"></script>
-    
-             <link rel="icon" type="image/x-icon" href="/secondary/assets/img/logo.png" />
-
-
-</head>
-
-<body data-reg-findable-address="false" data-show-hybrid-css="False" data-is-desktop="true">
-
-
-<%- include('../partials/common/modal-process')%>
-
- <div>
-      
-
-
-        <header class="su-Branding ">
-         
-            <h1 class="su-Branding_Title">Update Details</h1>
- 
-        </header>
-
-
-        <div>
-          
-            <form class="su-Signup">
-                <input name="_csrf" type="hidden"
-                    value="<%=csrfToken%>" />
-                
-
-                <div id="Site">
-                    <fieldset data-section="personal-information" class="switchable-area"
-                        id="PersonalInformationSection">
-                        <legend>Personal information</legend>
-
-                        
-
-                        <div class="su-fieldset_Bordered">
-
-
-                            <div>
-                                <div>
-                                    <input autocorrect="off" class="flexiField_Input" data-val="true"
-                                        data-val-characterlimit="Please enter your first name."
-                                        data-val-characterlimit-isoptional="False"
-                                        data-val-characterlimit-maxlength="50" data-val-characterlimit-maxuserinput="50"
-                                        data-val-characterlimit-minlength="1" data-val-characterlimit-onblur=""
-                                        data-val-regex="Please enter valid characters only."
-                                        data-val-regex-expression="^[0-9\ \u00B4\u0041-\u005A\u005F\u0061-\u007A\u00C0-\u0233\u0250-\u02AD\u1E00-\u1EF9\uFB00-\uFB06\uFF20-\uFF2A\uFF41-\uFF4A\u002D\u002E]*$"
-                                        data-val-regex-onblur="" data-val-regex-options=""
-                                        data-val-required="Please enter your first name." data-val-required-onblur=""
-                                        id="FirstName" name="name" spellcheck="false" type="text" value="<%=user.name%>" />
-                                    <span class="flexiField_Label">Full Name</span>
-
-                                    <div></div>
-                                    <span class="flexiField_AditionalInfo"></span>
-                                </div>
-                            </div>
-
-
-                             <div>
-                                 <div>
-                                     <input autocorrect="off" class="flexiField_Input" data-val="true"
-                                         data-val-characterlimit="Please enter your first name."
-                                         data-val-characterlimit-isoptional="False"
-                                         data-val-characterlimit-maxlength="50"
-                                         data-val-characterlimit-maxuserinput="50" data-val-characterlimit-minlength="1"
-                                         data-val-characterlimit-onblur=""
-                                         data-val-regex="Please enter valid characters only."
-                                         data-val-regex-expression="^[0-9\ \u00B4\u0041-\u005A\u005F\u0061-\u007A\u00C0-\u0233\u0250-\u02AD\u1E00-\u1EF9\uFB00-\uFB06\uFF20-\uFF2A\uFF41-\uFF4A\u002D\u002E]*$"
-                                         data-val-regex-onblur="" data-val-regex-options=""
-                                         data-val-required="Please enter your first name." data-val-required-onblur=""
-                                         id="schoolName" name="department" spellcheck="false" type="text"
-                                         value="<%=user.department%>" />
-                                     <span class="flexiField_Label">School</span>
-
-                                     <div></div>
-                                     <span class="flexiField_AditionalInfo"></span>
-                                 </div>
-                             </div>
-
-                              <div>
-                                  <div>
-                                      <input autocorrect="off" class="flexiField_Input" data-val="true"
-                                          data-val-characterlimit="Please enter your first name."
-                                          data-val-characterlimit-isoptional="False"
-                                          data-val-characterlimit-maxlength="50"
-                                          data-val-characterlimit-maxuserinput="50"
-                                          data-val-characterlimit-minlength="1" data-val-characterlimit-onblur=""
-                                          data-val-regex="Please enter valid characters only."
-                                          data-val-regex-expression="^[0-9\ \u00B4\u0041-\u005A\u005F\u0061-\u007A\u00C0-\u0233\u0250-\u02AD\u1E00-\u1EF9\uFB00-\uFB06\uFF20-\uFF2A\uFF41-\uFF4A\u002D\u002E]*$"
-                                          data-val-regex-onblur="" data-val-regex-options=""
-                                          data-val-required="Please enter your first name." data-val-required-onblur=""
-                                          id="className" name="rank" spellcheck="false" type="text"
-                                          value="<%=user.rank%>" placeholder="JSS 1 ... SSS 3" />
-                                      <span class="flexiField_Label">Class</span>
-
-                                      <div></div>
-                                      <span class="flexiField_AditionalInfo"></span>
-                                  </div>
-                              </div>
-                            
-
-                        </div>
-
-                        
-                    </fieldset>
-                       
-
-                        
-                        
-
-                        
-
-                       
-
-                    <fieldset data-section="contact-information">
-                        <legend>Contact information</legend>
-
-                        <div class="su-fieldset_Bordered">
-
-
-                            <div>
-                                <div>
-                                    <input autocorrect="off" class="flexiField_Input" data-val="true"
-                                        data-val-characterlimit="Please enter a valid email address."
-                                        data-val-characterlimit-isoptional="False"
-                                        data-val-characterlimit-maxlength="100"
-                                        data-val-characterlimit-maxuserinput="100" data-val-characterlimit-minlength="0"
-                                        data-val-characterlimit-onblur=""
-                                        data-val-regex="Please enter a valid email address."
-                                        data-val-regex-expression="^(?=.{6,})([a-zA-Z0-9&#39;‘’_\-\.+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]+|[0-9]{1,3})$"
-                                        data-val-regex-onblur="" data-val-regex-options=""
-                                        data-val-required="Please enter a valid email address."
-                                        data-val-required-onblur="" id="EmailAddress" name=""
-                                        spellcheck="false" type="email" value="<%=user.username%>" readonly/>
-                                    <span class="flexiField_Label">Email address</span>
-
-                                    <div></div>
-
-                                    <span class="flexiField_AditionalInfo"></span>
-                                    <input id="InformationText" name="InformationText" type="hidden"
-                                        value="[&quot;Your email address will be used to notify you about important account information.&quot;]" />
-                                </div>
-                            </div>
-
-
-
-                            <div id="ContactNumberArea">
-
-
-                                <div data-control="phone-number">
-                                    <div>
-                                        <div class="">
-                                            <input autocorrect="off" data-val="true"
-                                                data-val-characterlimit="Please enter a valid contact number."
-                                                data-val-characterlimit-isoptional="False"
-                                                data-val-characterlimit-maxlength="5"
-                                                data-val-characterlimit-maxuserinput="5"
-                                                data-val-characterlimit-minlength="0" data-val-characterlimit-onblur=""
-                                                data-val-regex="Please enter a valid contact number."
-                                                data-val-regex-expression="^\+{0,1}(\d){1,}$" data-val-regex-onblur=""
-                                                data-val-regex-options=""
-                                                data-val-required="Please enter your contact number."
-                                                data-val-required-onblur="" id="DialingCode" name="DialingCode"
-                                                spellcheck="false" type="tel" value="+234" />
-
-                                            <div></div>
-
-                                            <input autocorrect="off" class="flexiField_Input" data-val="true"
-                                                data-val-characterlimit="Please enter a valid contact number."
-                                                data-val-characterlimit-isoptional="False"
-                                                data-val-characterlimit-maxlength="28"
-                                                data-val-characterlimit-maxuserinput="28"
-                                                data-val-characterlimit-minlength="4" data-val-characterlimit-onblur=""
-                                                data-val-regex="Please enter a valid contact number."
-                                                data-val-regex-expression="^([\d\ \-]){3,}[\d][\ \-]*$"
-                                                data-val-regex-onblur="" data-val-regex-options=""
-                                                data-val-remote="The number you have provided does not appear to be a mobile number."
-                                                data-val-remote-action="ValidateMobileNumber" data-val-remote-onblur=""
-                                                data-val-remote-url="hdnValidateMobileNumber"
-                                                data-val-remote-validation="The number you have provided does not appear to be a mobile number."
-                                                data-val-required="Please enter your contact number."
-                                                data-val-required-onblur="" id="PhoneNumber" name="PhoneNumber"
-                                                spellcheck="false" type="tel" value="" />
-
-                                            <div></div>
-
-                                            <input id="InformationText" name="InformationText" type="hidden"
-                                                value="[&quot;Your contact number is needed in case we need to speak to you about your account.&quot;]" />
-                                        </div>
-                                        <span class="flexiField_Label">Contact number</span>
-                                    </div>
-                                </div>
-                                <input id="GdprIso2Char" type="hidden" value="NG" />
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </fieldset>
-
-                    
-                    
-               
-
-
-                
-                    <fieldset data-section="user-preferences">
-                        <legend>About</legend>
-                        <div id="RealityCheckArea"> </div>
-
-                        <div id="BonusCodeArea">
-                            <div class="su-fieldset_Bordered">
-
-
-                                <div>
-                                    <div>
-                                        <textarea autocorrect="off" class="flexiField_Input" data-val="true"
-                                            data-val-characterlimit="The incorrect number of characters have been entered."
-                                            data-val-characterlimit-isoptional="True"
-                                            data-val-characterlimit-maxlength="15"
-                                            data-val-characterlimit-maxuserinput="15"
-                                            data-val-characterlimit-minlength="5" data-val-characterlimit-onblur=""
-                                            data-val-regex="Please enter valid characters only."
-                                            data-val-regex-expression="^[a-zA-Z0-9]*$" data-val-regex-onblur=""
-                                            data-val-regex-options="" id="BonusCode" name="about" spellcheck="false"
-                                            type="text" style="width:331px;height:107px"><%=user.about%></textarea>
-
-                                        <div></div>
-
-                                        <input id="InformationText" name="InformationText" type="hidden" value="" />
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </fieldset>
-                  
-
-                    <fieldset data-section="submit">
-                        <div>
-
-
-                            <div data-control="button">
-                                <div>
-                                    <button type="button" id="Submit">Update</button>
-                                </div>
-                            </div>
-                            <div data-control="creating-account">
-                                <div>Creating Account</div>
-
-                                <div></div>
-
-                            </div>
-                            <div data-control="account-created">
-                                <div>Account Created</div>
-
-                                <div></div>
-
-                            </div>
-                            <div data-control="cannot-create-account">
-
-                                <div></div>
-
-                                <div>Account Cannot Be Created</div>
-                            </div>
-                            <div data-control="unable-to-login">
-
-                                <div></div>
-
-                                <div>Unable to Login</div>
-                            </div>
-                        </div>
-                        <input id="gdprSubmitClicked" type="hidden" value="false" />
-                    </fieldset>
-
-
+<%- include('../../../dashboard/componentSection/auth/loginComponents/header') %>
+
+<div class="form-container outer">
+    <div class="form-form" style=" margin: auto;">
+        <div class="form-form-wrap" style="max-width: 100%;">
+            <div class="form-container">
+                <div class="form-content">
+
+
+                    <figure class="progressve" style="margin-bottom: -40px;width: 160px; border-radius: 10px;">
+                        <img class="progressive__img progressive--not-loaded"
+                            data-progressive="/secondary/assets/img/logo-3.png" src="/secondary/assets/img/logo-3.png">
+                    </figure>
+                    <style>
+                        h1 {
+                            margin-top: -20%;
+                            font-family: 'Patua One', cursive;
+                            letter-spacing: 2px;
+                        }
+                    </style>
+                   
+                   <div id="updateUser" class="" style="width: 100%;">
+                       <h1 class="text-right">Update Profile</h1>
+                      
+                       <form id="update" class="text-left">
+                           <div class="form">
+                               <div id="username-field" class="field-wrapper input">
+                                   <label for="name">NAME</label>
+                                   
+                                   <input id="name" name="name" type="text" class="form-control" placeholder="Full name"
+                                     value="<%=user.name%>" required>
+                               </div>
+
+                               <div id="email-field" class="field-wrapper input">
+                                   <label for="username">USERNAME <small>(same as email)</small></label>
+                                  
+                                   <input type="text" value="<%=user.username%>" class="form-control"
+                                       placeholder="Username" disabled>
+                               </div>
+
+                               <div id="" class="field-wrapper input mb-2">
+                                   <div class="d-flex justify-content-between">
+                                       <label for="">Gender</label>
+                                   </div>
+                                 
+                                   <select name="gender" class=" form-control" id="" required>
+                                       <option value="<%=user.gender%>"><%=user.gender%></option>
+                                       <option>Male</option>
+                                       <option>Female</option>
+                                       <option>Prefer not to Say</option>
+                                   </select>
+                               </div>
+                               <div class="field-wrapper input mb-2">
+                                   <div class="d-flex justify-content-between">
+                                       <label for="">Account Type</label>
+                                   </div>
+                                   <select id="type" name="cache" class=" form-control" required>
+                                       <option value="<%=user.cache%>"><%=user.cache == "administrator"?"Admin":user.cache%></option>
+                                       <option value="user">Student</option>
+                                       <option value="creator">Content Creator</option>
+                                   </select>
+                               </div>
+
+                               <script>
+                                   $(window).on("load", e=>{
+                                        if("<%=user.cache%>" != "user"){
+                                        $("#userClass").hide()
+                                        }
+                                   })
+                                   
+                                   $("#type").on('change', e => {
+                                       const val = $(e.target).val();
+                                       if (val == 'creator' || val == 'administrator') {
+                                           $("#userClass").hide()
+                                           $("#userClassSelect").attr("required", false)
+                                       } else {
+                                           $("#userClass").show()
+                                           $("#userClassSelect").attr("required", true)
+                                       }
+                                   })
+                               </script>
+
+                               <div id="userClass" class="field-wrapper input mb-2">
+                                   <div class="d-flex justify-content-between">
+                                       <label for="password">CLASS</label>
+                                   </div>
+                                   
+                                   <select id="userClassSelect" name="rank" class=" form-control" required>
+                                     <option value="<%=user.rank%>"><%=user.rank%></option>
+                                    <option value="" selected disabled hidden> Select Class </option>
+                                       <option>JSS 1</option>
+                                       <option>JSS 2</option>
+                                       <option>JSS 3</option>
+                                       <option>SSS 1</option>
+                                       <option>SSS 2</option>
+                                       <option>SSS 3</option>
+                                   </select>
+                               </div>
+                               <div>
+                                   <input type="hidden" name="csrf" value="<%=csrfToken%>">
+                                   <input type="hidden" name="url" value="users/updateUser">
+                               </div>
+
+                             
+                               <div class="d-sm-flex justify-content-between">
+                                   <div class="field-wrapper">
+                                       <button type="submit" class="btn btn-primary" value="">Save Changes</button>
+                                   </div>
+                               </div>
+
+                               <!--  -->
+
+                           </div>
+                       </form>
+                   </div>
+                   
                 </div>
-                <div data-control="lightBox">
-                    <div>
-                        <div class="lightBoxHeader">
-                            <div class="lightBoxCloseButton"></div>
-                            <h1></h1>
-                        </div>
-                        <div class="lightBoxBody">
-                            <p id="lightBoxMessage"></p>
-
-
-                            <div data-control="button">
-                                <div>
-                                    <button type="button" id="Confirm" class="lightBoxConfirmButton">Confirm</button>
-                                </div>
-                            </div>
-
-
-                            <div data-control="button" class="linkButton">
-                                <a id="Cancel" class="lightBoxCancelButton" tabindex="0">Cancel</a>
-                            </div>
-
-                            <div class="dynamicContent"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <input id="siteLayout" name="siteLayout" type="hidden"
-                    value="[{&quot;applicableTo&quot;:[42,212],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;FullNameArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[54,218],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;CprNumberArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[54,218],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;ExpectedMonthlySpendArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[-1,0,3,4,6,7,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,35,36,37,38,39,41,42,44,46,47,50,49,51,52,54,55,56,57,58,59,60,62,64,65,66,67,68,183,72,73,74,75,76,77,78,218,79,82,83,85,87,89,90,91,92,97,48,98,99,100,101,102,104,105,106,107,108,109,110,111,113,114,115,214,117,118,121,122,119,120,124,125,126,127,128,225,129,130,131,133,134,136,137,138,139,140,141,143,144,145,146,147,148,149,150,152,155,95,158,157,159,160,161,163,240,164,165,172,167,168,171,176,177,178,179,180,173,181,174,212,185,186,187,188,193,189,192,194,195,196,197,198,199,202,204,206,207],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;DateOfBirthArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[-1,0,6,10,13,14,28,36,52,54,68,75,78,218,89,95,97,99,113,138,143,152,158,172,171,181,174,195,197,198],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;AddressPreSearch&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[3,4,7,9,11,12,15,16,17,18,19,20,21,23,24,25,26,27,29,30,31,32,35,37,38,39,41,42,44,46,47,50,49,51,55,56,57,58,59,60,62,64,65,66,67,183,72,73,74,76,77,79,82,83,85,87,90,91,92,48,98,100,101,102,104,105,106,107,108,109,110,111,114,115,214,117,118,121,122,119,120,124,125,126,127,128,225,129,130,131,133,134,136,137,139,140,141,144,145,146,147,148,149,150,155,157,159,160,161,163,240,164,165,167,168,176,177,178,179,180,173,212,185,186,187,188,193,189,192,194,196,199,202,204,206,207],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;AddressPostSearch&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[-1,0,10,13,14,28,36,52,54,68,218,89,97,113,138,152,158,172,174,195,197,198],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;UnitNumberArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[-1,0,6,10,13,14,28,36,52,54,68,75,78,218,89,95,97,99,113,138,143,152,158,172,171,181,174,195,197,198],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;BuildingNumberArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[54,68,218],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;BuildingFloorArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[6,10,13,14,28,52,54,68,75,78,218,89,95,97,99,113,138,143,152,158,172,171,181,174,195,198],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;StreetNameArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[78,95],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;CityArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[-1,0,6,10,13,14,28,36,52,54,68,75,78,218,89,97,99,113,138,143,152,158,172,171,181,174,195,197,198],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;PostcodeArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[171],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;DniNieNumberArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[171],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;FiscalResidenceArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[64],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;PersonalIdentificationCodeArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;TimeLivedArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;CitizenshipArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:null,&quot;productRestrictions&quot;:[1],&quot;section&quot;:&quot;OddsTypeArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;ItalySpecificArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31,78,97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;IdDocumentsSection&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;PlaceOfIssueArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31,78,97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;DocumentTypeArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31,97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;CountryOfIssueArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31,78,97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;DocumentNumberArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31,97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;DateOfIssueArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[31,97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;IssuingAuthorityArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[97],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;ExpiryDateArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[171,54,218,126],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;Surname2Area&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[126],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;MexicoExtraDetailsArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[198],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;SocialSecurityNumberArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[171,75],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;NationalityArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[97,75],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;PersonalInformationBirthArea&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;UserAddressSection&quot;,&quot;display&quot;:1},{&quot;applicableTo&quot;:[],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;PersonalInformationSection&quot;,&quot;display&quot;:1},{&quot;applicableTo&quot;:[181],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;LoginLimitsSection&quot;,&quot;display&quot;:0},{&quot;applicableTo&quot;:[181],&quot;productRestrictions&quot;:null,&quot;section&quot;:&quot;PersonalIdentityNumberArea&quot;,&quot;display&quot;:0}]" />
-                
-                </form>
+            </div>
         </div>
-        <div class="iosNonSportsSpacePlaceholder"></div>
-
-        <div id="frameSizeDetector"></div>
-
-        <!-- inject:js -->
-              <script src="/secondary/js/kaguAuth.js"></script>
-              <script src="/secondary/js/kagukar2.js"></script>
-        <!-- endinject -->
     </div>
-    <div class="greyOut pageLoading"></div>
-    <div class="pageWaiting"></div>
+</div>
+<%- include('../../../dashboard/componentSection/auth/loginComponents/footer') %>
 </body>
 
 </html>

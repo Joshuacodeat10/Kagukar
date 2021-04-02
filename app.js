@@ -148,7 +148,7 @@ app.get("/update/profile", (req, res) => {
             csrfToken: req.csrfToken(),
             res.render("client/secondary/pages/kaguAuth", {
                 user: req.user,
-                master,
+                master, page:"admin",
                 csrfToken: req.csrfToken(), param: ''
             })
         })
@@ -167,7 +167,9 @@ if(req.body.itemType === 'test'){
     questions = await Education.find({itemid: req.body.itemid})
 }
 
-console.log(questions)
+
+// console.log(questions)
+
 
 if (!req.isAuthenticated()) {
     httpMsgs.sendJSON(req, res, {
@@ -176,9 +178,13 @@ if (!req.isAuthenticated()) {
     return
 }
 
+const authId = await Content.findOne({_id: req.body.itemid});
+// console.log(authId);
+
 const newExp = new Experience({
     ...req.body,
     userid: req.user.id,
+    authorid: authId.authorid,
     count: 1
 })
 
@@ -186,11 +192,12 @@ const newExp = new Experience({
         if(found){
                 Experience.updateOne({
                             userid: req.user.id,
-                            itemid: req.body.id
+                            itemid: req.body.id,
                         }, {
-                            $inc: {
-                                'count': 1
-                            }
+                            // $inc: {
+                            //     'count': 1
+                            // }
+                            count: found.count+1
                         }, (err) => {
 
                         })

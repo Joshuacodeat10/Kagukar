@@ -39,7 +39,7 @@
                                         <li class="nav-item btn-category">
                                             <a class="nav-link list-actions" id="note-pub">
                                                 <i class="fa fa-check btn-success rounded-circle p-1"></i>
-                                                Published
+                                              <%=user.cache =="administrator"?"Published":"Approved" %>
                                             </a>
                                         </li>
                                         
@@ -47,7 +47,8 @@
                                         <li class="nav-item btn-portfolio">
                                             <a class="nav-link list-actions" id="note-npub"> <i
                                                     class="fa fa-warning btn-warning rounded-circle p-1"></i>
-                                                Unpublished</a>
+                                        <%=user.cache =="administrator"?"Unpublished":"Awaiting approval" %>
+                                            </a>
                                         </li>
                                     </ul>
 

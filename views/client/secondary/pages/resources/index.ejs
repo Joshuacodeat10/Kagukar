@@ -113,22 +113,8 @@
             : (!titleVal && !classVal && subjectVal )?
               subjectVal.toLowerCase() : ''
              )
-            console.log("res");
-            
-            console.log(res);
-            
-            
-            console.log("end");
-            
-             
-            
-            
-
             var rex = new RegExp(res, 'i');
-            console.log(rex);
-            
             $('.searchable-items .items').fadeOut();
-
             $('.searchable-items .items').filter(function () {
                 return (titleVal && classVal && subjectVal && termval?
                  rex.test($('.searchable-items .items').text()):
@@ -213,6 +199,7 @@
             <!-- <input id="" type="file" name="" value=""> -->
             <input id="itemid" type="text" name="itemid" value="">
             <input id="itemTitle" type="text" name="itemTitle" value="">
+            <input id="authorid" type="text" name="authorid" value="">
             <input id="itemType" type="hidden" name="itemType" value="">
             <input type="text" name="_url" value="/engage">
             <input type="text" name="_csrf" value="<%=csrfToken%>">

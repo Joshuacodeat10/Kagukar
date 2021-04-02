@@ -160,7 +160,7 @@ router.post("/activities", (req,res)=>{
 router.post("/updateUser", (req, res) => {
  
   User.updateOne({
-    _id: user.id
+    _id: req.user.id
   }, {
     ...req.body
   }, (err) => {
@@ -188,13 +188,18 @@ router.post("/makeCreator", (req, res) => {
     id
   } = req.body;
 
+  User.findOne({
+        _id: id
+      }, (err, found)=>{
   User.updateOne({
     _id: id
   }, {
-    cache: "creator"
+    verified: !found.verified
   }, (err) => {
-    notif(req, res, "success", "Content creator role assigned successfully", true, " ")
+    notif(req, res, "success", "Content creator updated successfully", true, " ")
   });
+  });
+
 });
 
 router.post("/deleteUser", (req, res) => {
