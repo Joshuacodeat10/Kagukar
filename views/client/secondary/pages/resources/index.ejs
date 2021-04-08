@@ -31,34 +31,83 @@
             </div>
           </div>
             <div id="filter-form" class="form-row form-flat-style align-items-center">
-              <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
+              <div class="col-md-4 col-lg-4 mb-3 mb-md-0">
                   <input on id="title-filter-form" type="text" class="form-control" placeholder="Search by Title" oninput="filter(this.value)">
               </div>
 
              
 
-                <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
+                <div class="col-md-4 col-lg-4 mb-3 mb-md-0">
                <select id="subject-filter-form" onchange="filter(this.value)" class="form-control basic-select">
                    <!-- <option value="1" selected="selected">Subject</option> -->
                   <%if(param==='curriculum' ||param==='test'){%>
-                   <option>Agricultural Science</option>
-                     <option>Accounting</option>
-                     <option>Basic Science</option>
-                     <option>Basic Technology</option>
-                     <option>Biology</option>
-                     <option>Business Studies</option>
-                     <option>Chemistry</option>
-                     <option>Civic Education</option>
-                     <option>Computer Studies</option>
-                     <option>Commerce</option>
-                     <option>Geography</option>
-                     <option>Home Economics</option>
+                   
+                    
+
+                    <option>Agricultural Science</option>
+                    <option>English Language</option>
+                    <option>Civic Education</option>
+                    <option>Computer Studies</option>
+                    <option>Mathematics</option>
+                    <option><%=user.rank%></option>
+
+                    <% var jss = ["JSS 1", "JSS 2", "JSS 3"] %>
+                    <% var sss = ["SSS 1", "SSS 2", "SSS 3"] %>
+                    <% var clas = user.rank %>
+                    <%if(jss.includes(clas)){%>
+                     <optgroup id="junior">
+                      <option disabled>--- Junior Secondary School ---</option>
+                      <option>Basic Science</option>
+                      <option>Basic Technology</option>
+                      <option>Business Studies</option>
+                      <option>Fine Arts/Creative Art</option>
+                      <option>Home Economics</option>
+                      <option>Physical and Health Education</option>
+                      <option>Social Studies</option>
+                      <option>Music</option>
+                      <option>Computer Studies</option>
+                     </optgroup>
+                     <%}%>
+
+  <%if(sss.includes(clas)){%>
+                     <optgroup id="senior">
+                      <option disabled>--- Senior Secondary School ---</option>
+                      
                      <option>Economics</option>
-                     <option>Mathematics</option>
-                     <option>Music</option>
-                     <option>Physics</option>
-                     <option>Social Studies</option>
-                     <%} else if(param==='play'){%>
+                     <option>Biology</option>
+                     <option>Geography</option>
+
+
+                       <optgroup id="art">
+                      <option disabled>--- Art ---</option>
+
+                          <option>Literature in English</option>
+                          <option>Government</option>
+                          <option>History</option>
+                          <option>Commerce</option>
+                          <option>CRS / IRS</option>
+                       </optgroup>
+
+                       <optgroup id="commercial">
+                      <option disabled>--- Commercial ---</option>
+
+                          <option>Accounting</option>
+                          <option>Commerce</option>
+                       </optgroup>
+
+                       <optgroup id="science">
+                      <option disabled>--- Science---</option>
+
+                         <option>Biology</option>
+                         <option>Chemistry</option>
+                         <option>Physics</option>
+                         <option>Further Mathermatics</option>
+                         <option>Technical Drawing</option>
+                       </optgroup>
+
+                     </optgroup>
+                     
+                     <%} } else if(param==='play'){%>
                      <option>Jokes</option>
                      <option>Riddles</option>
                      <%}%>
@@ -66,21 +115,9 @@
               </div>
 
                   <%if(param==='curriculum' ||param==='test'){%>
-                 <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
-                   <select id="class-filter-form" onchange="filter(this.value)" class="form-control basic-select">
-                     <!-- <option value="1" selected="selected">Class</option> -->
-                     <optgroup> Junior Class </optgroup>
-                     <option value="JSS 1">JSS 1</option>
-                     <option value="JSS 2">JSS 2</option>
-                     <option value="JSS 3">JSS 3</option>
-                     <optgroup> Senior Class </optgroup>
-                     <option value="SSS 1">SSS 1</option>
-                     <option value="SSS 2">SSS 2</option>
-                     <option value="SSS 3">SSS 3</option>
-                   </select>
-                 </div>
+                
             
-               <div class="col-md-4 col-lg-3 mb-0 form-group select-border">
+               <div class="col-md-4 col-lg-4 mb-0 form-group select-border">
                 <select id="term-filter-form" onchange="filter(this.value)" class="form-control basic-select">
                        <!-- <option value="1" selected="selected">Term </option> -->
                          <option>1st Term</option>
@@ -100,7 +137,7 @@
             console.log(e)
 
             var titleVal = $('#title-filter-form').val();
-            var classVal = $('#class-filter-form').val();
+            // var classVal = $('#class-filter-form').val();
             var subjectVal =$('#subject-filter-form').val();
             var termVal = $('#term-filter-form').val();
 
