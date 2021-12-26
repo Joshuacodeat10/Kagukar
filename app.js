@@ -38,7 +38,7 @@ app.use(passport.session());
 var csrfProtection = csrf();
 app.use(csrfProtection);
 
-mongoose.connect("mongodb+srv://vicheans:olateju@inventorydb.azfda.mongodb.net/portalDB", {
+mongoose.connect("mongodb+srv://User:user@kagukar-cluster.fol4w.mongodb.net/myFirstDatabase", {
 // mongoose.connect("mongodb://localhost:27017/portalDB", {
     useNewUrlParser: true,
     // useUnifiedTopology: true
